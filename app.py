@@ -40,7 +40,7 @@ def load_csv_from_repo(path, version=None):
         st.error(f"Error loading {path}: {e}")
         return pd.DataFrame()
 
-regime_df = load_csv_from_repo("regime_labels_expanded1.csv", version=get_file_version("regime_labels_expanded1.csv"))
+regime_df = load_csv_from_repo("regime_labels_expanded.csv", version=get_file_version("regime_labels_expanded.csv"))
 opt_alloc_df = load_csv_from_repo("optimal_allocations.csv", version=get_file_version("optimal_allocations.csv"))
 
 
