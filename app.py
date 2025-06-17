@@ -257,15 +257,21 @@ with right_col:
                 font-size: 0.9rem;
                 font-style: italic;
                 color: #ccc;
+                margin-top: 4px;
+                margin-bottom: 8px;
                 background-color: #1e1e1e;
                 padding: 10px;
                 border-radius: 5px;
-                margin-top: 4px;
-                margin-bottom: 20px;
+            }
+            @media (max-width: 768px) {
+                .section-title {
+                    font-size: 14px;
+                }
             }
         </style>
     """, unsafe_allow_html=True)
 
+    import json
     NOTES_FILE = "thoughts.txt"
 
     default_sections = {
@@ -274,58 +280,47 @@ with right_col:
         "Trader's Conclusion": ""
     }
 
-    import json
-    import os
-
-    # Init file if missing
     if not os.path.exists(NOTES_FILE):
         with open(NOTES_FILE, "w") as f:
             json.dump(default_sections, f)
 
-    # Read file content
     try:
         with open(NOTES_FILE, "r") as f:
             commentary = json.load(f)
     except Exception:
         commentary = default_sections
 
+    query_params = st.query_params
+    is_admin_mode = query_params.get("admin", "false").lower() == "true"
+
     if "auth" not in st.session_state:
         st.session_state.auth = False
 
-# Only show login if URL has ?admin=true
-query_params = st.query_params
-is_admin_mode = query_params.get("admin", "false").lower() == "true"
+    if is_admin_mode and not st.session_state.auth:
+        with st.expander("🔒 Admin Login (edit mode)", expanded=False):
+            pwd = st.text_input("Enter password", type="password")
+            if pwd == st.secrets["auth"]["edit_password"]:
+                st.session_state.auth = True
+                st.success("Edit mode activated!")
 
-# Always show the commentary (to everyone)
-# Only show login if admin flag is on
-if is_admin_mode and not st.session_state.auth:
-    with st.expander("🔒 Admin Login (edit mode)", expanded=False):
-        pwd = st.text_input("Enter password", type="password")
-        if pwd == st.secrets["auth"]["edit_password"]:
-            st.session_state.auth = True
-            st.success("Edit mode activated!")
-
-# Load commentary from file
-with open(NOTES_FILE, "r") as f:
-    commentary = json.load(f)
-
-# Show edit view if logged in
-if st.session_state.auth:
     for section_title in commentary:
-        st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
-        commentary[section_title] = st.text_area(
-            f"{section_title} input",
-            value=commentary[section_title],
-            height=130,
-            key=section_title
-        )
+        cols = st.columns([0.6, 0.1])
+        with cols[0]:
+            st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
+            if st.session_state.auth:
+                commentary[section_title] = st.text_area(
+                    f"{section_title} input",
+                    value=commentary[section_title],
+                    height=130,
+                    key=section_title
+                )
+            else:
+                content = commentary[section_title].strip() or "..."
+                st.markdown(f"<div class='section-comment'>{content}</div>", unsafe_allow_html=True)
         st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
-    with open(NOTES_FILE, "w") as f:
-        json.dump(commentary, f)
-    st.success("All updates saved.")
 
-# Always show static version (even if admin)
-for section_title, content in commentary.items():
-    if not st.session_state.auth:
-        st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div class='section-comment'>{content.strip() or '...'}</div>", unsafe_allow_html=True)
+    # Save only if edited
+    if st.session_state.auth:
+        with open(NOTES_FILE, "w") as f:
+            json.dump(commentary, f)
+
