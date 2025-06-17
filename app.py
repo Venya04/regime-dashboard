@@ -292,4 +292,4 @@ def compute_metrics(returns):
 
 metrics = compute_metrics(portfolio_returns.dropna())
 st.subheader("📊 Performance Metrics")
-st.write(pd.DataFra
+st.write(pd.DataFrame(metrics, index=["Value"]).T.style.format("{:.2%}"))
