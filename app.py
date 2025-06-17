@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import yfinance as yf
+import os
 
 # === SETTINGS ===
 START_DATE = "2010-01-01"
@@ -258,38 +259,44 @@ with right_col:
                 color: #ccc;
                 margin-top: 4px;
                 margin-bottom: 8px;
-            }
-            @media (max-width: 768px) {
-                .section-title {
-                    font-size: 14px;
-                }
+                background-color: #1e1e1e;
+                padding: 10px;
+                border-radius: 5px;
             }
         </style>
     """, unsafe_allow_html=True)
 
-    for title, placeholder in [
-        ("Market Insight", "What are we seeing in the macro environment?"),
-        ("Top Strategy Note", "Thoughts on the market (e.g., technical signals)"),
-        ("Trader's Conclusion", "Summary and suggested action")
-    ]:
-        cols = st.columns([0.6, 0.1])
-        with cols[0]:
-            st.markdown(f"<div class='section-title'>{title}</div>", unsafe_allow_html=True)
-            st.text_area(placeholder, height=130)
-        st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+    NOTES_FILE = "thoughts.txt"
 
-def compute_metrics(returns):
-    import numpy as np
-    cumulative_return = (1 + returns).prod() - 1
-    annualized_volatility = returns.std() * (252 ** 0.5)
-    sharpe_ratio = (returns.mean() * 252) / annualized_volatility
-    return {
-        "Cumulative Return": cumulative_return,
-        "Annual Volatility": annualized_volatility,
-        "Sharpe Ratio": sharpe_ratio
-    }
+    if not os.path.exists(NOTES_FILE):
+        with open(NOTES_FILE, "w") as f:
+            f.write("""Market Insight:\n\nTop Strategy Note:\n\nTrader's Conclusion:\n""")
 
+    if "auth" not in st.session_state:
+        st.session_state.auth = False
 
-metrics = compute_metrics(portfolio_returns.dropna())
-st.subheader("📊 Performance Metrics")
-st.write(pd.DataFrame(metrics, index=["Value"]).T.style.format("{:.2%}"))
+    if not st.session_state.auth:
+        with st.expander("🔒 Admin Login (edit mode)", expanded=False):
+            pwd = st.text_input("Enter password", type="password")
+            if pwd == st.secrets["auth"]["edit_password"]:
+                st.session_state.auth = True
+                st.success("Edit mode activated!")
+
+    with open(NOTES_FILE, "r") as f:
+        raw_content = f.read()
+
+    if st.session_state.auth:
+        updated = st.text_area("🧠 Dashboard Commentary (Editable)", value=raw_content, height=400)
+        if updated != raw_content:
+            with open(NOTES_FILE, "w") as f:
+                f.write(updated)
+            st.success("Changes saved.")
+    else:
+        for section in raw_content.strip().split("\n\n"):
+            if ":" in section:
+                title, text = section.split(":", 1)
+                title = title.strip()
+                text = text.strip() or "..."
+                st.markdown(f"<div class='section-title'>{title}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='section-comment'>{text}</div>", unsafe_allow_html=True)
+            st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
