@@ -127,9 +127,14 @@ def backtest(returns, regime_df, allocations):
 portfolio_returns = backtest(returns, regime_df, allocations)
 
 # === GET CURRENT REGIME ===
-latest_date = regime_df.index[-1]
-current_regime = regime_df.loc[latest_date, "regime"]
-current_alloc = allocations.get(current_regime, {})
+latest_date = prices.index[-1]  # ensure it's aligned with price data
+latest_regime = regime_df.loc[latest_date, "regime"]
+
+# Normalize capitalization (must match keys in allocations)
+latest_regime = latest_regime.capitalize()
+
+# Retrieve allocation
+current_alloc = allocations.get(latest_regime, {})
 
 # === HEADER ===
 st.markdown("""
