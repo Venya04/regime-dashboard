@@ -128,12 +128,19 @@ def backtest(returns, regime_df, allocations):
 portfolio_returns = backtest(returns, regime_df, allocations)
 
 # === GET CURRENT REGIME ===
-# Get the latest regime based on most recent non-null value
+# Normalize latest regime and resolve allocation safely
 latest_regime = regime_df["regime"].dropna().iloc[-1].strip().lower()
 
-# Debug print (remove later if needed)
+# Debug info (optional, you can remove later)
 st.write("🧠 Detected Regime:", latest_regime)
 st.write("📊 Available Allocation Regimes:", list(allocations.keys()))
+
+if latest_regime not in allocations:
+    st.warning(f"⚠️ No allocation found for regime: '{latest_regime}'. Falling back to 'recovery'.")
+    current_alloc = allocations.get("recovery", {})
+else:
+    current_alloc = allocations[latest_regime]
+
 
 # Use fallback if regime not found
 if latest_regime not in allocations:
