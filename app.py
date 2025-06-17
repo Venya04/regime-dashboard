@@ -11,10 +11,9 @@ def get_file_version(path):
     except:
         return None
 
-
 # === SETTINGS ===
 START_DATE = "2010-01-01"
-END_DATE = "2025-06-17"
+END_DATE = "2025-04-17"
 STABLECOIN_MONTHLY_YIELD = 0.05 / 12
 CASH_DAILY_YIELD = 0.045 / 252
 
@@ -30,6 +29,7 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 
 # === LOAD DATA ===
 @st.cache_data
+@st.cache_data
 def load_csv_from_repo(path, version=None):
     try:
         df = pd.read_csv(path)
@@ -42,7 +42,6 @@ def load_csv_from_repo(path, version=None):
 
 regime_df = load_csv_from_repo("regime_labels_expanded.csv", version=get_file_version("regime_labels_expanded.csv"))
 opt_alloc_df = load_csv_from_repo("optimal_allocations.csv", version=get_file_version("optimal_allocations.csv"))
-
 
 @st.cache_data
 def load_prices():
@@ -248,57 +247,87 @@ with left_col:
 
 with right_col:
     st.markdown("""
-        <style>
-            .section-title {
-                font-family: Georgia, serif;
-                font-size: 18px;
-                font-weight: bold;
-                text-transform: uppercase;
-                margin-bottom: 6px;
-                text-align: left;
-                color: white;
-                border-bottom: 1px solid #555;
-                padding-bottom: 4px;
-            }
-            .section-comment {
-                font-family: Georgia, serif;
-                font-size: 0.9rem;
-                font-style: italic;
-                color: #ccc;
-                margin-top: 4px;
-                margin-bottom: 8px;
-            }
-            @media (max-width: 768px) {
-                .section-title {
-                    font-size: 14px;
-                }
-            }
-        </style>
+       <style>
+    .section-title {
+        font-family: Georgia, serif;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        text-align: left;
+        color: white;
+        border-bottom: 1px solid #555;
+        padding-bottom: 4px;
+    }
+    .section-comment {
+    font-family: Georgia, serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #ccc;
+    background-color: #262730;  /* 🎯 matches st.text_area theme */
+    padding: 10px;
+    border-radius: 5px;
+    min-height: 130px;
+    border: 1px solid #444; /* optional: matches input box border */
+}
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 14px;
+        }
+    }
+</style>
+
     """, unsafe_allow_html=True)
 
-    for title, placeholder in [
-        ("Market Insight", "What are we seeing in the macro environment?"),
-        ("Top Strategy Note", "Thoughts on the market (e.g., technical signals)"),
-        ("Trader's Conclusion", "Summary and suggested action")
-    ]:
-        cols = st.columns([0.6, 0.1])
-        with cols[0]:
-            st.markdown(f"<div class='section-title'>{title}</div>", unsafe_allow_html=True)
-            st.text_area(placeholder, height=130)
-        st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+    import json
+    NOTES_FILE = "thoughts.txt"
 
-def compute_metrics(returns):
-    import numpy as np
-    cumulative_return = (1 + returns).prod() - 1
-    annualized_volatility = returns.std() * (252 ** 0.5)
-    sharpe_ratio = (returns.mean() * 252) / annualized_volatility
-    return {
-        "Cumulative Return": cumulative_return,
-        "Annual Volatility": annualized_volatility,
-        "Sharpe Ratio": sharpe_ratio
+    default_sections = {
+        "Market Insight": "",
+        "Top Strategy Note": "",
+        "Trader's Conclusion": ""
     }
 
+    if not os.path.exists(NOTES_FILE):
+        with open(NOTES_FILE, "w") as f:
+            json.dump(default_sections, f)
 
-metrics = compute_metrics(portfolio_returns.dropna())
-st.subheader("📊 Performance Metrics")
-st.write(pd.DataFrame(metrics, index=["Value"]).T.style.format("{:.2%}"))
+    try:
+        with open(NOTES_FILE, "r") as f:
+            commentary = json.load(f)
+    except Exception:
+        commentary = default_sections
+
+    query_params = st.query_params
+    is_admin_mode = query_params.get("admin", "false").lower() == "true"
+
+    if "auth" not in st.session_state:
+        st.session_state.auth = False
+
+    if is_admin_mode and not st.session_state.auth:
+        with st.expander("🔒 Admin Login (edit mode)", expanded=False):
+            pwd = st.text_input("Enter password", type="password")
+            if pwd == st.secrets["auth"]["edit_password"]:
+                st.session_state.auth = True
+                st.success("Edit mode activated!")
+
+    for section_title in commentary:
+        cols = st.columns([0.6, 0.1])
+        with cols[0]:
+            st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
+            if st.session_state.auth:
+                commentary[section_title] = st.text_area(
+                    f"{section_title} input",
+                    value=commentary[section_title],
+                    height=130,
+                    key=section_title
+                )
+            else:
+                content = commentary[section_title].strip() or "..."
+                st.markdown(f"<div class='section-comment'>{content}</div>", unsafe_allow_html=True)
+        st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+
+    # Save only if edited
+    if st.session_state.auth:
+        with open(NOTES_FILE, "w") as f:
+            json.dump(commentary, f)
