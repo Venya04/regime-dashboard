@@ -5,6 +5,12 @@ import numpy as np
 import yfinance as yf
 import os
 
+def get_file_version(path):
+    try:
+        return os.path.getmtime(path)
+    except:
+        return None
+
 # === SETTINGS ===
 START_DATE = "2010-01-01"
 END_DATE = "2025-04-17"
@@ -23,8 +29,7 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 
 # === LOAD DATA ===
 @st.cache_data
-@st.cache_data(ttl=60)  # refresh every 60 seconds
-def load_csv_from_repo(path):
+def load_csv_from_repo(path, version=None):
     try:
         df = pd.read_csv(path)
         if "date" in df.columns:
@@ -34,8 +39,8 @@ def load_csv_from_repo(path):
         st.error(f"Error loading {path}: {e}")
         return pd.DataFrame()
 
-regime_df = load_csv_from_repo("regime_labels_expanded.csv")
-opt_alloc_df = load_csv_from_repo("optimal_allocations.csv")
+regime_df = load_csv_from_repo("regime_labels_expanded.csv", version=get_file_version("regime_labels_expanded.csv"))
+opt_alloc_df = load_csv_from_repo("optimal_allocations.csv", version=get_file_version("optimal_allocations.csv"))
 
 @st.cache_data
 def load_prices():
