@@ -86,12 +86,17 @@ regime_df = regime_df.asfreq("D").ffill().reindex(prices.index, method="ffill")
 regime_df["regime"] = regime_df["regime"].str.capitalize()
 
 allocations = opt_alloc_df.set_index("regime").to_dict(orient="index")
-for alloc in allocations.values():
-    if "cash" not in alloc:
-        alloc["cash"] = 0.1
-    total = sum(alloc.values())
-    for k in alloc:
-        alloc[k] /= total
+
+# Merge stablecoins into cash in allocations
+for regime in allocations:
+    merged = {}
+    for asset, weight in allocations[regime].items():
+        key = "cash" if asset in ["cash", "stablecoins"] else asset
+        merged[key] = merged.get(key, 0) + weight
+    # Normalize
+    total = sum(merged.values())
+    allocations[regime] = {k: v / total for k, v in merged.items()}
+
 
 # === RETURNS ===
 returns = prices.pct_change().dropna()
