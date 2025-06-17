@@ -83,7 +83,7 @@ if regime_df.empty or "regime" not in regime_df.columns:
 # === PREPARE DATA ===
 regime_df.set_index("date", inplace=True)
 regime_df = regime_df.asfreq("D").ffill().reindex(prices.index, method="ffill")
-regime_df["regime"] = regime_df["regime"].str.capitalize()
+regime_df["regime"] = regime_df["regime"].str.lower()
 
 allocations = opt_alloc_df.set_index("regime").to_dict(orient="index")
 for alloc in allocations.values():
