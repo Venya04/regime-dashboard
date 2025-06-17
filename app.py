@@ -240,35 +240,35 @@ with left_col:
 
 with right_col:
     st.markdown("""
-        <style>
-            .section-title {
-                font-family: Georgia, serif;
-                font-size: 18px;
-                font-weight: bold;
-                text-transform: uppercase;
-                margin-bottom: 6px;
-                text-align: left;
-                color: white;
-                border-bottom: 1px solid #555;
-                padding-bottom: 4px;
-            }
-            .section-comment {
-                font-family: Georgia, serif;
-                font-size: 0.9rem;
-                font-style: italic;
-                color: #ccc;
-                margin-top: 4px;
-                margin-bottom: 8px;
-                background-color: #1e1e1e;
-                padding: 10px;
-                border-radius: 5px;
-            }
-            @media (max-width: 768px) {
-                .section-title {
-                    font-size: 14px;
-                }
-            }
-        </style>
+       <style>
+    .section-title {
+        font-family: Georgia, serif;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        text-align: left;
+        color: white;
+        border-bottom: 1px solid #555;
+        padding-bottom: 4px;
+    }
+    .section-comment {
+        font-family: Georgia, serif;
+        font-size: 0.9rem;
+        font-style: italic;
+        color: #ccc;
+        background-color: #1e1e1e;
+        padding: 10px;
+        border-radius: 5px;
+        min-height: 130px; /* 💡 this forces height */
+    }
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 14px;
+        }
+    }
+</style>
+
     """, unsafe_allow_html=True)
 
     import json
