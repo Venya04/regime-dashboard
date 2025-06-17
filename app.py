@@ -23,6 +23,7 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 
 # === LOAD DATA ===
 @st.cache_data
+@st.cache_data(ttl=60)  # refresh every 60 seconds
 def load_csv_from_repo(path):
     try:
         df = pd.read_csv(path)
