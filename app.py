@@ -83,8 +83,9 @@ if regime_df.empty or "regime" not in regime_df.columns:
 # === PREPARE DATA ===
 regime_df.set_index("date", inplace=True)
 regime_df = regime_df.asfreq("D").ffill().reindex(prices.index, method="ffill")
-regime_df["regime"] = regime_df["regime"].str.lower()
-opt_alloc_df["regime"] = opt_alloc_df["regime"].str.lower()
+# Normalize regime labels to prevent mismatch
+regime_df["regime"] = regime_df["regime"].astype(str).str.strip().str.lower()
+opt_alloc_df["regime"] = opt_alloc_df["regime"].astype(str).str.strip().str.lower()
 allocations = opt_alloc_df.set_index("regime").to_dict(orient="index")
 
 for alloc in allocations.values():
@@ -128,8 +129,18 @@ portfolio_returns = backtest(returns, regime_df, allocations)
 
 # === GET CURRENT REGIME ===
 # Get the latest regime based on most recent non-null value
-latest_regime = regime_df["regime"].dropna().iloc[-1].lower()
-current_alloc = allocations.get(latest_regime, {})
+latest_regime = regime_df["regime"].dropna().iloc[-1].strip().lower()
+
+# Debug print (remove later if needed)
+st.write("🧠 Detected Regime:", latest_regime)
+st.write("📊 Available Allocation Regimes:", list(allocations.keys()))
+
+# Use fallback if regime not found
+if latest_regime not in allocations:
+    st.warning(f"⚠️ No allocation found for regime: '{latest_regime}'. Falling back to 'recovery'.")
+    current_alloc = allocations.get("recovery", {})
+else:
+    current_alloc = allocations[latest_regime]
 
 # === HEADER ===
 st.markdown("""
