@@ -214,7 +214,7 @@ with left_col:
         <style>
             .left-section-title {
                 font-family: Georgia, serif;
-                font-size: 0.1rem;
+                font-size: 1.2rem;
                 font-weight: bold;
                 text-transform: uppercase;
                 margin-bottom: 10px;
