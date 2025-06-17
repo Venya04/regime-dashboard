@@ -155,9 +155,6 @@ else:
 st.write("✅ Current allocation weights being used:")
 st.write(current_alloc)
 
-st.write("📅 Last few regime dates:")
-st.dataframe(regime_df.tail(5))
-
 # === HEADER ===
 st.markdown("""
     <style>
