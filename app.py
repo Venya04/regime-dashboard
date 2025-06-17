@@ -360,3 +360,12 @@ with right_col:
     if st.session_state.auth:
         with open(NOTES_FILE, "w") as f:
             json.dump(commentary, f)
+# Hide Streamlit menu and footer
+st.markdown("""
+    <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+    </style>
+""", unsafe_allow_html=True)
+
