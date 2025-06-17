@@ -303,7 +303,7 @@ with right_col:
         # Editable layout
         for section_title in commentary:
             st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
-            commentary[section_title] = st.text_area("", value=commentary[section_title], height=130)
+            commentary[section_title] = st.text_area(f"{section_title} input", value=..., height=130, key=section_title)
             st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
 
         # Save updates
