@@ -32,7 +32,7 @@ def load_csv_from_repo(path):
         st.error(f"Error loading {path}: {e}")
         return pd.DataFrame()
 
-regime_df = load_csv_from_repo("regime_labels_expanded.csv")
+regime_df = load_csv_from_repo("regime_labels_expanded1.csv")
 opt_alloc_df = load_csv_from_repo("optimal_allocations.csv")
 
 @st.cache_data
