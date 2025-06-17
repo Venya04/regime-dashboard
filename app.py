@@ -253,15 +253,16 @@ with right_col:
         padding-bottom: 4px;
     }
     .section-comment {
-        font-family: Georgia, serif;
-        font-size: 0.9rem;
-        font-style: italic;
-        color: #ccc;
-        background-color: #1e1e1e;
-        padding: 10px;
-        border-radius: 5px;
-        min-height: 130px; /* 💡 this forces height */
-    }
+    font-family: Georgia, serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #ccc;
+    background-color: #262730;  /* 🎯 matches st.text_area theme */
+    padding: 10px;
+    border-radius: 5px;
+    min-height: 130px;
+    border: 1px solid #444; /* optional: matches input box border */
+}
     @media (max-width: 768px) {
         .section-title {
             font-size: 14px;
