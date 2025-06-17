@@ -223,6 +223,10 @@ with left_col:
         </style>
     """, unsafe_allow_html=True)
 
+    if current_alloc:
+        # Filter out allocations smaller than 0.1%
+        filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
+
         if filtered_alloc:
             fig_pie = px.pie(
                 names=list(filtered_alloc.keys()),
@@ -230,11 +234,11 @@ with left_col:
                 hole=0,
                 color=list(filtered_alloc.keys()),
                 color_discrete_map={
-                    "stocks": "#22313F",
-                    "stablecoins": "#A59E8C",
-                    "cash": "#4C5C68",
-                    "crypto": "#2A3F3F",
-                    "commodities": "#867666",
+                    "stocks": "#102030",
+                    "stablecoins": "#3A3A3A",
+                    "cash": "#5C5149",
+                    "crypto": "#2F4F4F",
+                    "commodities": "#6B4E23",
                 }
             )
 
