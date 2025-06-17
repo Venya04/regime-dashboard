@@ -84,10 +84,9 @@ if regime_df.empty or "regime" not in regime_df.columns:
 regime_df.set_index("date", inplace=True)
 regime_df = regime_df.asfreq("D").ffill().reindex(prices.index, method="ffill")
 regime_df["regime"] = regime_df["regime"].str.lower()
-
-# Normalize regime keys to lowercase to match `regime_df`
 opt_alloc_df["regime"] = opt_alloc_df["regime"].str.lower()
 allocations = opt_alloc_df.set_index("regime").to_dict(orient="index")
+
 for alloc in allocations.values():
     if "cash" not in alloc:
         alloc["cash"] = 0.1
