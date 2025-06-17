@@ -127,9 +127,8 @@ portfolio_returns = backtest(returns, regime_df, allocations)
 
 # === GET CURRENT REGIME ===
 # Get the latest regime based on most recent non-null value
-latest_regime = regime_df["regime"].dropna().iloc[-1].capitalize()
+latest_regime = regime_df["regime"].dropna().iloc[-1].lower()
 current_alloc = allocations.get(latest_regime, {})
-
 
 # === HEADER ===
 st.markdown("""
