@@ -29,7 +29,6 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 
 # === LOAD DATA ===
 @st.cache_data
-@st.cache_data
 def load_csv_from_repo(path, version=None):
     try:
         df = pd.read_csv(path)
@@ -127,23 +126,10 @@ def backtest(returns, regime_df, allocations):
 portfolio_returns = backtest(returns, regime_df, allocations)
 
 # === GET CURRENT REGIME ===
-# Align regime_df to prices to avoid mismatch
-aligned_regime_df = regime_df.reindex(prices.index, method="ffill")
-
-current_regime = regime_df["regime"].dropna().iloc[-1]
-current_alloc = allocations.get(current_regime, {})
-
-# Capitalize to match keys in allocations dict
-latest_regime = latest_regime.capitalize()
-
-# Get matching allocation
+# Get the latest regime based on most recent non-null value
+latest_regime = regime_df["regime"].dropna().iloc[-1].capitalize()
 current_alloc = allocations.get(latest_regime, {})
 
-# Normalize capitalization (must match keys in allocations)
-latest_regime = latest_regime.capitalize()
-
-# Retrieve allocation
-current_alloc = allocations.get(latest_regime, {})
 
 # === HEADER ===
 st.markdown("""
