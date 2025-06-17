@@ -1,0 +1,9 @@
+## Macro Regime Dashboard Summary
+
+This dashboard identifies current economic regimes based on macroeconomic indicators and recommends optimal asset allocations.
+
+The model currently detects: **Inflationary Growth**, with a tilt towards commodities and equities.
+
+---
+
+Stay tuned for updates every quarter.
