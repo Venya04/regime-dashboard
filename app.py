@@ -238,7 +238,7 @@ with left_col:
                     "stablecoins": "#5b5271",
                     "cash": "#484564",
                     "crypto": "#76C893",
-                    "commodities": "#76570A",
+                    "commodities": "#F1C453",
                 }
             )
 
