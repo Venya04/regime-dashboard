@@ -296,7 +296,7 @@ with right_col:
     background-color: #262730;  /* 🎯 matches st.text_area theme */
     padding: 10px;
     border-radius: 5px;
-    min-height: 130px;
+    min-height: 150px;
     border: 1px solid #444; /* optional: matches input box border */
 }
     @media (max-width: 768px) {
