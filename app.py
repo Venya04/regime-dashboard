@@ -195,7 +195,17 @@ with left_col:
 
     if current_alloc:
         # Filter out allocations smaller than 0.1%
-        filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
+        # Merge stablecoins into cash
+merged_alloc = {}
+for asset, weight in current_alloc.items():
+    if asset in ["cash", "stablecoins"]:
+        merged_alloc["cash"] = merged_alloc.get("cash", 0) + weight
+    else:
+        merged_alloc[asset] = weight
+
+# Filter small allocations
+filtered_alloc = {k: v for k, v in merged_alloc.items() if v > 0.001}
+
 
         if filtered_alloc:
             fig_pie = px.pie(
