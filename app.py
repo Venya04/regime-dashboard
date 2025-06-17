@@ -194,49 +194,45 @@ with left_col:
     """, unsafe_allow_html=True)
 
     if current_alloc:
-        # Filter out allocations smaller than 0.1%
-        # Merge stablecoins into cash
-merged_alloc = {}
-for asset, weight in current_alloc.items():
-    if asset in ["cash", "stablecoins"]:
-        merged_alloc["cash"] = merged_alloc.get("cash", 0) + weight
-    else:
-        merged_alloc[asset] = weight
+    # Merge stablecoins into cash
+    merged_alloc = {}
+    for asset, weight in current_alloc.items():
+        if asset in ["cash", "stablecoins"]:
+            merged_alloc["cash"] = merged_alloc.get("cash", 0) + weight
+        else:
+            merged_alloc[asset] = weight
 
-# Filter small allocations
-filtered_alloc = {k: v for k, v in merged_alloc.items() if v > 0.001}
+    # Filter out allocations smaller than 0.1%
+    filtered_alloc = {k: v for k, v in merged_alloc.items() if v > 0.001}
 
+    if filtered_alloc:
+        fig_pie = px.pie(
+            names=list(filtered_alloc.keys()),
+            values=list(filtered_alloc.values()),
+            hole=0,
+            color=list(filtered_alloc.keys()),
+            color_discrete_map={
+                "stocks": "#102030",
+                "cash": "#5C5149",  # used for both cash & stablecoins now
+                "crypto": "#2F4F4F",
+                "commodities": "#6B4E23",
+            }
+        )
+        fig_pie.update_traces(
+            textinfo='percent',
+            textfont_size=16,
+            pull=[0.03] * len(filtered_alloc),
+            marker=dict(line=dict(color="#000000", width=2))
+        )
+        fig_pie.update_layout(
+            showlegend=False,
+            margin=dict(t=10, b=10, l=10, r=10),
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+        )
 
-        if filtered_alloc:
-            fig_pie = px.pie(
-                names=list(filtered_alloc.keys()),
-                values=list(filtered_alloc.values()),
-                hole=0,
-                color=list(filtered_alloc.keys()),
-                color_discrete_map={
-                    "stocks": "#102030",
-                    "stablecoins": "#3A3A3A",
-                    "cash": "#5C5149",
-                    "crypto": "#2F4F4F",
-                    "commodities": "#6B4E23",
-                }
-            )
+        st.plotly_chart(fig_pie, use_container_width=True)
 
-            fig_pie.update_traces(
-                textinfo='percent',
-                textfont_size=16,
-                pull=[0.03] * len(filtered_alloc),
-                marker=dict(line=dict(color="#000000", width=2))
-            )
-
-            fig_pie.update_layout(
-                showlegend=False,
-                margin=dict(t=10, b=10, l=10, r=10),
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-            )
-
-            st.plotly_chart(fig_pie, use_container_width=True)
 
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
     st.markdown(
