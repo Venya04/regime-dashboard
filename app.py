@@ -293,8 +293,8 @@ with right_col:
         st.session_state.auth = False
 
 # Only show login if URL has ?admin=true
-query_params = st.experimental_get_query_params()
-is_admin_mode = query_params.get("admin", ["false"])[0].lower() == "true"
+query_params = st.query_params
+is_admin_mode = query_params.get("admin", "false").lower() == "true"
 
 if is_admin_mode and not st.session_state.auth:
     with st.expander("🔒 Admin Login (edit mode)", expanded=False):
