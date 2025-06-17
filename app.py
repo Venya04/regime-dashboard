@@ -296,6 +296,8 @@ with right_col:
 query_params = st.query_params
 is_admin_mode = query_params.get("admin", "false").lower() == "true"
 
+# Always show the commentary (to everyone)
+# Only show login if admin flag is on
 if is_admin_mode and not st.session_state.auth:
     with st.expander("🔒 Admin Login (edit mode)", expanded=False):
         pwd = st.text_input("Enter password", type="password")
@@ -303,20 +305,27 @@ if is_admin_mode and not st.session_state.auth:
             st.session_state.auth = True
             st.success("Edit mode activated!")
 
-    if st.session_state.auth:
-        # Editable layout
-        for section_title in commentary:
-            st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
-            commentary[section_title] = st.text_area(f"{section_title} input", value=..., height=130, key=section_title)
-            st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+# Load commentary from file
+with open(NOTES_FILE, "r") as f:
+    commentary = json.load(f)
 
-        # Save updates
-        with open(NOTES_FILE, "w") as f:
-            json.dump(commentary, f)
-        st.success("All updates saved.")
-    else:
-        # Read-only layout
-        for section_title, content in commentary.items():
-            st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
-            st.markdown(f"<div class='section-comment'>{content.strip() or '...'}</div>", unsafe_allow_html=True)
+# Show edit view if logged in
+if st.session_state.auth:
+    for section_title in commentary:
+        st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
+        commentary[section_title] = st.text_area(
+            f"{section_title} input",
+            value=commentary[section_title],
+            height=130,
+            key=section_title
+        )
+        st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+    with open(NOTES_FILE, "w") as f:
+        json.dump(commentary, f)
+    st.success("All updates saved.")
 
+# Always show static version (even if admin)
+for section_title, content in commentary.items():
+    if not st.session_state.auth:
+        st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='section-comment'>{content.strip() or '...'}</div>", unsafe_allow_html=True)
