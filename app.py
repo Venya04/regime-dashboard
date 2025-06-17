@@ -3,17 +3,10 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import yfinance as yf
-import os
-
-def get_file_version(path):
-    try:
-        return os.path.getmtime(path)
-    except:
-        return None
 
 # === SETTINGS ===
 START_DATE = "2010-01-01"
-END_DATE = "2025-04-17"
+END_DATE = "2024-12-31"
 STABLECOIN_MONTHLY_YIELD = 0.05 / 12
 CASH_DAILY_YIELD = 0.045 / 252
 
@@ -29,7 +22,7 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 
 # === LOAD DATA ===
 @st.cache_data
-def load_csv_from_repo(path, version=None):
+def load_csv_from_repo(path):
     try:
         df = pd.read_csv(path)
         if "date" in df.columns:
@@ -39,8 +32,8 @@ def load_csv_from_repo(path, version=None):
         st.error(f"Error loading {path}: {e}")
         return pd.DataFrame()
 
-regime_df = load_csv_from_repo("regime_labels_expanded.csv", version=get_file_version("regime_labels_expanded.csv"))
-opt_alloc_df = load_csv_from_repo("optimal_allocations.csv", version=get_file_version("optimal_allocations.csv"))
+regime_df = load_csv_from_repo("regime_labels_expanded.csv")
+opt_alloc_df = load_csv_from_repo("optimal_allocations.csv")
 
 @st.cache_data
 def load_prices():
@@ -86,17 +79,12 @@ regime_df = regime_df.asfreq("D").ffill().reindex(prices.index, method="ffill")
 regime_df["regime"] = regime_df["regime"].str.capitalize()
 
 allocations = opt_alloc_df.set_index("regime").to_dict(orient="index")
-
-# Merge stablecoins into cash in allocations
-for regime in allocations:
-    merged = {}
-    for asset, weight in allocations[regime].items():
-        key = "cash" if asset in ["cash", "stablecoins"] else asset
-        merged[key] = merged.get(key, 0) + weight
-    # Normalize
-    total = sum(merged.values())
-    allocations[regime] = {k: v / total for k, v in merged.items()}
-
+for alloc in allocations.values():
+    if "cash" not in alloc:
+        alloc["cash"] = 0.1
+    total = sum(alloc.values())
+    for k in alloc:
+        alloc[k] /= total
 
 # === RETURNS ===
 returns = prices.pct_change().dropna()
@@ -199,16 +187,8 @@ with left_col:
     """, unsafe_allow_html=True)
 
     if current_alloc:
-        # ✅ Merge stablecoins into cash
-        merged_alloc = {}
-        for asset, weight in current_alloc.items():
-            if asset in ["cash", "stablecoins"]:
-                merged_alloc["cash"] = merged_alloc.get("cash", 0) + weight
-            else:
-                merged_alloc[asset] = weight
-
-        # ✅ Filter out allocations smaller than 0.1%
-        filtered_alloc = {k: v for k, v in merged_alloc.items() if v > 0.001}
+        # Filter out allocations smaller than 0.1%
+        filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
 
         if filtered_alloc:
             fig_pie = px.pie(
@@ -218,17 +198,20 @@ with left_col:
                 color=list(filtered_alloc.keys()),
                 color_discrete_map={
                     "stocks": "#102030",
-                    "cash": "#5C5149",  # used for both cash & stablecoins now
+                    "stablecoins": "#3A3A3A",
+                    "cash": "#5C5149",
                     "crypto": "#2F4F4F",
                     "commodities": "#6B4E23",
                 }
             )
+
             fig_pie.update_traces(
                 textinfo='percent',
                 textfont_size=16,
                 pull=[0.03] * len(filtered_alloc),
                 marker=dict(line=dict(color="#000000", width=2))
             )
+
             fig_pie.update_layout(
                 showlegend=False,
                 margin=dict(t=10, b=10, l=10, r=10),
@@ -238,106 +221,75 @@ with left_col:
 
             st.plotly_chart(fig_pie, use_container_width=True)
 
-        # ✅ Portfolio Holdings (use merged_alloc to reflect "Cash" group)
-        st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
-        st.markdown(
-            """
-            <div style='text-align: center; margin-top: -5px;'>
-                <ul style='padding-left: 10; list-style-position: inside; text-align: left; display: inline-block;'>
-            """ + "".join([
-                f"<li><strong>{asset.capitalize()}</strong>: {weight:.1%}</li>"
-                for asset, weight in merged_alloc.items()
-            ]) + """
-                </ul>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+    st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style='text-align: center; margin-top: -5px;'>
+            <ul style='padding-left: 10; list-style-position: inside; text-align: left; display: inline-block;'>
+        """ + "".join([
+            f"<li><strong>{asset.capitalize()}</strong>: {weight:.1%}</li>"
+            for asset, weight in current_alloc.items()
+        ]) + """
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 
 with right_col:
     st.markdown("""
-       <style>
-    .section-title {
-        font-family: Georgia, serif;
-        font-size: 18px;
-        font-weight: bold;
-        text-transform: uppercase;
-        margin-bottom: 6px;
-        text-align: left;
-        color: white;
-        border-bottom: 1px solid #555;
-        padding-bottom: 4px;
-    }
-    .section-comment {
-    font-family: Georgia, serif;
-    font-size: 0.9rem;
-    font-style: italic;
-    color: #ccc;
-    background-color: #262730;  /* 🎯 matches st.text_area theme */
-    padding: 10px;
-    border-radius: 5px;
-    min-height: 130px;
-    border: 1px solid #444; /* optional: matches input box border */
-}
-    @media (max-width: 768px) {
-        .section-title {
-            font-size: 14px;
-        }
-    }
-</style>
-
+        <style>
+            .section-title {
+                font-family: Georgia, serif;
+                font-size: 18px;
+                font-weight: bold;
+                text-transform: uppercase;
+                margin-bottom: 6px;
+                text-align: left;
+                color: white;
+                border-bottom: 1px solid #555;
+                padding-bottom: 4px;
+            }
+            .section-comment {
+                font-family: Georgia, serif;
+                font-size: 0.9rem;
+                font-style: italic;
+                color: #ccc;
+                margin-top: 4px;
+                margin-bottom: 8px;
+            }
+            @media (max-width: 768px) {
+                .section-title {
+                    font-size: 14px;
+                }
+            }
+        </style>
     """, unsafe_allow_html=True)
 
-    import json
-    NOTES_FILE = "thoughts.txt"
-
-    default_sections = {
-        "Market Insight": "",
-        "Top Strategy Note": "",
-        "Trader's Conclusion": ""
-    }
-
-    if not os.path.exists(NOTES_FILE):
-        with open(NOTES_FILE, "w") as f:
-            json.dump(default_sections, f)
-
-    try:
-        with open(NOTES_FILE, "r") as f:
-            commentary = json.load(f)
-    except Exception:
-        commentary = default_sections
-
-    query_params = st.query_params
-    is_admin_mode = query_params.get("admin", "false").lower() == "true"
-
-    if "auth" not in st.session_state:
-        st.session_state.auth = False
-
-    if is_admin_mode and not st.session_state.auth:
-        with st.expander("🔒 Admin Login (edit mode)", expanded=False):
-            pwd = st.text_input("Enter password", type="password")
-            if pwd == st.secrets["auth"]["edit_password"]:
-                st.session_state.auth = True
-                st.success("Edit mode activated!")
-
-    for section_title in commentary:
+    for title, placeholder in [
+        ("Market Insight", "What are we seeing in the macro environment?"),
+        ("Top Strategy Note", "Thoughts on the market (e.g., technical signals)"),
+        ("Trader's Conclusion", "Summary and suggested action")
+    ]:
         cols = st.columns([0.6, 0.1])
         with cols[0]:
-            st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
-            if st.session_state.auth:
-                commentary[section_title] = st.text_area(
-                    f"{section_title} input",
-                    value=commentary[section_title],
-                    height=130,
-                    key=section_title
-                )
-            else:
-                content = commentary[section_title].strip() or "..."
-                st.markdown(f"<div class='section-comment'>{content}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='section-title'>{title}</div>", unsafe_allow_html=True)
+            st.text_area(placeholder, height=130)
         st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
 
-    # Save only if edited
-    if st.session_state.auth:
-        with open(NOTES_FILE, "w") as f:
-            json.dump(commentary, f)
+def compute_metrics(returns):
+    import numpy as np
+    cumulative_return = (1 + returns).prod() - 1
+    annualized_volatility = returns.std() * (252 ** 0.5)
+    sharpe_ratio = (returns.mean() * 252) / annualized_volatility
+    return {
+        "Cumulative Return": cumulative_return,
+        "Annual Volatility": annualized_volatility,
+        "Sharpe Ratio": sharpe_ratio
+    }
 
+
+metrics = compute_metrics(portfolio_returns.dropna())
+st.subheader("📊 Performance Metrics")
+st.write(pd.DataFra
