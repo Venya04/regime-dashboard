@@ -223,7 +223,7 @@ with left_col:
         </style>
     """, unsafe_allow_html=True)
 
-    if current_alloc:
+     if current_alloc:
         # Filter out allocations smaller than 0.1%
         filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
 
@@ -244,14 +244,14 @@ with left_col:
 
             fig_pie.update_traces(
                 textinfo='percent',
-                textfont=dict(size=16, color='white'),
-                pull=[0] * len(filtered_alloc),
-                marker=dict(line=dict(color="#1c1c1c", width=1))
+                textfont_size=16,
+                pull=[0.03] * len(filtered_alloc),
+                marker=dict(line=dict(color="#000000", width=2))
             )
 
             fig_pie.update_layout(
                 showlegend=False,
-                margin=dict(t=20, b=20, l=20, r=20),
+                margin=dict(t=10, b=10, l=10, r=10),
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
             )
