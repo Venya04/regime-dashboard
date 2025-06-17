@@ -130,8 +130,8 @@ portfolio_returns = backtest(returns, regime_df, allocations)
 # Align regime_df to prices to avoid mismatch
 aligned_regime_df = regime_df.reindex(prices.index, method="ffill")
 
-latest_date = prices.index[-1]
-latest_regime = aligned_regime_df.loc[latest_date, "regime"]
+current_regime = regime_df["regime"].dropna().iloc[-1]
+current_alloc = allocations.get(current_regime, {})
 
 # Capitalize to match keys in allocations dict
 latest_regime = latest_regime.capitalize()
