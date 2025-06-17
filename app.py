@@ -292,12 +292,16 @@ with right_col:
     if "auth" not in st.session_state:
         st.session_state.auth = False
 
-    if not st.session_state.auth:
-        with st.expander("🔒 Admin Login (edit mode)", expanded=False):
-            pwd = st.text_input("Enter password", type="password")
-            if pwd == st.secrets["auth"]["edit_password"]:
-                st.session_state.auth = True
-                st.success("Edit mode activated!")
+# Only show login if URL has ?admin=true
+query_params = st.experimental_get_query_params()
+is_admin_mode = query_params.get("admin", ["false"])[0].lower() == "true"
+
+if is_admin_mode and not st.session_state.auth:
+    with st.expander("🔒 Admin Login (edit mode)", expanded=False):
+        pwd = st.text_input("Enter password", type="password")
+        if pwd == st.secrets["auth"]["edit_password"]:
+            st.session_state.auth = True
+            st.success("Edit mode activated!")
 
     if st.session_state.auth:
         # Editable layout
