@@ -86,7 +86,15 @@ regime_df = regime_df.asfreq("D").ffill().reindex(prices.index, method="ffill")
 # Normalize regime labels to prevent mismatch
 regime_df["regime"] = regime_df["regime"].astype(str).str.strip().str.lower()
 opt_alloc_df["regime"] = opt_alloc_df["regime"].astype(str).str.strip().str.lower()
-allocations = opt_alloc_df.set_index("regime").to_dict(orient="index")
+# Group by regime, take mean if duplicates exist
+allocations = (
+    opt_alloc_df.groupby("regime")
+    .mean(numeric_only=True)
+    .apply(lambda row: row / row.sum(), axis=1)  # Normalize
+    .to_dict(orient="index")
+)
+
+st.write("✅ Keys in allocations dict:", list(allocations.keys()))
 
 for alloc in allocations.values():
     if "cash" not in alloc:
