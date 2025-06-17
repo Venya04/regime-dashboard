@@ -257,20 +257,37 @@ with right_col:
                 font-size: 0.9rem;
                 font-style: italic;
                 color: #ccc;
-                margin-top: 4px;
-                margin-bottom: 8px;
                 background-color: #1e1e1e;
                 padding: 10px;
                 border-radius: 5px;
+                margin-top: 4px;
+                margin-bottom: 20px;
             }
         </style>
     """, unsafe_allow_html=True)
 
     NOTES_FILE = "thoughts.txt"
 
+    default_sections = {
+        "Market Insight": "",
+        "Top Strategy Note": "",
+        "Trader's Conclusion": ""
+    }
+
+    import json
+    import os
+
+    # Init file if missing
     if not os.path.exists(NOTES_FILE):
         with open(NOTES_FILE, "w") as f:
-            f.write("""Market Insight:\n\nTop Strategy Note:\n\nTrader's Conclusion:\n""")
+            json.dump(default_sections, f)
+
+    # Read file content
+    try:
+        with open(NOTES_FILE, "r") as f:
+            commentary = json.load(f)
+    except Exception:
+        commentary = default_sections
 
     if "auth" not in st.session_state:
         st.session_state.auth = False
@@ -282,21 +299,20 @@ with right_col:
                 st.session_state.auth = True
                 st.success("Edit mode activated!")
 
-    with open(NOTES_FILE, "r") as f:
-        raw_content = f.read()
-
     if st.session_state.auth:
-        updated = st.text_area("🧠 Dashboard Commentary (Editable)", value=raw_content, height=400)
-        if updated != raw_content:
-            with open(NOTES_FILE, "w") as f:
-                f.write(updated)
-            st.success("Changes saved.")
-    else:
-        for section in raw_content.strip().split("\n\n"):
-            if ":" in section:
-                title, text = section.split(":", 1)
-                title = title.strip()
-                text = text.strip() or "..."
-                st.markdown(f"<div class='section-title'>{title}</div>", unsafe_allow_html=True)
-                st.markdown(f"<div class='section-comment'>{text}</div>", unsafe_allow_html=True)
+        # Editable layout
+        for section_title in commentary:
+            st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
+            commentary[section_title] = st.text_area("", value=commentary[section_title], height=130)
             st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+
+        # Save updates
+        with open(NOTES_FILE, "w") as f:
+            json.dump(commentary, f)
+        st.success("All updates saved.")
+    else:
+        # Read-only layout
+        for section_title, content in commentary.items():
+            st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='section-comment'>{content.strip() or '...'}</div>", unsafe_allow_html=True)
+
