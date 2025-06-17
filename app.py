@@ -223,10 +223,6 @@ with left_col:
         </style>
     """, unsafe_allow_html=True)
 
-     if current_alloc:
-        # Filter out allocations smaller than 0.1%
-        filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
-
         if filtered_alloc:
             fig_pie = px.pie(
                 names=list(filtered_alloc.keys()),
