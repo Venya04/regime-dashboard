@@ -94,7 +94,7 @@ allocations = (
     .to_dict(orient="index")
 )
 
-st.write("✅ Keys in allocations dict:", list(allocations.keys()))
+# st.write("✅ Keys in allocations dict:", list(allocations.keys()))
 
 for alloc in allocations.values():
     if "cash" not in alloc:
@@ -145,8 +145,8 @@ original_regime_dates["regime"] = original_regime_dates["regime"].astype(str).st
 latest_regime = original_regime_dates.dropna(subset=["regime"]).iloc[-1]["regime"]
 
 # Debug
-st.write("🧠 Detected Regime:", latest_regime)
-st.write("📊 Available Allocation Regimes:", list(allocations.keys()))
+# st.write("🧠 Detected Regime:", latest_regime)
+# st.write("📊 Available Allocation Regimes:", list(allocations.keys()))
 
 # Use regime-specific allocation or fallback
 if latest_regime not in allocations:
@@ -156,8 +156,8 @@ else:
     current_alloc = allocations[latest_regime]
 
 # Confirm what allocation will be shown
-st.write("✅ Current allocation weights being used:")
-st.write(current_alloc)
+# st.write("✅ Current allocation weights being used:")
+# st.write(current_alloc)
 
 
 # === HEADER ===
