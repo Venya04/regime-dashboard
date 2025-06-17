@@ -139,8 +139,8 @@ portfolio_returns = backtest(returns, regime_df, allocations)
 # Normalize latest regime and resolve allocation safely
 # Find the most recent date where regime was originally defined (not forward-filled)
 original_regime_dates = pd.read_csv("regime_labels_expanded.csv", parse_dates=["date"])
-latest_real_regime = original_regime_dates.dropna(subset=["regime"]).iloc[-1]["regime"].strip().lower()
-latest_regime = latest_real_regime
+original_regime_dates["regime"] = original_regime_dates["regime"].astype(str).str.strip().str.lower()
+latest_real_regime = original_regime_dates.dropna(subset=["regime"]).iloc[-1]["regime"]
 
 # Debug info (optional, you can remove later)
 st.write("🧠 Detected Regime:", latest_regime)
@@ -152,13 +152,8 @@ if latest_regime not in allocations:
 else:
     current_alloc = allocations[latest_regime]
 
-
-# Use fallback if regime not found
-if latest_regime not in allocations:
-    st.warning(f"⚠️ No allocation found for regime: '{latest_regime}'. Falling back to 'recovery'.")
-    current_alloc = allocations.get("recovery", {})
-else:
-    current_alloc = allocations[latest_regime]
+st.write("✅ Current allocation weights being used:")
+st.write(current_alloc)
 
 st.write("📅 Last few regime dates:")
 st.dataframe(regime_df.tail(5))
