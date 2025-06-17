@@ -217,7 +217,7 @@ with left_col:
                 font-size: 0.1rem;
                 font-weight: bold;
                 text-transform: uppercase;
-                margin-bottom: 10px;
+                margin-bottom: 120px;
                 text-align: center;
             }
         </style>
