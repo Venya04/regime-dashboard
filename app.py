@@ -246,7 +246,7 @@ with left_col:
                 textinfo='percent',
                 textfont=dict(size=17, family="Georgia"),
                 # insidetextorientation='radial',
-                pull=[0.01] * len(filtered_alloc),
+                pull=[0.015] * len(filtered_alloc),
                 marker=dict(line=dict(color="#000000", width=1))
             )
 
