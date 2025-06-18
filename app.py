@@ -356,13 +356,6 @@ with right_col:
                 st.markdown(f"<div class='section-comment'>{content}</div>", unsafe_allow_html=True)
         st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
 
-    # Save only if edited
-    if st.session_state.auth:
-        with open(NOTES_FILE, "w") as f:
-            json.dump(commentary, f)
-    # === SUMMARY TABLE BELOW TEXT BOXES IN RIGHT COLUMN ===
-    st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
-
 # Hide Streamlit menu and footer
 st.markdown("""
     <style>
