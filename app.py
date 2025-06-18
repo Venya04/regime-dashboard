@@ -274,7 +274,7 @@ with left_col:
         unsafe_allow_html=True
     )
     # === PERFORMANCE LINE CHART ===
-# perf_col1, perf_col2 = st.columns([1.5, 1])
+perf_col1, perf_col2 = st.columns([2.5, 1])
 
 with perf_col1:
     st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
