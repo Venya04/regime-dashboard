@@ -402,7 +402,7 @@ with right_col:
 
 with st.container():
         st.markdown(
-            "<div style='max-width: 200px; min-width: 200px;'>",
+            "<div style='max-width: 450px; min-width: 450px;'>",
             unsafe_allow_html=True
         )
         st.dataframe(summary_df.style.format(precision=2), height=230)
