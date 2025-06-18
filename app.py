@@ -275,7 +275,7 @@ with left_col:
     )
 
     # Align chart heading with right-side title
-    st.markdown("<div style='margin-top: 25px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-top: 27px;'></div>", unsafe_allow_html=True)
     st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
 
     cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
