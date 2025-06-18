@@ -397,14 +397,16 @@ with right_col:
             "Max Drawdown": f"{max_drawdown * 100:.2f}%"
         }
 
-with st.container():
-    st.markdown(
-        "<div style='max-width: 450px; min-width: 300px;'>",
-        unsafe_allow_html=True
-    )
-    st.dataframe(summary_df.style.format(precision=2), height=230)
-    st.markdown("</div>", unsafe_allow_html=True)
+    summary_stats = calculate_summary_stats(portfolio_returns.dropna())
+    summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
 
+    with st.container():
+        st.markdown(
+            "<div style='max-width: 450px; min-width: 300px;'>",
+            unsafe_allow_html=True
+        )
+        st.dataframe(summary_df.style.format(precision=2), height=230)
+        st.markdown("</div>", unsafe_allow_html=True)
 # Hide Streamlit menu and footer
 st.markdown("""
     <style>
