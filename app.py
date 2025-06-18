@@ -245,7 +245,7 @@ with left_col:
             fig_pie.update_traces(
                 textinfo='percent',
                 textfont=dict(size=17, family="Georgia"),
-                insidetextorientation='radial',
+                # insidetextorientation='radial',
                 pull=[0.01] * len(filtered_alloc),
                 marker=dict(line=dict(color="#000000", width=1))
             )
