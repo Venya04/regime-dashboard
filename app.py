@@ -275,25 +275,38 @@ st.markdown(
 )
 
 # === PERFORMANCE CHART IN LEFT COLUMN BELOW PIE ===
-st.markdown("<div style='margin-top: -25px;'></div>", unsafe_allow_html=True)  # 🆕 align titles
-st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
+ st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style='text-align: center; margin-top: -5px;'>
+            <ul style='padding-left: 10; list-style-position: inside; text-align: left; display: inline-block;'>
+        """ + "".join([
+            f"<li><strong>{asset.capitalize()}</strong>: {weight:.1%}</li>"
+            for asset, weight in current_alloc.items()
+        ]) + """
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    # === PERFORMANCE CHART IN LEFT COLUMN BELOW PIE ===
+    st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
+    cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
 
-cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
-
-fig_line = px.line(
-    x=cumulative_returns.index,
-    y=cumulative_returns.values,
-    labels={"x": "Date", "y": "Cumulative Return"},
-)
-fig_line.update_layout(
-    showlegend=False,
-    margin=dict(t=10, b=10, l=0, r=30),
-    paper_bgcolor='rgba(0,0,0,0)',
-    plot_bgcolor='rgba(0,0,0,0)',
-    yaxis_tickformat='.0%',
-)
-st.plotly_chart(fig_line, use_container_width=True)
-
+    fig_line = px.line(
+        x=cumulative_returns.index,
+        y=cumulative_returns.values,
+        labels={"x": "Date", "y": "Cumulative Return"},
+    )
+    fig_line.update_layout(
+        showlegend=False,
+        margin=dict(t=10, b=10, l=0, r=30),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        yaxis_tickformat='.0%',
+    )
+    st.plotly_chart(fig_line, use_container_width=True)
 
 with right_col:
     st.markdown("""
