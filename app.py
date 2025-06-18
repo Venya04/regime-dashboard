@@ -277,7 +277,7 @@ with left_col:
 perf_col1, perf_col2 = st.columns([1.5, 1])
 
 with perf_col1:
-    st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
+st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
 cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
 
 fig_line = px.line(
@@ -287,7 +287,7 @@ fig_line = px.line(
 )
 fig_line.update_layout(
     showlegend=False,
-    margin=dict(t=10, b=10, l=0, r=30),  # tighten right margin to nudge left
+    margin=dict(t=10, b=10, l=0, r=30),  # fine-tuned spacing
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     yaxis_tickformat='.0%',
@@ -384,8 +384,8 @@ with right_col:
 st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
 
 with perf_col2:
-    st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
-    
+st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
+
 def calculate_summary_stats(returns):
     cumulative_return = (1 + returns).prod() - 1
     annualized_return = (1 + cumulative_return) ** (252 / len(returns)) - 1
@@ -403,7 +403,6 @@ def calculate_summary_stats(returns):
 
 summary_stats = calculate_summary_stats(portfolio_returns.dropna())
 summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
-
 st.dataframe(summary_df.style.format(precision=2), height=230)
 
 # Hide Streamlit menu and footer
