@@ -235,8 +235,8 @@ with left_col:
                 color=list(filtered_alloc.keys()),
                 color_discrete_map={
                     "stocks": "#19212E",
-                    "stablecoins": "#7A4343",
-                    "cash": "#522D2D",
+                    "stablecoins": "#522D2D",
+                    "cash": "#341D1C",
                     "crypto": "#212D40",
                     "commodities": "#413C4D",
                 }
