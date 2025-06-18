@@ -359,7 +359,7 @@ with left_col:
 #         unsafe_allow_html=True
 #     )
 
-    === LINE CHART ===
+    #=== LINE CHART ===
     st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
     st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
 
