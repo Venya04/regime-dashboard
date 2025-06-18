@@ -207,7 +207,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # === LAYOUT ===
-left_col, right_col = st.columns([1.3, 1])
+left_col, right_col = st.columns([0.5, 0.5])
 
 with left_col:
     st.markdown("""
