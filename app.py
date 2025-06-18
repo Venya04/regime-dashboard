@@ -337,13 +337,12 @@ with left_col:
                 margin=dict(t=10, b=10, l=10, r=10),
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
-                width=400,  # MATCHING width
+                width=400,
                 height=400
             )
             centered_col = st.columns([1, 2, 1])[1]
-with centered_col:
-    st.plotly_chart(fig_line, use_container_width=False)
-
+            with centered_col:
+                st.plotly_chart(fig_pie, use_container_width=False)
 
     # === HOLDINGS LIST ===
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
@@ -372,15 +371,15 @@ with centered_col:
         labels={"x": "Date", "y": "Cumulative Return"},
     )
     fig_line.update_layout(
-        width=400,  # MATCHING the pie chart
+        width=400,
         height=300,
         margin=dict(t=10, b=10, l=10, r=10),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
     )
     centered_col = st.columns([1, 2, 1])[1]
-with centered_col:
-    st.plotly_chart(fig_line, use_container_width=False)
+    with centered_col:
+        st.plotly_chart(fig_line, use_container_width=False)
 
 with right_col:
     st.markdown("""
