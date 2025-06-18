@@ -231,13 +231,13 @@ with left_col:
             fig_pie = px.pie(
                 names=list(filtered_alloc.keys()),
                 values=list(filtered_alloc.values()),
-                hole=0.4,
+                hole=0,
                 color=list(filtered_alloc.keys()),
                 color_discrete_map={
                     "stocks": "#19212E",
-                    "stablecoins": "#2F3B3E",
+                    "stablecoins": "#341D1C",
                     "cash": "#522D2D",
-                    "crypto": "#2E2F40",
+                    "crypto": "#212D40",
                     "commodities": "#413C4D",
                 }
             )
@@ -246,8 +246,8 @@ with left_col:
                 textinfo='percent',
                 textfont=dict(size=17, family="Georgia"),
                 insidetextorientation='radial',
-                pull=[0.0] * len(filtered_alloc),
-                marker=dict(line=dict(color="#D4AF37", width=1.5))
+                pull=[0.01] * len(filtered_alloc),
+                marker=dict(line=dict(color="#000000", width=1.5))
             )
 
             fig_pie.update_layout(
