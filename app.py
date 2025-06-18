@@ -231,7 +231,7 @@ with left_col:
             fig_pie = px.pie(
                 names=list(filtered_alloc.keys()),
                 values=list(filtered_alloc.values()),
-                hole=0,
+                hole=0.4,
                 color=list(filtered_alloc.keys()),
                 color_discrete_map={
                     "stocks": "#19212E",
@@ -245,8 +245,9 @@ with left_col:
             fig_pie.update_traces(
                 textinfo='percent',
                 textfont_size=16,
-                pull=[0.015] * len(filtered_alloc),
-                marker=dict(line=dict(color="#000000", width=2))
+                insidetextorientation='radial',
+                pull=[0] * len(filtered_alloc),
+                marker=dict(line=dict(color="rgba(255,255,255,0.1)", width=0.5))
             )
 
             fig_pie.update_layout(
