@@ -401,7 +401,7 @@ with right_col:
     summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
 
     st.markdown(
-        "<div style='width: 100%; max-width: 450px;'>",
+        "<div style='width: 100%; max-width: 200px;'>",
         unsafe_allow_html=True
     )
     st.dataframe(summary_df.style.format(precision=2), height=230)
