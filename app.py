@@ -5,11 +5,13 @@ import numpy as np
 import yfinance as yf
 import os
 
+
 def get_file_version(path):
     try:
         return os.path.getmtime(path)
     except:
         return None
+
 
 # === SETTINGS ===
 START_DATE = "2010-01-01"
@@ -27,6 +29,7 @@ TICKERS = {
 
 st.set_page_config(page_title="Regime Report", layout="wide")
 
+
 # === LOAD DATA ===
 @st.cache_data
 def load_csv_from_repo(path, version=None):
@@ -39,8 +42,10 @@ def load_csv_from_repo(path, version=None):
         st.error(f"Error loading {path}: {e}")
         return pd.DataFrame()
 
+
 regime_df = load_csv_from_repo("regime_labels_expanded.csv", version=get_file_version("regime_labels_expanded.csv"))
 opt_alloc_df = load_csv_from_repo("optimal_allocations.csv", version=get_file_version("optimal_allocations.csv"))
+
 
 @st.cache_data
 def load_prices():
@@ -69,6 +74,7 @@ def load_prices():
     prices = pd.concat(data.values(), axis=1)
     return prices.dropna()
 
+
 prices = load_prices()
 
 @st.cache_data
@@ -80,6 +86,7 @@ def load_performance():
     except Exception as e:
         st.error(f"Failed to load performance data: {e}")
         return pd.DataFrame()
+
 
 performance_df = load_performance()
 
@@ -118,7 +125,7 @@ for alloc in allocations.values():
 # === RETURNS ===
 returns = prices.pct_change().dropna()
 returns["cash"] = CASH_DAILY_YIELD
-returns["stablecoins"] = (1 + STABLECOIN_MONTHLY_YIELD)**(1/22) - 1
+returns["stablecoins"] = (1 + STABLECOIN_MONTHLY_YIELD) ** (1 / 22) - 1
 
 all_assets = set()
 for alloc in allocations.values():
@@ -128,30 +135,26 @@ for asset in all_assets:
     if asset not in returns.columns:
         returns[asset] = 0.0
 
-try:
-    perf_df = pd.read_csv(perf_path, parse_dates=["date"])
-except FileNotFoundError:
-    perf_df = pd.DataFrame(columns=["date", "value"])
 
-if 5000 < latest_value < 20000:
-    if latest_date.date() not in perf_df["date"].dt.date.values:
-        new_row = pd.DataFrame([{"date": latest_date, "value": latest_value}])
-        perf_df = pd.concat([perf_df, new_row], ignore_index=True)
-        perf_df.sort_values("date", inplace=True)
-        perf_df.to_csv(perf_path, index=False)
-else:
-    st.warning(f"⚠️ Skipped abnormal portfolio value: {latest_value:.2f}")
+# === BACKTEST ===
+def backtest(returns, regime_df, allocations):
+    portfolio_returns = []
+    current_weights = {asset: 0.25 for asset in TICKERS}
+    prev_regime = None
+    for date in returns.index:
+        regime = regime_df.loc[date, "regime"]
+        if pd.isna(regime):
+            portfolio_returns.append(np.nan)
+            continue
+        if regime != prev_regime and regime in allocations:
+            current_weights = allocations[regime]
+            prev_regime = regime
+        ret = sum(returns.loc[date, asset] * current_weights.get(asset, 0) for asset in current_weights)
+        portfolio_returns.append(ret)
+    return pd.Series(portfolio_returns, index=returns.index)
 
-try:
-    perf_df = pd.read_csv(perf_path, parse_dates=["date"])
-except FileNotFoundError:
-    perf_df = pd.DataFrame(columns=["date", "value"])
 
-if latest_date.date() not in perf_df["date"].dt.date.values:
-    new_row = pd.DataFrame([{"date": latest_date, "value": latest_value}])
-    perf_df = pd.concat([perf_df, new_row], ignore_index=True)
-    perf_df.sort_values("date", inplace=True)
-    perf_df.to_csv(perf_path, index=False)
+portfolio_returns = backtest(returns, regime_df, allocations)
 
 # === GET CURRENT REGIME ===
 # Load raw regime file and normalize
@@ -240,7 +243,7 @@ with left_col:
         </style>
     """, unsafe_allow_html=True)
 
-     # Limit left column content width
+    # Limit left column content width
     st.markdown("<div style='max-width: 600px; margin: 0 auto;'>", unsafe_allow_html=True)
 
     if current_alloc:
@@ -277,8 +280,8 @@ with left_col:
                 plot_bgcolor='rgba(0,0,0,0)',
             )
             st.plotly_chart(fig_pie, use_container_width=True)
-            
-  # 🔽 Portfolio Holdings
+
+    # 🔽 Portfolio Holdings
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
     st.markdown(
         """
@@ -341,6 +344,7 @@ with right_col:
     """, unsafe_allow_html=True)
 
     import json
+
     NOTES_FILE = "thoughts.txt"
 
     default_sections = {
