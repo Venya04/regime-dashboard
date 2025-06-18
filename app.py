@@ -260,6 +260,7 @@ with left_col:
             st.plotly_chart(fig_pie, use_container_width=True)
 
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-top: -12px;'></div>", unsafe_allow_html=True)
     st.markdown(
         """
         <div style='text-align: center; margin-top: -5px;'>
