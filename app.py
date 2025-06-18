@@ -371,7 +371,7 @@ with left_col:
         labels={"x": "Date", "y": "Cumulative Return"},
     )
     fig_line.update_layout(
-        width=500,
+        width=800,
         height=350,
         margin=dict(t=10, b=10, l=10, r=10),
         paper_bgcolor='rgba(0,0,0,0)',
