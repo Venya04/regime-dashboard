@@ -337,8 +337,10 @@ with left_col:
                 margin=dict(t=10, b=10, l=10, r=10),
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
+                width=400,  # MATCHING width
+                height=400
             )
-            st.plotly_chart(fig_pie, use_container_width=True)
+            st.plotly_chart(fig_pie, use_container_width=False)
 
     # === HOLDINGS LIST ===
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
@@ -356,7 +358,7 @@ with left_col:
         unsafe_allow_html=True
     )
 
-    # === LINE CHART (wrapped properly) ===
+    # === LINE CHART ===
     st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
     st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
 
@@ -366,20 +368,14 @@ with left_col:
         y=cumulative_returns.values,
         labels={"x": "Date", "y": "Cumulative Return"},
     )
-   fig_line.update_layout(
-    width=400,  # 👈 desired width
-    height=300,
-    margin=dict(t=10, b=10, l=10, r=10),
-    paper_bgcolor='rgba(0,0,0,0)',
-    plot_bgcolor='rgba(0,0,0,0)',
-)
-st.plotly_chart(fig_line, use_container_width=False)
-
-    # 👇 Wrap chart in fixed-width container
-    st.markdown("<div style='max-width: 100px; margin: 0 auto;'>", unsafe_allow_html=True)
-    st.plotly_chart(fig_line, use_container_width=True)
-    st.markdown("</div>", unsafe_allow_html=True)
-
+    fig_line.update_layout(
+        width=400,  # MATCHING the pie chart
+        height=300,
+        margin=dict(t=10, b=10, l=10, r=10),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+    )
+    st.plotly_chart(fig_line, use_container_width=False)
 
 with right_col:
     st.markdown("""
