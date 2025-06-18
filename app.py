@@ -236,6 +236,7 @@ with left_col:
 
      # Limit left column content width
     st.markdown("<div style='max-width: 600px; margin: 0 auto;'>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
     if current_alloc:
         # Filter out allocations smaller than 0.1%
@@ -294,7 +295,7 @@ if not performance_df.empty:
 
     st.plotly_chart(perf_fig, use_container_width=True)
 
-        start_val = performance_df["value"].iloc[0]
+    start_val = performance_df["value"].iloc[0]
     end_val = performance_df["value"].iloc[-1]
     perf_pct = ((end_val / start_val) - 1) * 100
 
@@ -303,7 +304,6 @@ if not performance_df.empty:
     📈 <strong>Performance since April:</strong> {perf_pct:.2f}%
     </div>
     """, unsafe_allow_html=True)
-
     
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
     st.markdown(
