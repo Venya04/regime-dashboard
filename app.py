@@ -287,7 +287,7 @@ fig_line = px.line(
 )
 fig_line.update_layout(
     showlegend=False,
-    margin=dict(t=20, b=20, l=20, r=20),  # ← adjust right margin here to shift left
+    margin=dict(t=10, b=10, l=0, r=30),  # tighten right margin to nudge left
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     yaxis_tickformat='.0%',
@@ -383,7 +383,28 @@ with right_col:
     if st.session_state.auth:
         with open(NOTES_FILE, "w") as f:
             json.dump(commentary, f)
+    # === SUMMARY TABLE BELOW TEXT BOXES IN RIGHT COLUMN ===
+st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
 
+def calculate_summary_stats(returns):
+    cumulative_return = (1 + returns).prod() - 1
+    annualized_return = (1 + cumulative_return) ** (252 / len(returns)) - 1
+    volatility = returns.std() * np.sqrt(252)
+    sharpe = returns.mean() / returns.std() * np.sqrt(252)
+    drawdown = (1 + returns).cumprod().div((1 + returns).cumprod().cummax()) - 1
+    max_drawdown = drawdown.min()
+    return {
+        "Total Return": f"{cumulative_return * 100:.2f}%",
+        "Annualized Return": f"{annualized_return * 100:.2f}%",
+        "Volatility": f"{volatility * 100:.2f}%",
+        "Sharpe Ratio": f"{sharpe:.2f}",
+        "Max Drawdown": f"{max_drawdown * 100:.2f}%"
+    }
+
+summary_stats = calculate_summary_stats(portfolio_returns.dropna())
+summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
+
+st.dataframe(summary_df.style.format(precision=2), height=230)
 
 # Hide Streamlit menu and footer
 st.markdown("""
