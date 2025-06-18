@@ -296,38 +296,9 @@ with left_col:
 
         st.markdown(f"""
         <div style='text-align: center; font-size: 1.2rem; color: white; margin-top: 10px;'>
-        📈 <strong>Performance since April:</strong> {perf_pct:.2f}%
+        📈 <strong>Performance:</strong> {perf_pct:.2f}%
         </div>
         """, unsafe_allow_html=True)
-
-
-# 🔽 Performance Chart
-if not performance_df.empty:
-    st.markdown("<div class='left-section-title'>Portfolio Performance</div>", unsafe_allow_html=True)
-
-    perf_fig = px.line(
-        performance_df,
-        x=performance_df.index,
-        y="value",
-        labels={"value": "Portfolio Value", "date": "Date"},
-        template="plotly_dark",
-        markers=True
-    )
-
-    perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
-# 👇 Add this to control width before rendering
-perf_fig.update_layout(
-    height=350,
-    width=700,  # 👈 Centered size
-    margin=dict(l=20, r=20, t=10, b=20),
-    plot_bgcolor='rgba(0,0,0,0)',
-    paper_bgcolor='rgba(0,0,0,0)'
-)
-
-# Center the chart with HTML flex
-st.markdown("<div style='display: flex; justify-content: center;'>", unsafe_allow_html=True)
-st.plotly_chart(perf_fig, use_container_width=False)
-st.markdown("</div>", unsafe_allow_html=True)
 
 with right_col:
     st.markdown("""
@@ -410,6 +381,34 @@ with right_col:
                 content = commentary[section_title].strip() or "..."
                 st.markdown(f"<div class='section-comment'>{content}</div>", unsafe_allow_html=True)
         st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+
+# 🔽 Performance Chart
+if not performance_df.empty:
+
+    perf_fig = px.line(
+        performance_df,
+        x=performance_df.index,
+        y="value",
+        labels={"value": "Portfolio Value", "date": "Date"},
+        template="plotly_dark",
+        markers=True
+    )
+
+    perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
+# 👇 Add this to control width before rendering
+perf_fig.update_layout(
+    height=350,
+    width=700,  # 👈 Centered size
+    margin=dict(l=20, r=20, t=10, b=20),
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)'
+)
+
+# Center the chart with HTML flex
+st.markdown("<div style='display: flex; justify-content: center;'>", unsafe_allow_html=True)
+st.plotly_chart(perf_fig, use_container_width=False)
+st.markdown("</div>", unsafe_allow_html=True)
+
 
 # Hide Streamlit menu and footer
 st.markdown("""
