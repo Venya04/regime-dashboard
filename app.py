@@ -247,7 +247,7 @@ with left_col:
                 textfont_size=16,
                 insidetextorientation='radial',
                 pull=[0.0] * len(filtered_alloc),
-                marker=dict(line=dict(color="#D4AF37", width=1))
+                marker=dict(line=dict(color="#A47E1B", width=4))
             )
 
             fig_pie.update_layout(
