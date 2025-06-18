@@ -146,6 +146,26 @@ def backtest(returns, regime_df, allocations):
     return pd.Series(portfolio_returns, index=returns.index)
 
 portfolio_returns = backtest(returns, regime_df, allocations)
+# === AUTO-UPDATE portfolio_performance.csv ===
+portfolio_value_series = (1 + portfolio_returns.fillna(0)).cumprod()
+initial_value = 10000
+portfolio_value_series *= initial_value
+
+latest_value = portfolio_value_series.iloc[-1]
+latest_date = portfolio_value_series.index[-1]
+
+perf_path = "portfolio_performance.csv"
+
+try:
+    perf_df = pd.read_csv(perf_path, parse_dates=["date"])
+except FileNotFoundError:
+    perf_df = pd.DataFrame(columns=["date", "value"])
+
+if latest_date.date() not in perf_df["date"].dt.date.values:
+    new_row = pd.DataFrame([{"date": latest_date, "value": latest_value}])
+    perf_df = pd.concat([perf_df, new_row], ignore_index=True)
+    perf_df.sort_values("date", inplace=True)
+    perf_df.to_csv(perf_path, index=False)
 
 # === GET CURRENT REGIME ===
 # Load raw regime file and normalize
