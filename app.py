@@ -223,6 +223,9 @@ with left_col:
         </style>
     """, unsafe_allow_html=True)
 
+     # Limit left column content width
+    st.markdown("<div style='max-width: 600px; margin: 0 auto;'>", unsafe_allow_html=True)
+
     if current_alloc:
         # Filter out allocations smaller than 0.1%
         filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
@@ -256,11 +259,7 @@ with left_col:
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
             )
-
-            st.markdown("<div style='max-width: 650px; margin: auto;'>", unsafe_allow_html=True)
-st.plotly_chart(fig_line, use_container_width=True)
-st.markdown("</div>", unsafe_allow_html=True)
-
+            st.plotly_chart(fig_pie, use_container_width=True)
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
     st.markdown(
         """
