@@ -218,7 +218,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # === LAYOUT ===
-left_col, right_col = st.columns([0.5, 0.5])
+left_col, right_col = st.columns([1.3, 1])
 
 with left_col:
     st.markdown("""
@@ -236,7 +236,6 @@ with left_col:
 
      # Limit left column content width
     st.markdown("<div style='max-width: 600px; margin: 0 auto;'>", unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
 
     if current_alloc:
         # Filter out allocations smaller than 0.1%
