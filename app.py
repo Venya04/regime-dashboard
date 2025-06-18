@@ -71,6 +71,18 @@ def load_prices():
 
 prices = load_prices()
 
+@st.cache_data
+def load_performance():
+    try:
+        perf_df = pd.read_csv("portfolio_performance.csv", parse_dates=["date"])
+        perf_df.set_index("date", inplace=True)
+        return perf_df
+    except Exception as e:
+        st.error(f"Failed to load performance data: {e}")
+        return pd.DataFrame()
+
+performance_df = load_performance()
+
 # === VALIDATE DATA ===
 if prices.empty:
     st.error("Price data failed to load.")
@@ -259,6 +271,40 @@ with left_col:
                 plot_bgcolor='rgba(0,0,0,0)',
             )
             st.plotly_chart(fig_pie, use_container_width=True)
+            
+if not performance_df.empty:
+    st.markdown("<div class='left-section-title'>Portfolio Performance</div>", unsafe_allow_html=True)
+
+    perf_fig = px.line(
+        performance_df,
+        x=performance_df.index,
+        y="value",
+        labels={"value": "Portfolio Value", "date": "Date"},
+        template="plotly_dark",
+        markers=True
+    )
+
+    perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
+    perf_fig.update_layout(
+        height=350,
+        margin=dict(l=20, r=20, t=10, b=20),
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)'
+    )
+
+    st.plotly_chart(perf_fig, use_container_width=True)
+
+        start_val = performance_df["value"].iloc[0]
+    end_val = performance_df["value"].iloc[-1]
+    perf_pct = ((end_val / start_val) - 1) * 100
+
+    st.markdown(f"""
+    <div style='text-align: center; font-size: 1.2rem; color: white; margin-top: 10px;'>
+    📈 <strong>Performance since April:</strong> {perf_pct:.2f}%
+    </div>
+    """, unsafe_allow_html=True)
+
+    
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
     st.markdown(
         """
