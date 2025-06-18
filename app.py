@@ -337,8 +337,8 @@ with left_col:
                 margin=dict(t=10, b=10, l=10, r=10),
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
-                width=400,
-                height=400
+                width=500,
+                height=500
             )
             centered_col = st.columns([1, 2, 1])[1]
             with centered_col:
@@ -371,8 +371,8 @@ with left_col:
         labels={"x": "Date", "y": "Cumulative Return"},
     )
     fig_line.update_layout(
-        width=400,
-        height=300,
+        width=500,
+        height=350,
         margin=dict(t=10, b=10, l=10, r=10),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
