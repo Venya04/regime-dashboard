@@ -375,7 +375,7 @@ with left_col:
     )
 
     # 👇 Wrap chart in fixed-width container
-    st.markdown("<div style='max-width: 400px; margin: 0 auto;'>", unsafe_allow_html=True)
+    st.markdown("<div style='max-width: 100px; margin: 0 auto;'>", unsafe_allow_html=True)
     st.plotly_chart(fig_line, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
