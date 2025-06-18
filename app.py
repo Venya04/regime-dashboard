@@ -295,6 +295,8 @@ st.markdown("</div>", unsafe_allow_html=True)
     )
     st.plotly_chart(fig_line, use_container_width=True)
 
+    st.markdown("</div>", unsafe_allow_html=True)
+
 with right_col:
     st.markdown("""
        <style>
