@@ -128,35 +128,6 @@ for asset in all_assets:
     if asset not in returns.columns:
         returns[asset] = 0.0
 
-def backtest(returns, regime_df, allocations):
-    portfolio_returns = []
-    current_weights = {asset: 0.25 for asset in TICKERS}
-    prev_regime = None
-
-    for date in returns.index:
-        regime = regime_df.loc[date, "regime"]
-        if pd.isna(regime):
-            portfolio_returns.append(np.nan)
-            continue
-
-        if regime != prev_regime and regime in allocations:
-            current_weights = allocations[regime]
-            prev_regime = regime
-
-        # 🛡️ Calculate daily return and clamp it
-        try:
-            ret = sum(returns.loc[date, asset] * current_weights.get(asset, 0) for asset in current_weights)
-        except KeyError:
-            portfolio_returns.append(np.nan)
-            continue
-
-        # ✅ Clamp extreme daily returns
-        ret = max(min(ret, 0.5), -0.5)
-
-        portfolio_returns.append(ret)
-
-    return pd.Series(portfolio_returns, index=returns.index)
-
 try:
     perf_df = pd.read_csv(perf_path, parse_dates=["date"])
 except FileNotFoundError:
