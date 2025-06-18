@@ -399,7 +399,7 @@ with right_col:
 
     summary_stats = calculate_summary_stats(portfolio_returns.dropna())
     summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
-    st.dataframe(summary_df.style.format(precision=2), height=230)
+    st.dataframe(summary_df.style.format(precision=2), height=130)
 
 # Hide Streamlit menu and footer
 st.markdown("""
