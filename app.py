@@ -273,26 +273,24 @@ with left_col:
         """,
         unsafe_allow_html=True
     )
-    # === PERFORMANCE LINE CHART ===
-# perf_col1, perf_col2 = st.columns([1.5, 1])
+    
+    # === PERFORMANCE CHART IN LEFT COLUMN BELOW PIE ===
+    st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
+    cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
 
-with perf_col1:
-st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
-cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
-
-fig_line = px.line(
-    x=cumulative_returns.index,
-    y=cumulative_returns.values,
-    labels={"x": "Date", "y": "Cumulative Return"},
-)
-fig_line.update_layout(
-    showlegend=False,
-    margin=dict(t=10, b=10, l=0, r=30),  # fine-tuned spacing
-    paper_bgcolor='rgba(0,0,0,0)',
-    plot_bgcolor='rgba(0,0,0,0)',
-    yaxis_tickformat='.0%',
-)
-st.plotly_chart(fig_line, use_container_width=True)
+    fig_line = px.line(
+        x=cumulative_returns.index,
+        y=cumulative_returns.values,
+        labels={"x": "Date", "y": "Cumulative Return"},
+    )
+    fig_line.update_layout(
+        showlegend=False,
+        margin=dict(t=10, b=10, l=0, r=30),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        yaxis_tickformat='.0%',
+    )
+    st.plotly_chart(fig_line, use_container_width=True)
 
 with right_col:
     st.markdown("""
@@ -381,29 +379,26 @@ with right_col:
         with open(NOTES_FILE, "w") as f:
             json.dump(commentary, f)
     # === SUMMARY TABLE BELOW TEXT BOXES IN RIGHT COLUMN ===
-st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
 
-with perf_col2:
-st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
+    def calculate_summary_stats(returns):
+        cumulative_return = (1 + returns).prod() - 1
+        annualized_return = (1 + cumulative_return) ** (252 / len(returns)) - 1
+        volatility = returns.std() * np.sqrt(252)
+        sharpe = returns.mean() / returns.std() * np.sqrt(252)
+        drawdown = (1 + returns).cumprod().div((1 + returns).cumprod().cummax()) - 1
+        max_drawdown = drawdown.min()
+        return {
+            "Total Return": f"{cumulative_return * 100:.2f}%",
+            "Annualized Return": f"{annualized_return * 100:.2f}%",
+            "Volatility": f"{volatility * 100:.2f}%",
+            "Sharpe Ratio": f"{sharpe:.2f}",
+            "Max Drawdown": f"{max_drawdown * 100:.2f}%"
+        }
 
-def calculate_summary_stats(returns):
-    cumulative_return = (1 + returns).prod() - 1
-    annualized_return = (1 + cumulative_return) ** (252 / len(returns)) - 1
-    volatility = returns.std() * np.sqrt(252)
-    sharpe = returns.mean() / returns.std() * np.sqrt(252)
-    drawdown = (1 + returns).cumprod().div((1 + returns).cumprod().cummax()) - 1
-    max_drawdown = drawdown.min()
-    return {
-        "Total Return": f"{cumulative_return * 100:.2f}%",
-        "Annualized Return": f"{annualized_return * 100:.2f}%",
-        "Volatility": f"{volatility * 100:.2f}%",
-        "Sharpe Ratio": f"{sharpe:.2f}",
-        "Max Drawdown": f"{max_drawdown * 100:.2f}%"
-    }
-
-summary_stats = calculate_summary_stats(portfolio_returns.dropna())
-summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
-st.dataframe(summary_df.style.format(precision=2), height=230)
+    summary_stats = calculate_summary_stats(portfolio_returns.dropna())
+    summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
+    st.dataframe(summary_df.style.format(precision=2), height=230)
 
 # Hide Streamlit menu and footer
 st.markdown("""
