@@ -278,21 +278,21 @@ perf_col1, perf_col2 = st.columns([1.5, 1])
 
 with perf_col1:
     st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
-    cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
+cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
 
-    fig_line = px.line(
-        x=cumulative_returns.index,
-        y=cumulative_returns.values,
-        labels={"x": "Date", "y": "Cumulative Return"},
-    )
-    fig_line.update_layout(
-        showlegend=False,
-        margin=dict(t=10, b=10, l=10, r=10),
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',
-        yaxis_tickformat='.0%',
-    )
-    st.plotly_chart(fig_line, use_container_width=True)
+fig_line = px.line(
+    x=cumulative_returns.index,
+    y=cumulative_returns.values,
+    labels={"x": "Date", "y": "Cumulative Return"},
+)
+fig_line.update_layout(
+    showlegend=False,
+    margin=dict(t=10, b=10, l=0, r=30),  # ← adjust right margin here to shift left
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+    yaxis_tickformat='.0%',
+)
+st.plotly_chart(fig_line, use_container_width=True)
 
 with perf_col2:
     st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
