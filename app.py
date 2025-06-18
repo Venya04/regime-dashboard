@@ -361,6 +361,30 @@ with right_col:
     if st.session_state.auth:
         with open(NOTES_FILE, "w") as f:
             json.dump(commentary, f)
+
+def calculate_summary_stats(returns):
+    cumulative_return = (1 + returns).prod() - 1
+    annualized_return = (1 + cumulative_return) ** (12 / len(returns)) - 1
+    volatility = returns.std() * np.sqrt(12)
+    sharpe = returns.mean() / returns.std() * np.sqrt(12)
+    drawdown = (1 + returns).cumprod().div((1 + returns).cumprod().cummax()) - 1
+    max_drawdown = drawdown.min()
+    return {
+        "Total Return (%)": round(cumulative_return * 100, 2),
+        "Annualized Return (%)": round(annualized_return * 100, 2),
+        "Volatility (%)": round(volatility * 100, 2),
+        "Sharpe Ratio": round(sharpe, 2),
+        "Max Drawdown (%)": round(max_drawdown * 100, 2)
+    }
+
+# Replace with your actual returns Series
+# returns_regime = pd.Series(...)
+
+# Example
+summary_stats = calculate_summary_stats(returns_regime)
+summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
+
+st.dataframe(summary_df)
 # Hide Streamlit menu and footer
 st.markdown("""
     <style>
