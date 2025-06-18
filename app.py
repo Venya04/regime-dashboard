@@ -366,13 +366,14 @@ with left_col:
         y=cumulative_returns.values,
         labels={"x": "Date", "y": "Cumulative Return"},
     )
-    fig_line.update_layout(
-        showlegend=False,
-        margin=dict(t=10, b=10, l=10, r=10),
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',
-        yaxis_tickformat='.0%',
-    )
+   fig_line.update_layout(
+    width=400,  # 👈 desired width
+    height=300,
+    margin=dict(t=10, b=10, l=10, r=10),
+    paper_bgcolor='rgba(0,0,0,0)',
+    plot_bgcolor='rgba(0,0,0,0)',
+)
+st.plotly_chart(fig_line, use_container_width=False)
 
     # 👇 Wrap chart in fixed-width container
     st.markdown("<div style='max-width: 100px; margin: 0 auto;'>", unsafe_allow_html=True)
