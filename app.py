@@ -415,10 +415,10 @@ if not performance_df.empty:
     </div>
     """, height=400)
 
-    # 🔧 Use Streamlit's column layout to center the chart
-    left_spacer, center_col, right_spacer = st.columns([1, 2, 1])
-    with center_col:
-        st.plotly_chart(perf_fig, use_container_width=False)
+    # # 🔧 Use Streamlit's column layout to center the chart
+    # left_spacer, center_col, right_spacer = st.columns([1, 2, 1])
+    # with center_col:
+    #     st.plotly_chart(perf_fig, use_container_width=False)
 
 # Hide Streamlit menu and footer
 st.markdown("""
