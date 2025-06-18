@@ -309,11 +309,6 @@ with left_col:
         </style>
     """, unsafe_allow_html=True)
 
-    # Limit all left-side content width
-   st.markdown("<div style='max-width: 400px;'>", unsafe_allow_html=True)
-st.plotly_chart(fig_line, use_container_width=True)
-st.markdown("</div>", unsafe_allow_html=True)
-
     # === PIE CHART ===
     if current_alloc:
         filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
@@ -361,7 +356,7 @@ st.markdown("</div>", unsafe_allow_html=True)
         unsafe_allow_html=True
     )
 
-    # === LINE CHART ===
+    # === LINE CHART (wrapped properly) ===
     st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
     st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
 
@@ -378,9 +373,10 @@ st.markdown("</div>", unsafe_allow_html=True)
         plot_bgcolor='rgba(0,0,0,0)',
         yaxis_tickformat='.0%',
     )
-    st.plotly_chart(fig_line, use_container_width=True)
 
-    # Close the container div
+    # 👇 Wrap chart in fixed-width container
+    st.markdown("<div style='max-width: 400px; margin: 0 auto;'>", unsafe_allow_html=True)
+    st.plotly_chart(fig_line, use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
 
