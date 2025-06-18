@@ -385,9 +385,12 @@ with right_col:
 # 🔽 Performance Chart
 import streamlit.components.v1 as components
 
-if not performance_df.empty:
+# Read data first, outside of the chart function
+perf_df = pd.read_csv("portfolio_performance.csv", parse_dates=["date"])
+
+if not perf_df.empty:
     perf_fig = px.line(
-        perf_df = pd.read_csv("portfolio_performance.csv", parse_dates=["date"])
+        perf_df,
         x="date",
         y="value",
         labels={"value": "Portfolio Value", "date": "Date"},
