@@ -136,7 +136,6 @@ def backtest(returns, regime_df, allocations):
 portfolio_returns = backtest(returns, regime_df, allocations)
 
 # === GET CURRENT REGIME ===
-# === GET CURRENT REGIME ===
 # Load raw regime file and normalize
 original_regime_dates = pd.read_csv("regime_labels_expanded.csv", parse_dates=["date"])
 original_regime_dates["regime"] = original_regime_dates["regime"].astype(str).str.strip().str.lower()
@@ -371,7 +370,7 @@ with left_col:
         labels={"x": "Date", "y": "Cumulative Return"},
     )
     fig_line.update_layout(
-        width=800,
+        width=1000,
         height=350,
         margin=dict(t=10, b=10, l=10, r=10),
         paper_bgcolor='rgba(0,0,0,0)',
