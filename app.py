@@ -259,24 +259,26 @@ with left_col:
 
             st.plotly_chart(fig_pie, use_container_width=True)
 
-st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
-st.markdown(
-    """
-    <div style='text-align: center; margin-top: -5px;'>
-        <ul style='padding-left: 10; list-style-position: inside; text-align: left; display: inline-block;'>
-    """ + "".join([
-        f"<li><strong>{asset.capitalize()}</strong>: {weight:.1%}</li>"
-        for asset, weight in current_alloc.items()
-    ]) + """
-        </ul>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-    # === PERFORMANCE CHART IN LEFT COLUMN BELOW PIE ===
-    st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
-    cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
+    st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style='text-align: center; margin-top: -5px;'>
+            <ul style='padding-left: 10; list-style-position: inside; text-align: left; display: inline-block;'>
+        """ + "".join([
+            f"<li><strong>{asset.capitalize()}</strong>: {weight:.1%}</li>"
+            for asset, weight in current_alloc.items()
+        ]) + """
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
+    # Align chart heading with right-side title
+    st.markdown("<div style='margin-top: -20px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
+
+    cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
     fig_line = px.line(
         x=cumulative_returns.index,
         y=cumulative_returns.values,
