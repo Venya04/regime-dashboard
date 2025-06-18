@@ -398,7 +398,7 @@ if not performance_df.empty:
     perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
     perf_fig.update_layout(
         height=350,
-        width=1000,
+        width=1200,
         margin=dict(l=20, r=20, t=10, b=20),
         autosize=True,
         paper_bgcolor='rgba(0,0,0,0)',
