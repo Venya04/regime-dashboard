@@ -145,7 +145,11 @@ def backtest(returns, regime_df, allocations):
         portfolio_returns.append(ret)
     return pd.Series(portfolio_returns, index=returns.index)
 
+# === BACKTEST ===
 portfolio_returns = backtest(returns, regime_df, allocations)
+
+# ✅ Sanitize daily returns BEFORE calculating value series
+portfolio_returns = portfolio_returns.clip(lower=-0.5, upper=0.5)
 
 # === AUTO-UPDATE portfolio_performance.csv ===
 portfolio_value_series = (1 + portfolio_returns.fillna(0)).cumprod()
@@ -155,16 +159,13 @@ portfolio_value_series *= initial_value
 latest_value = portfolio_value_series.iloc[-1]
 latest_date = portfolio_value_series.index[-1]
 
-# ✅ define path early
 perf_path = "portfolio_performance.csv"
 
-# ✅ read existing CSV
 try:
     perf_df = pd.read_csv(perf_path, parse_dates=["date"])
 except FileNotFoundError:
     perf_df = pd.DataFrame(columns=["date", "value"])
 
-# ✅ validate value range before appending
 if 5000 < latest_value < 20000:
     if latest_date.date() not in perf_df["date"].dt.date.values:
         new_row = pd.DataFrame([{"date": latest_date, "value": latest_value}])
@@ -173,8 +174,6 @@ if 5000 < latest_value < 20000:
         perf_df.to_csv(perf_path, index=False)
 else:
     st.warning(f"⚠️ Skipped abnormal portfolio value: {latest_value:.2f}")
-
-perf_path = "portfolio_performance.csv"
 
 try:
     perf_df = pd.read_csv(perf_path, parse_dates=["date"])
