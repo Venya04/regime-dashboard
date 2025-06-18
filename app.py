@@ -257,7 +257,9 @@ with left_col:
                 plot_bgcolor='rgba(0,0,0,0)',
             )
 
-            st.plotly_chart(fig_pie, use_container_width=True)
+            st.markdown("<div style='max-width: 650px; margin: auto;'>", unsafe_allow_html=True)
+st.plotly_chart(fig_line, use_container_width=True)
+st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
     st.markdown(
@@ -400,10 +402,8 @@ with right_col:
     summary_stats = calculate_summary_stats(portfolio_returns.dropna())
     summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
 
-    st.markdown(
-        "<div style='width: 100%; max-width: 200px;'>",
-        unsafe_allow_html=True
-    )
+    st.markdown("<div style='width: 100%; max-width: 400px; margin: auto;'>", unsafe_allow_html=True)
+
     st.dataframe(summary_df.style.format(precision=2), height=230)
     st.markdown("</div>", unsafe_allow_html=True)
 
