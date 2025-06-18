@@ -274,26 +274,26 @@ with left_col:
         unsafe_allow_html=True
     )
 
-    # Align chart heading with right-side title
-    st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
-    st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
+    # # Align chart heading with right-side title
+    # st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
+    # st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
 
-    cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
-    fig_line = px.line(
-        x=cumulative_returns.index,
-        y=cumulative_returns.values,
-        labels={"x": "Date", "y": "Cumulative Return"},
-    )
-    fig_line.update_layout(
-        showlegend=False,
-        margin=dict(t=10, b=10, l=0, r=30),
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',
-        yaxis_tickformat='.0%',
-    )
-    st.plotly_chart(fig_line, use_container_width=True)
+    # cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
+    # fig_line = px.line(
+    #     x=cumulative_returns.index,
+    #     y=cumulative_returns.values,
+    #     labels={"x": "Date", "y": "Cumulative Return"},
+    # )
+    # fig_line.update_layout(
+    #     showlegend=False,
+    #     margin=dict(t=10, b=10, l=0, r=30),
+    #     paper_bgcolor='rgba(0,0,0,0)',
+    #     plot_bgcolor='rgba(0,0,0,0)',
+    #     yaxis_tickformat='.0%',
+    # )
+    # st.plotly_chart(fig_line, use_container_width=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    # st.markdown("</div>", unsafe_allow_html=True)
 # with left_col:
 #     st.markdown("""
 #         <style>
@@ -469,28 +469,28 @@ with right_col:
     # === SUMMARY TABLE BELOW TEXT BOXES IN RIGHT COLUMN ===
     st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
 
-    def calculate_summary_stats(returns):
-        cumulative_return = (1 + returns).prod() - 1
-        annualized_return = (1 + cumulative_return) ** (252 / len(returns)) - 1
-        volatility = returns.std() * np.sqrt(252)
-        sharpe = returns.mean() / returns.std() * np.sqrt(252)
-        drawdown = (1 + returns).cumprod().div((1 + returns).cumprod().cummax()) - 1
-        max_drawdown = drawdown.min()
-        return {
-            "Total Return": f"{cumulative_return * 100:.2f}%",
-            "Annualized Return": f"{annualized_return * 100:.2f}%",
-            "Volatility": f"{volatility * 100:.2f}%",
-            "Sharpe Ratio": f"{sharpe:.2f}",
-            "Max Drawdown": f"{max_drawdown * 100:.2f}%"
-        }
+    # def calculate_summary_stats(returns):
+    #     cumulative_return = (1 + returns).prod() - 1
+    #     annualized_return = (1 + cumulative_return) ** (252 / len(returns)) - 1
+    #     volatility = returns.std() * np.sqrt(252)
+    #     sharpe = returns.mean() / returns.std() * np.sqrt(252)
+    #     drawdown = (1 + returns).cumprod().div((1 + returns).cumprod().cummax()) - 1
+    #     max_drawdown = drawdown.min()
+    #     return {
+    #         "Total Return": f"{cumulative_return * 100:.2f}%",
+    #         "Annualized Return": f"{annualized_return * 100:.2f}%",
+    #         "Volatility": f"{volatility * 100:.2f}%",
+    #         "Sharpe Ratio": f"{sharpe:.2f}",
+    #         "Max Drawdown": f"{max_drawdown * 100:.2f}%"
+    #     }
 
-    summary_stats = calculate_summary_stats(portfolio_returns.dropna())
-    summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
+    # summary_stats = calculate_summary_stats(portfolio_returns.dropna())
+    # summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
 
-    st.markdown("<div style='width: 100%; max-width: 400px; margin: auto;'>", unsafe_allow_html=True)
+    # st.markdown("<div style='width: 100%; max-width: 400px; margin: auto;'>", unsafe_allow_html=True)
 
-    st.dataframe(summary_df.style.format(precision=2), height=230)
-    st.markdown("</div>", unsafe_allow_html=True)
+    # st.dataframe(summary_df.style.format(precision=2), height=230)
+    # st.markdown("</div>", unsafe_allow_html=True)
 
 # Hide Streamlit menu and footer
 st.markdown("""
