@@ -274,26 +274,26 @@ with left_col:
         unsafe_allow_html=True
     )
 
-    # # Align chart heading with right-side title
-    # st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
-    # st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
+    # Align chart heading with right-side title
+    st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
 
-    # cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
-    # fig_line = px.line(
-    #     x=cumulative_returns.index,
-    #     y=cumulative_returns.values,
-    #     labels={"x": "Date", "y": "Cumulative Return"},
-    # )
-    # fig_line.update_layout(
-    #     showlegend=False,
-    #     margin=dict(t=10, b=10, l=0, r=30),
-    #     paper_bgcolor='rgba(0,0,0,0)',
-    #     plot_bgcolor='rgba(0,0,0,0)',
-    #     yaxis_tickformat='.0%',
-    # )
-    # st.plotly_chart(fig_line, use_container_width=True)
+    cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
+    fig_line = px.line(
+        x=cumulative_returns.index,
+        y=cumulative_returns.values,
+        labels={"x": "Date", "y": "Cumulative Return"},
+    )
+    fig_line.update_layout(
+        showlegend=False,
+        margin=dict(t=10, b=10, l=0, r=30),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        yaxis_tickformat='.0%',
+    )
+    st.plotly_chart(fig_line, use_container_width=True)
 
-    # st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 # with left_col:
 #     st.markdown("""
 #         <style>
@@ -360,25 +360,25 @@ with left_col:
 #     )
 
     # === LINE CHART ===
-    st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
-    st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
+    # st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
+    # st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
 
-    cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
-    fig_line = px.line(
-        x=cumulative_returns.index,
-        y=cumulative_returns.values,
-        labels={"x": "Date", "y": "Cumulative Return"},
-    )
-    fig_line.update_layout(
-        width=1000,
-        height=350,
-        margin=dict(t=10, b=10, l=10, r=10),
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',
-    )
-    centered_col = st.columns([1, 2, 1])[1]
-    with centered_col:
-        st.plotly_chart(fig_line, use_container_width=False)
+    # cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
+    # fig_line = px.line(
+    #     x=cumulative_returns.index,
+    #     y=cumulative_returns.values,
+    #     labels={"x": "Date", "y": "Cumulative Return"},
+    # )
+    # fig_line.update_layout(
+    #     width=1000,
+    #     height=350,
+    #     margin=dict(t=10, b=10, l=10, r=10),
+    #     paper_bgcolor='rgba(0,0,0,0)',
+    #     plot_bgcolor='rgba(0,0,0,0)',
+    # )
+    # centered_col = st.columns([1, 2, 1])[1]
+    # with centered_col:
+    #     st.plotly_chart(fig_line, use_container_width=False)
 
 with right_col:
     st.markdown("""
