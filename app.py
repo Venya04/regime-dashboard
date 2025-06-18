@@ -387,8 +387,8 @@ import streamlit.components.v1 as components
 
 if not performance_df.empty:
     perf_fig = px.line(
-        performance_df,
-        x=performance_df.index,
+        perf_df = pd.read_csv("portfolio_performance.csv", parse_dates=["date"])
+        x="date",
         y="value",
         labels={"value": "Portfolio Value", "date": "Date"},
         template="plotly_dark",
