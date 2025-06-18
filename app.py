@@ -340,7 +340,9 @@ with left_col:
                 width=400,  # MATCHING width
                 height=400
             )
+            st.markdown("<div style='width: 400px; margin: 0 auto;'>", unsafe_allow_html=True)
             st.plotly_chart(fig_pie, use_container_width=False)
+            st.markdown("</div>", unsafe_allow_html=True)
 
     # === HOLDINGS LIST ===
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
@@ -375,7 +377,9 @@ with left_col:
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
     )
+    st.markdown("<div style='width: 400px; margin: 0 auto;'>", unsafe_allow_html=True)
     st.plotly_chart(fig_line, use_container_width=False)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 with right_col:
     st.markdown("""
