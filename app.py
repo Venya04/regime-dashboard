@@ -383,6 +383,8 @@ with right_col:
         st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
 
 # 🔽 Performance Chart
+import streamlit.components.v1 as components
+
 if not performance_df.empty:
     perf_fig = px.line(
         performance_df,
@@ -396,11 +398,22 @@ if not performance_df.empty:
     perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
     perf_fig.update_layout(
         height=350,
-        width=2000,  # Keep fixed width
+        width=1000,
         margin=dict(l=20, r=20, t=10, b=20),
-        plot_bgcolor='rgba(0,0,0,0)',
-        paper_bgcolor='rgba(0,0,0,0)'
+        autosize=True,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
     )
+
+    html = perf_fig.to_html(include_plotlyjs='cdn', full_html=False)
+
+    components.html(f"""
+    <div style="display: flex; justify-content: center;">
+        <div style="max-width: 900px; width: 100%;">
+            {html}
+        </div>
+    </div>
+    """, height=400)
 
     # 🔧 Use Streamlit's column layout to center the chart
     left_spacer, center_col, right_spacer = st.columns([1, 2, 1])
