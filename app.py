@@ -209,6 +209,92 @@ st.markdown("""
 # === LAYOUT ===
 left_col, right_col = st.columns([0.5, 0.5])
 
+# with left_col:
+#     st.markdown("""
+#         <style>
+#             .left-section-title {
+#                 font-family: Georgia, serif;
+#                 font-size: 1.1rem;
+#                 font-weight: bold;
+#                 text-transform: uppercase;
+#                 margin-bottom: 10px;
+#                 text-align: center;
+#             }
+#         </style>
+#     """, unsafe_allow_html=True)
+
+#      # Limit left column content width
+#     st.markdown("<div style='max-width: 600px; margin: 0 auto;'>", unsafe_allow_html=True)
+
+#     if current_alloc:
+#         # Filter out allocations smaller than 0.1%
+#         filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
+
+#         if filtered_alloc:
+#             fig_pie = px.pie(
+#                 names=list(filtered_alloc.keys()),
+#                 values=list(filtered_alloc.values()),
+#                 hole=0,
+#                 color=list(filtered_alloc.keys()),
+#                 color_discrete_map={
+#                     "stocks": "#19212E",
+#                     "stablecoins": "#522D2D",
+#                     "cash": "#391514",
+#                     "crypto": "#212D40",
+#                     "commodities": "#6d5332",
+#                 }
+#             )
+
+#             fig_pie.update_traces(
+#                 textinfo='percent',
+#                 textfont=dict(size=17, family="Georgia"),
+#                 # insidetextorientation='radial',
+#                 pull=[0.015] * len(filtered_alloc),
+#                 marker=dict(line=dict(color="#000000", width=1))
+#             )
+
+#             fig_pie.update_layout(
+#                 showlegend=False,
+#                 margin=dict(t=10, b=10, l=10, r=10),
+#                 paper_bgcolor='rgba(0,0,0,0)',
+#                 plot_bgcolor='rgba(0,0,0,0)',
+#             )
+#             st.plotly_chart(fig_pie, use_container_width=True)
+#     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
+#     st.markdown(
+#         """
+#         <div style='text-align: center; margin-top: -5px;'>
+#             <ul style='padding-left: 10; list-style-position: inside; text-align: left; display: inline-block;'>
+#         """ + "".join([
+#             f"<li><strong>{asset.capitalize()}</strong>: {weight:.1%}</li>"
+#             for asset, weight in current_alloc.items()
+#         ]) + """
+#             </ul>
+#         </div>
+#         """,
+#         unsafe_allow_html=True
+#     )
+
+#     # Align chart heading with right-side title
+#     st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
+#     st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
+
+#     cumulative_returns = (1 + portfolio_returns.fillna(0)).cumprod()
+#     fig_line = px.line(
+#         x=cumulative_returns.index,
+#         y=cumulative_returns.values,
+#         labels={"x": "Date", "y": "Cumulative Return"},
+#     )
+#     fig_line.update_layout(
+#         showlegend=False,
+#         margin=dict(t=10, b=10, l=0, r=30),
+#         paper_bgcolor='rgba(0,0,0,0)',
+#         plot_bgcolor='rgba(0,0,0,0)',
+#         yaxis_tickformat='.0%',
+#     )
+#     st.plotly_chart(fig_line, use_container_width=True)
+
+#     st.markdown("</div>", unsafe_allow_html=True)
 with left_col:
     st.markdown("""
         <style>
@@ -223,13 +309,12 @@ with left_col:
         </style>
     """, unsafe_allow_html=True)
 
-     # Limit left column content width
+    # Limit all left-side content width
     st.markdown("<div style='max-width: 600px; margin: 0 auto;'>", unsafe_allow_html=True)
 
+    # === PIE CHART ===
     if current_alloc:
-        # Filter out allocations smaller than 0.1%
         filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
-
         if filtered_alloc:
             fig_pie = px.pie(
                 names=list(filtered_alloc.keys()),
@@ -244,15 +329,12 @@ with left_col:
                     "commodities": "#6d5332",
                 }
             )
-
             fig_pie.update_traces(
                 textinfo='percent',
                 textfont=dict(size=17, family="Georgia"),
-                # insidetextorientation='radial',
                 pull=[0.015] * len(filtered_alloc),
                 marker=dict(line=dict(color="#000000", width=1))
             )
-
             fig_pie.update_layout(
                 showlegend=False,
                 margin=dict(t=10, b=10, l=10, r=10),
@@ -260,6 +342,8 @@ with left_col:
                 plot_bgcolor='rgba(0,0,0,0)',
             )
             st.plotly_chart(fig_pie, use_container_width=True)
+
+    # === HOLDINGS LIST ===
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
     st.markdown(
         """
@@ -275,7 +359,7 @@ with left_col:
         unsafe_allow_html=True
     )
 
-    # Align chart heading with right-side title
+    # === LINE CHART ===
     st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
     st.markdown("<div class='left-section-title'>Strategy Performance</div>", unsafe_allow_html=True)
 
@@ -287,14 +371,16 @@ with left_col:
     )
     fig_line.update_layout(
         showlegend=False,
-        margin=dict(t=10, b=10, l=0, r=30),
+        margin=dict(t=10, b=10, l=10, r=10),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
         yaxis_tickformat='.0%',
     )
     st.plotly_chart(fig_line, use_container_width=True)
 
+    # Close the container div
     st.markdown("</div>", unsafe_allow_html=True)
+
 
 with right_col:
     st.markdown("""
