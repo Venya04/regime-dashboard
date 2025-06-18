@@ -403,7 +403,7 @@ if not performance_df.empty:
     )
 
     # 🔧 Use Streamlit's column layout to center the chart
-    left_spacer, center_col, right_spacer = st.columns([1, 3, 1])
+    left_spacer, center_col, right_spacer = st.columns([1, 2, 1])
     with center_col:
         st.plotly_chart(perf_fig, use_container_width=False)
 
