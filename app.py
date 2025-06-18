@@ -384,7 +384,6 @@ with right_col:
 
 # 🔽 Performance Chart
 if not performance_df.empty:
-
     perf_fig = px.line(
         performance_df,
         x=performance_df.index,
@@ -395,20 +394,24 @@ if not performance_df.empty:
     )
 
     perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
-# 👇 Add this to control width before rendering
-perf_fig.update_layout(
-    height=350,
-    width=700,  # 👈 Centered size
-    margin=dict(l=20, r=20, t=10, b=20),
-    plot_bgcolor='rgba(0,0,0,0)',
-    paper_bgcolor='rgba(0,0,0,0)'
-)
+    perf_fig.update_layout(
+        height=350,
+        width=700,  # 🔧 fixed width to center
+        margin=dict(l=20, r=20, t=10, b=20),
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)'
+    )
 
-# Center the chart with HTML flex
-st.markdown("<div style='display: flex; justify-content: center;'>", unsafe_allow_html=True)
-st.plotly_chart(perf_fig, use_container_width=False)
-st.markdown("</div>", unsafe_allow_html=True)
+    # ✅ This centers the entire block on screen
+    chart_html = f"""
+    <div style='display: flex; justify-content: center;'>
+        <div style='width: 700px;'>
+            {perf_fig.to_html(include_plotlyjs=False, full_html=False)}
+        </div>
+    </div>
+    """
 
+    st.markdown(chart_html, unsafe_allow_html=True)
 
 # Hide Streamlit menu and footer
 st.markdown("""
