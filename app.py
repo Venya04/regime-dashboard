@@ -287,7 +287,7 @@ fig_line = px.line(
 )
 fig_line.update_layout(
     showlegend=False,
-    margin=dict(t=10, b=10, l=0, r=0),  # ← adjust right margin here to shift left
+    margin=dict(t=10, b=10, l=10, r=10),  # ← adjust right margin here to shift left
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     yaxis_tickformat='.0%',
