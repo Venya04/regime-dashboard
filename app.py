@@ -397,14 +397,13 @@ with right_col:
             "Max Drawdown": f"{max_drawdown * 100:.2f}%"
         }
 
-st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
-
-# Wrap dataframe in a fixed-width container
-st.markdown("<div style='width: 400px;'>", unsafe_allow_html=True)  # 🧠 adjust px or use % here
-
-st.dataframe(summary_df.style.format(precision=2), height=230)
-
-st.markdown("</div>", unsafe_allow_html=True)
+with st.container():
+    st.markdown(
+        "<div style='max-width: 450px; min-width: 300px;'>",
+        unsafe_allow_html=True
+    )
+    st.dataframe(summary_df.style.format(precision=2), height=230)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # Hide Streamlit menu and footer
 st.markdown("""
