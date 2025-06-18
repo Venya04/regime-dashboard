@@ -400,11 +400,14 @@ with right_col:
     summary_stats = calculate_summary_stats(portfolio_returns.dropna())
     summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
 
-    with st.container():
+with st.container():
         st.markdown(
-        st.markdown("<div style='width: 80%;'>", unsafe_allow_html=True)
+            "<div style='max-width: 200px; min-width: 200px;'>",
+            unsafe_allow_html=True
+        )
         st.dataframe(summary_df.style.format(precision=2), height=230)
         st.markdown("</div>", unsafe_allow_html=True)
+
 # Hide Streamlit menu and footer
 st.markdown("""
     <style>
