@@ -236,7 +236,7 @@ with left_col:
                 color_discrete_map={
                     "stocks": "#19212E",
                     "stablecoins": "#522D2D",
-                    "cash": "#600A07",
+                    "cash": "#421A18",
                     "crypto": "#212D40",
                     "commodities": "#6a4d32",
                 }
