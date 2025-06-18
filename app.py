@@ -400,7 +400,7 @@ with right_col:
     summary_stats = calculate_summary_stats(portfolio_returns.dropna())
     summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
 
-st.markdown(
+    st.markdown(
         "<div style='width: 100%; max-width: 450px;'>",
         unsafe_allow_html=True
     )
