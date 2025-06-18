@@ -154,6 +154,15 @@ portfolio_value_series *= initial_value
 latest_value = portfolio_value_series.iloc[-1]
 latest_date = portfolio_value_series.index[-1]
 
+if 5000 < latest_value < 20000:  # Reasonable range for your portfolio
+    if latest_date.date() not in perf_df["date"].dt.date.values:
+        new_row = pd.DataFrame([{"date": latest_date, "value": latest_value}])
+        perf_df = pd.concat([perf_df, new_row], ignore_index=True)
+        perf_df.sort_values("date", inplace=True)
+        perf_df.to_csv(perf_path, index=False)
+else:
+    st.warning(f"⚠️ Skipped abnormal portfolio value: {latest_value:.2f}")
+
 perf_path = "portfolio_performance.csv"
 
 try:
@@ -437,11 +446,6 @@ if not perf_df.empty:
         </div>
     </div>
     """, height=400)
-
-    # # 🔧 Use Streamlit's column layout to center the chart
-    # left_spacer, center_col, right_spacer = st.columns([1, 2, 1])
-    # with center_col:
-    #     st.plotly_chart(perf_fig, use_container_width=False)
 
 # Hide Streamlit menu and footer
 st.markdown("""
