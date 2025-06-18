@@ -367,7 +367,7 @@ with right_col:
                 commentary[section_title] = st.text_area(
                     f"{section_title} input",
                     value=commentary[section_title],
-                    height=130,
+                    height=230,
                     key=section_title
                 )
             else:
@@ -399,7 +399,7 @@ with right_col:
 
     summary_stats = calculate_summary_stats(portfolio_returns.dropna())
     summary_df = pd.DataFrame.from_dict(summary_stats, orient='index', columns=['Regime Strategy'])
-    st.dataframe(summary_df.style.format(precision=2), height=130)
+    st.dataframe(summary_df.style.format(precision=2), height=230)
 
 # Hide Streamlit menu and footer
 st.markdown("""
