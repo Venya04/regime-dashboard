@@ -411,7 +411,9 @@ if not performance_df.empty:
     </div>
     """
 
-    st.markdown(chart_html, unsafe_allow_html=True)
+st.markdown("<div style='display: flex; justify-content: center;'>", unsafe_allow_html=True)
+st.plotly_chart(perf_fig, use_container_width=False)
+st.markdown("</div>", unsafe_allow_html=True)
 
 # Hide Streamlit menu and footer
 st.markdown("""
