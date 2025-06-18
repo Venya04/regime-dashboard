@@ -294,9 +294,6 @@ fig_line.update_layout(
 )
 st.plotly_chart(fig_line, use_container_width=True)
 
-with perf_col2:
-    st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
-
 with right_col:
     st.markdown("""
        <style>
@@ -386,6 +383,9 @@ with right_col:
     # === SUMMARY TABLE BELOW TEXT BOXES IN RIGHT COLUMN ===
 st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
 
+with perf_col2:
+    st.markdown("<div class='section-title'>Performance Summary</div>", unsafe_allow_html=True)
+    
 def calculate_summary_stats(returns):
     cumulative_return = (1 + returns).prod() - 1
     annualized_return = (1 + cumulative_return) ** (252 / len(returns)) - 1
