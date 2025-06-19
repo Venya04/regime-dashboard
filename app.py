@@ -34,7 +34,7 @@ if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
 # === SETTINGS ===
-BUTTON_TOP_OFFSET = 80 
+BUTTON_TOP_OFFSET = 500
 
 # === CSS Styling ===
 st.markdown("""
