@@ -28,18 +28,19 @@ TICKERS = {
 }
 
 # === 1. Set page and initialize session state
+# === 1. Set page and initialize session state
 st.set_page_config(page_title="Regime Report", layout="wide")
 
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
-# === 2. Capture query param early before rendering
-query_params = st.experimental_get_query_params()
+# === 2. Capture query param early (NEW API)
+query_params = st.query_params
 if "_user_guide_clicked" in query_params:
     st.session_state["show_guide"] = True
-    st.experimental_set_query_params()  # Clear URL
+    st.set_query_params()  # Clear URL after use
 
-# === 3. Floating button (only when guide is closed)
+# === 3. Show floating button if guide is NOT open
 if not st.session_state["show_guide"]:
     st.markdown("""
     <div class="user-guide-float">
@@ -80,7 +81,7 @@ if not st.session_state["show_guide"]:
     </script>
     """, unsafe_allow_html=True)
 
-# === 4. Show Guide + Close
+# === 4. Show the guide content when open
 if st.session_state["show_guide"]:
     with st.container():
         st.markdown("""
@@ -131,7 +132,7 @@ if st.session_state["show_guide"]:
 
         st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
-        # Close button
+        # ✅ Close guide form button
         with st.form("close_guide_form"):
             st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
             submitted = st.form_submit_button("❌ Close Guide")
@@ -141,7 +142,9 @@ if st.session_state["show_guide"]:
                 st.session_state["show_guide"] = False
                 st.rerun()
 
+    # 🛑 Stop dashboard rendering when guide is shown
     st.stop()
+
 
     
 # === LOAD DATA ===
