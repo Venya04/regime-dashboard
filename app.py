@@ -28,6 +28,24 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
+st.markdown("""
+    <style>
+        /* Eliminate top margin/padding from main layout */
+        .block-container {
+            padding-top: 1rem !important;
+        }
+
+        .main {
+            padding-top: 0rem !important;
+        }
+
+        /* Optional: remove top margin from title */
+        .gothic-title {
+            margin-top: -1rem !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # === USER GUIDE BUTTON TOGGLE ===
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
