@@ -27,7 +27,6 @@ TICKERS = {
     "stablecoins": None
 }
 
-# === SET PAGE & INITIAL STATE ===
 # === FIXED SPACING / STYLE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
 # === CONFIG + SESSION ===
@@ -68,7 +67,7 @@ st.markdown("""
         font-weight: bold;
         letter-spacing: 1px;
         margin-bottom: 0.2rem;
-        margin-top: -50px;
+        margin-top: -70px;
     }
     .pub-info {
         text-align: center;
