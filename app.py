@@ -48,12 +48,10 @@ if "show_guide" not in st.session_state:
 
 # === GUIDE BUTTON + HEADER ===
 # Tweak the guide button’s vertical placement separately
-left_col, right_col = st.columns([0.2, 0.8])
+st.empty()  # Invisible placeholder that takes 1 line
+
+left_col, _ = st.columns([0.2, 0.8])
 with left_col:
-    st.markdown("""
-        <div style='margin-top: 200px; display: flex; align-items: flex-start;'>
-    """, unsafe_allow_html=True)
-    
     button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
     if st.button(button_label):
         st.session_state.show_guide = not st.session_state.show_guide
