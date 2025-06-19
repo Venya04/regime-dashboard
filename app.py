@@ -40,7 +40,7 @@ col1, col2 = st.columns([1, 20])
 
 with col1:
     # Prevent Streamlit from shrinking width and stacking text
-    st.markdown("""
+      st.markdown("""
         <style>
         .stButton>button {
             width: 120px;
@@ -48,6 +48,11 @@ with col1:
             padding: 6px 10px;
             font-size: 0.9rem;
             white-space: nowrap;
+        }
+
+        /* Move the button upward */
+        div[data-testid="column"] {
+            margin-top: -60px;
         }
         </style>
     """, unsafe_allow_html=True)
