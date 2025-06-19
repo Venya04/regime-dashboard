@@ -83,15 +83,15 @@ if not st.session_state["show_guide"]:
     </script>
     """, unsafe_allow_html=True)
 
-# === 2b. Hide floating button if guide is open
-if st.session_state["show_guide"]:
-    st.markdown("""
-    <style>
-    button[kind="secondary"] {
-        display: none !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+# # === 2b. Hide floating button if guide is open
+# if st.session_state["show_guide"]:
+#     st.markdown("""
+#     <style>
+#     button[kind="secondary"] {
+#         display: none !important;
+#     }
+#     </style>
+#     """, unsafe_allow_html=True)
 
 # === 3. Show Guide Content + Close Button
 if st.session_state["show_guide"]:
