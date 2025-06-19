@@ -29,6 +29,77 @@ TICKERS = {
 
 st.set_page_config(page_title="Regime Report", layout="wide")
 
+# === USER GUIDE SIDEBAR ===
+with st.sidebar:
+    show_guide = st.checkbox("📘 How to Read This Dashboard", value=False)
+
+if show_guide:
+    st.markdown(
+        """
+        <style>
+        .guide-box {
+            background-color: #111111;
+            color: #e0e0e0;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        </style>
+        """, unsafe_allow_html=True
+    )
+
+    st.markdown('<div class="guide-box">', unsafe_allow_html=True)
+
+    st.markdown("""
+    ### 📘 How to Read This Dashboard
+
+    Welcome to **The Regime Report** — your macro-aware investment guide.
+
+    This dashboard is built around a core truth:
+
+    > 💭 **You can’t tell the market what to do — but you can choose how to respond.**
+
+    The market doesn’t care whether you want to 10x your money or simply protect it from inflation. It moves with forces far beyond our control.  
+    What we **can** do is manage risk, adjust wisely, and respond rationally.
+
+    This dashboard helps you do exactly that.
+
+    ---
+
+    We identify the current **economic regime** using macro data (GDP, inflation, etc.) and show you:
+    - Optimal asset allocation
+    - Portfolio performance
+    - Market insight and strategy updates
+
+    ---
+
+    #### 🥧 Portfolio Allocation Pie Chart
+    Suggests how to allocate assets (stocks, crypto, cash, etc.) based on the current regime.
+
+    #### 📈 Portfolio Performance Chart
+    Shows how the strategy performed over time vs. passive alternatives.
+
+    #### 🧠 Market Insight
+    Interprets current macro signals — inflation, growth, credit, liquidity.
+
+    #### 🎯 Top Strategy Note
+    Tactical view: what to do based on the current regime.
+
+    #### 💡 Trader’s Conclusion
+    Simple takeaway: hold, hedge, rebalance?
+
+    ---
+
+    ### 💬 Still Learning?
+    No worries — this dashboard is designed to be educational and actionable.  
+    Think of it as your **macro compass** — helping you navigate instead of guess.
+
+    > **Discipline over desire always wins.**
+    """, unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # === LOAD DATA ===
 @st.cache_data
