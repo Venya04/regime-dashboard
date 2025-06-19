@@ -28,76 +28,53 @@ TICKERS = {
 }
 
 # === SET PAGE & INITIAL STATE ===
+# === FIXED SPACING / STYLE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
-
-# # === REMOVE DEFAULT TOP PADDING === ✅ PLACE THIS RIGHT HERE
-# # Shrink default top padding + reduce vertical spacing between blocks
-# st.markdown("""
-#     <style>
-#         .block-container {
-#             padding-top: 0rem !important;
-#         }
-#         .gothic-title {
-#             margin-top: 0rem;  /* ✅ no negative margin */
-#         }
-#     </style>
-# """, unsafe_allow_html=True)
-
-# if "show_guide" not in st.session_state:
-#     st.session_state.show_guide = False
-
-# # === GUIDE BUTTON + HEADER ===
-# # Tweak the guide button’s vertical placement separately
-# st.empty()  # Invisible placeholder that takes 1 line
-
-# left_col, _ = st.columns([0.2, 0.8])
-# with left_col:
-#     button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-#     if st.button(button_label):
-#         st.session_state.show_guide = not st.session_state.show_guide
-
-#     st.markdown("</div>", unsafe_allow_html=True)
-
-# # ✅ Now space above header
-# st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
-
-# === HEADER STYLING ===
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-    .gothic-title {
-        font-family: 'UnifrakturCook', serif;
-        text-align: center;
-        font-size: 3.5rem;
-        font-weight: bold;
-        letter-spacing: 1px;
-        margin-bottom: 0.2rem;
-        /* ❌ No negative margin! */
-        margin-top: -90px;
-    }
-    .pub-info {
-        text-align: center;
-        font-family: 'Georgia', serif;
-        font-size: 0.8rem;
-        margin-top: -10px;
-        color: #ccc;
-    }
+        .block-container {
+            padding-top: 0rem !important;
+        }
+        .gothic-title {
+            margin-top: -50px;
+        }
     </style>
-    <div class='gothic-title'>The Regime Report</div>
-    <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0px;'>
-        Asset Allocation in Current Market Conditions
-    </h3>
 """, unsafe_allow_html=True)
 
-# === BUTTON COMES AFTER (SEPARATE ROW) ===
-st.markdown("<div style='height: 0rem;'></div>", unsafe_allow_html=True)  # spacing between title and button row
+# === INLINE BUTTON + HEADING ===
+col1, col2 = st.columns([0.15, 0.85])
 
-button_col, _ = st.columns([0.2, 0.8])
-with button_col:
+with col1:
     button_label = "📘 Open Guide" if not st.session_state.get("show_guide", False) else "❌ Close Guide"
     if st.button(button_label):
         st.session_state.show_guide = not st.session_state.get("show_guide", False)
+
+with col2:
+    st.markdown("""
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+        .gothic-title {
+            font-family: 'UnifrakturCook', serif;
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 0.2rem;
+        }
+        .pub-info {
+            text-align: center;
+            font-family: 'Georgia', serif;
+            font-size: 0.8rem;
+            margin-top: -10px;
+            color: #ccc;
+        }
+        </style>
+        <div class='gothic-title'>The Regime Report</div>
+        <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+        <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0px;'>
+            Asset Allocation in Current Market Conditions
+        </h3>
+    """, unsafe_allow_html=True)
 
 if st.session_state.show_guide:
     st.markdown(
