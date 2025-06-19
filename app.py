@@ -34,18 +34,32 @@ if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
 # 1. Define CSS + open container
+# … earlier setup …
 st.markdown("""
-<style>
-  /* Position guide button top-left */
-  .guide-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 9999;
-  }
-</style>
-<div class="guide-button">
+  <style>
+    .guide-button {
+      position: absolute;
+      top: 10px; left: 10px; z-index: 999;
+    }
+  </style>
+  <div class="guide-button">
 """, unsafe_allow_html=True)
+
+# Button widget
+btn = st.button("📘 Open Guide", key="toggle_guide")
+if btn:
+    st.session_state.show_guide = not st.session_state.show_guide
+
+# Close the guide-button container
+st.markdown("</div>", unsafe_allow_html=True)
+
+# Now inject your header HTML (no overlap)
+st.markdown("""
+  <style> /* header styles… */ </style>
+  <div class='gothic-title'>The Regime Report</div>
+  <!-- etc -->
+""", unsafe_allow_html=True)
+
 
 # 2. Place the button inside that container
 button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
