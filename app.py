@@ -28,61 +28,139 @@ TICKERS = {
 }
 
 # === CONFIG + SESSION ===
+# st.set_page_config(page_title="Regime Report", layout="wide")
+# if "show_guide" not in st.session_state:
+#     st.session_state.show_guide = False
+
+# # === CUSTOM STYLING ===
+# st.markdown("""
+#     <style>
+#         /* Make entire Streamlit app a positioned container */
+#         [data-testid="stAppViewContainer"] {
+#             position: relative;
+#         }
+
+#         .guide-button {
+#             position: absolute;
+#             top: 120px;  /* 🔽 Increase this value to move the button lower */
+#             left: 20px;
+#             z-index: 1000;
+#         }
+#     </style>
+# """, unsafe_allow_html=True)
+
+# # === BUTTON (ABSOLUTE POSITIONED) ===
+# st.markdown('<div class="guide-button">', unsafe_allow_html=True)
+# button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
+# if st.button(button_label):
+#     st.session_state.show_guide = not st.session_state.show_guide
+# st.markdown('</div>', unsafe_allow_html=True)
+
+# # === FULL WIDTH HEADER ===
+# st.markdown("""
+#     <style>
+#     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+#     .gothic-title {
+#         font-family: 'UnifrakturCook', serif;
+#         text-align: center;
+#         font-size: 3.5rem;
+#         font-weight: bold;
+#         letter-spacing: 1px;
+#         margin-bottom: 0.2rem;
+#         margin-top: -50px;
+#     }
+#     .pub-info {
+#         text-align: center;
+#         font-family: 'Georgia', serif;
+#         font-size: 0.8rem;
+#         margin-top: -10px;
+#         color: #ccc;
+#     }
+#     </style>
+#     <div class='gothic-title'>The Regime Report</div>
+#     <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+#     <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0px;'>
+#         Asset Allocation in Current Market Conditions
+#     </h3>
+# """, unsafe_allow_html=True)
+
+# === PAGE CONFIG ===
 st.set_page_config(page_title="Regime Report", layout="wide")
+
+# === STATE INIT ===
 if "show_guide" not in st.session_state:
-    st.session_state.show_guide = False
+    st.session_state["show_guide"] = False
 
-# === CUSTOM STYLING ===
-st.markdown("""
-    <style>
-        /* Make entire Streamlit app a positioned container */
-        [data-testid="stAppViewContainer"] {
-            position: relative;
-        }
+# === PLACEHOLDER FOR BUTTON ===
+placeholder = st.empty()
 
-        .guide-button {
-            position: absolute;
-            top: 120px;  /* 🔽 Increase this value to move the button lower */
-            left: 20px;
-            z-index: 1000;
-        }
-    </style>
-""", unsafe_allow_html=True)
+# === HEADER & BUTTON HTML/CSS ===
+button_html = """
+<div style="position: relative; width: 100%;">
+  <div class="guide-button-wrapper" style="position: absolute; top: 110px; left: 20px; z-index: 1000;">
+    <form action="#">
+      <button type="submit" style="
+        background-color: #1f1f1f;
+        color: white;
+        border: 1px solid #444;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9rem;
+      ">📘 Open Guide</button>
+    </form>
+  </div>
+</div>
 
-# === BUTTON (ABSOLUTE POSITIONED) ===
-st.markdown('<div class="guide-button">', unsafe_allow_html=True)
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+
+  .gothic-title {
+    font-family: 'UnifrakturCook', serif;
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+    margin-top: -80px;
+  }
+
+  .pub-info {
+    text-align: center;
+    font-family: 'Georgia', serif;
+    font-size: 0.8rem;
+    margin-top: -10px;
+    color: #ccc;
+  }
+</style>
+
+<div class='gothic-title'>The Regime Report</div>
+<div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+<h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0px;'>
+    Asset Allocation in Current Market Conditions
+</h3>
+"""
+
+# === DISPLAY HTML BLOCK ===
+placeholder.markdown(button_html, unsafe_allow_html=True)
+
+# === ACTUAL BUTTON THAT WORKS ===
 button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-if st.button(button_label):
+if st.button(button_label, key="guide_toggle"):
     st.session_state.show_guide = not st.session_state.show_guide
-st.markdown('</div>', unsafe_allow_html=True)
 
-# === FULL WIDTH HEADER ===
-st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-    .gothic-title {
-        font-family: 'UnifrakturCook', serif;
-        text-align: center;
-        font-size: 3.5rem;
-        font-weight: bold;
-        letter-spacing: 1px;
-        margin-bottom: 0.2rem;
-        margin-top: -50px;
-    }
-    .pub-info {
-        text-align: center;
-        font-family: 'Georgia', serif;
-        font-size: 0.8rem;
-        margin-top: -10px;
-        color: #ccc;
-    }
-    </style>
-    <div class='gothic-title'>The Regime Report</div>
-    <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0px;'>
-        Asset Allocation in Current Market Conditions
-    </h3>
-""", unsafe_allow_html=True)
+# === GUIDE SECTION ===
+if st.session_state.show_guide:
+    st.markdown(
+        """
+        <div style="margin-top: 1rem; background-color: #111111; color: white; padding: 1rem; border-radius: 10px;">
+            <h4>📘 How to Use This Dashboard</h4>
+            <p>Useful information about navigating and understanding the dashboard content.</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 # === INIT ===
 if st.session_state.show_guide:
     st.markdown(
