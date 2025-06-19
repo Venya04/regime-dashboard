@@ -30,6 +30,9 @@ TICKERS = {
 
 # Set page config at the very top
 st.set_page_config(page_title="Regime Report", layout="wide")
+# === Ensure guide state is initialized early
+if "show_guide" not in st.session_state:
+    st.session_state["show_guide"] = False
 
 # === Bottom Left Guide Label ===
 st.markdown("""
