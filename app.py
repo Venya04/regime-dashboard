@@ -305,6 +305,9 @@ st.markdown("""
         font-weight: bold;
         padding: 0.5rem 0;
         letter-spacing: 1px;
+        text-align: center;
+        margin-bottom: 0.2rem;
+        margin-top: 10px;
     }
     .pub-info {
         text-align: center;
