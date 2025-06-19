@@ -161,25 +161,25 @@ if st.session_state.show_guide:
         unsafe_allow_html=True
     )
 
-# === INIT ===
-if st.session_state.show_guide:
-    st.markdown(
-        """
-        <style>
-        .guide-box {
-            background-color: #111111;
-            color: #e0e0e0;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-        </style>
-        <div class="guide-box">
-        """,
-        unsafe_allow_html=True
-    )
+# # === INIT ===
+# if st.session_state.show_guide:
+#     st.markdown(
+#         """
+#         <style>
+#         .guide-box {
+#             background-color: #111111;
+#             color: #e0e0e0;
+#             padding: 20px;
+#             border-radius: 15px;
+#             box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+#             max-height: 85vh;
+#             overflow-y: auto;
+#         }
+#         </style>
+#         <div class="guide-box">
+#         """,
+#         unsafe_allow_html=True
+#     )
 
     st.markdown("""
     ### 📘 How to Read This Dashboard
