@@ -60,6 +60,30 @@ button[kind="secondary"]:hover {
 </style>
 """, unsafe_allow_html=True)
 
+# === 1. Ensure guide toggle state is initialized
+if "show_guide" not in st.session_state:
+    st.session_state["show_guide"] = False
+
+# === 2. Floating "User Guide" button with unique ID
+with st.container():
+    st.markdown('<div id="user-guide-button">', unsafe_allow_html=True)
+    toggle = st.button("📘 User Guide", key="guide_btn")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    if toggle:
+        st.session_state["show_guide"] = not st.session_state["show_guide"]
+
+# === 3. Conditionally hide the floating button
+if st.session_state["show_guide"]:
+    st.markdown("""
+    <style>
+        #user-guide-button {
+            display: none !important;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
+# === 4. Show User Guide content
 if st.session_state["show_guide"]:
     with st.container():
         st.markdown("""
@@ -108,10 +132,9 @@ if st.session_state["show_guide"]:
         > **Discipline over desire always wins.**
         """, unsafe_allow_html=True)
 
-        # Spacer
         st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
-        # ✅ Use a real Streamlit form to close the guide
+        # ✅ Streamlit-native close button at the end
         with st.form(key="close_guide_form"):
             st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
             submitted = st.form_submit_button("❌ Close Guide")
@@ -121,7 +144,9 @@ if st.session_state["show_guide"]:
                 st.session_state["show_guide"] = False
                 st.rerun()
 
+    # 🛑 Stop rendering dashboard content
     st.stop()
+
 
     
 # === LOAD DATA ===
