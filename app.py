@@ -33,7 +33,7 @@ if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
 # === TOP SPACER REDUCED ===
-st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
+st.markdown("<div style='height: 0px;'></div>", unsafe_allow_html=True)
 
 # Render horizontal button with proper HTML wrapper
 col1, col2 = st.columns([0.1, 4])
