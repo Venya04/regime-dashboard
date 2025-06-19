@@ -39,8 +39,7 @@ st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
 col1, col2 = st.columns([1, 20])
 
 with col1:
-    # Prevent Streamlit from shrinking width and stacking text
-      st.markdown("""
+    st.markdown("""
         <style>
         .stButton>button {
             width: 120px;
