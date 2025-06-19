@@ -29,10 +29,8 @@ TICKERS = {
 
 # === PAGE CONFIG & STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
-# === PERMANENT TEXT NEXT TO COLLAPSE ARROWS ===
 st.markdown("""
     <style>
-    /* Overlay a label next to Streamlit's sidebar toggle */
     .guide-inline-hint::after {
         content: '📘 Click for guide';
         font-size: 13px;
@@ -40,11 +38,20 @@ st.markdown("""
         color: #aaa;
         position: fixed;
         top: 18px;
-        left: 50px;  /* aligns nicely beside the arrows */
+        left: 50px;
         z-index: 1001;
         background-color: rgba(255, 255, 255, 0.03);
         padding: 2px 8px;
         border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+        cursor: default;
+    }
+
+    .guide-inline-hint:hover::after {
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.08);
+        transform: scale(1.05);
+        box-shadow: 0 0 5px rgba(255,255,255,0.2);
     }
     </style>
     <div class="guide-inline-hint"></div>
