@@ -29,32 +29,6 @@ TICKERS = {
 
 # === 1. Set page and session state
 st.set_page_config(page_title="Regime Report", layout="wide")
-
-if "show_guide" not in st.session_state:
-    st.session_state["show_guide"] = False
-
-# === 3. Style the floating toggle
-st.markdown("""
-<style>
-#user-guide-button button[kind="secondary"] {
-    position: fixed !important;
-    bottom: 15px;
-    left: 15px;
-    z-index: 9999;
-    background-color: rgba(255,255,255,0.08);
-    color: #eee;
-    border: none;
-    padding: 6px 12px;
-    font-size: 13px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-#user-guide-button button[kind="secondary"]:hover {
-    background-color: rgba(255,255,255,0.18);
-}
-</style>
-""", unsafe_allow_html=True)
-
 # === 1. Ensure guide toggle state is initialized
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
