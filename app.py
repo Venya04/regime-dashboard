@@ -36,7 +36,7 @@ st.markdown("""
         }
 
         .main {
-            padding-top: 0rem !important;
+            padding-top: -1rem !important;
         }
 
         /* Optional: remove top margin from title */
