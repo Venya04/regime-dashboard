@@ -28,26 +28,20 @@ TICKERS = {
 }
 
 # === PAGE CONFIG & STATE ===
+st.set_page_config(page_title="Regime Report", layout="wide")
 st.markdown("""
     <style>
-        /* Allow fixed overlays over the app container */
-        [data-testid="stAppViewContainer"],
-        .main {
-            overflow: visible !important;
-        }
-
         .sidebar-label {
             position: fixed;
-            top: 14px;           /* Height align with arrows */
-            left: 48px;          /* Adjust horizontal position */
+            top: 14px;
+            left: 48px;  /* ↔ Adjust if needed */
             font-size: 13px;
             font-family: 'Segoe UI', sans-serif;
             color: #aaa;
-            background-color: rgba(255,255,255,0.05);
+            background-color: rgba(255, 255, 255, 0.05);
             padding: 2px 8px;
             border-radius: 5px;
-            pointer-events: none; /* So clicks pass through */
-            z-index: 99999;
+            z-index: 9999;
         }
     </style>
     <div class="sidebar-label">📘 Click arrows for guide</div>
