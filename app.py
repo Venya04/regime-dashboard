@@ -33,15 +33,6 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
-# === 2. Floating button container with ID
-with st.container():
-    st.markdown('<div id="user-guide-button">', unsafe_allow_html=True)
-    toggle = st.button("📘 User Guide", key="guide_btn")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    if toggle:
-        st.session_state["show_guide"] = True
-
 # === 3. Style the floating toggle
 st.markdown("""
 <style>
@@ -64,17 +55,30 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# === 4. Hide the toggle button when guide is open
+# === 1. Ensure guide toggle state is initialized
+if "show_guide" not in st.session_state:
+    st.session_state["show_guide"] = False
+
+# === 2. Floating "User Guide" button with unique ID
+with st.container():
+    st.markdown('<div id="user-guide-button">', unsafe_allow_html=True)
+    toggle = st.button("📘 User Guide", key="guide_btn")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    if toggle:
+        st.session_state["show_guide"] = not st.session_state["show_guide"]
+
+# === 3. Conditionally hide the floating button
 if st.session_state["show_guide"]:
     st.markdown("""
     <style>
-    #user-guide-button {
-        display: none !important;
-    }
+        #user-guide-button {
+            display: none !important;
+        }
     </style>
     """, unsafe_allow_html=True)
 
-# === 5. Show the User Guide and native close button
+# === 4. Show User Guide content
 if st.session_state["show_guide"]:
     with st.container():
         st.markdown("""
@@ -125,7 +129,7 @@ if st.session_state["show_guide"]:
 
         st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
-        # ✅ Close guide button
+        # ✅ Streamlit-native close button at the end
         with st.form(key="close_guide_form"):
             st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
             submitted = st.form_submit_button("❌ Close Guide")
@@ -135,7 +139,7 @@ if st.session_state["show_guide"]:
                 st.session_state["show_guide"] = False
                 st.rerun()
 
-    # 🛑 Prevent the rest of the app from rendering
+    # 🛑 Stop rendering dashboard content
     st.stop()
 
     
