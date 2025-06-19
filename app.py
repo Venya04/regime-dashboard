@@ -77,9 +77,10 @@ with st.container():
 if st.session_state["show_guide"]:
     st.markdown("""
     <style>
-        #user-guide-button {
-            display: none !important;
-        }
+    /* Only hide the very first button (User Guide) */
+    div[data-testid="stButton"] button {
+        display: none !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
