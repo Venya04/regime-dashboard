@@ -36,12 +36,12 @@ if "show_guide" not in st.session_state:
 st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
 
 # Render horizontal button with proper HTML wrapper
-col1, col2 = st.columns([0.15, 2])
+col1, col2 = st.columns([0.1, 2])
 with col1:
     # Use a div only for spacing, not wrapping the button directly
     st.markdown("<div style='padding-left: 10px;'>", unsafe_allow_html=True)
 
-    icon = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
+    icon = "📘 Guide" if not st.session_state.show_guide else "❌ Close Guide"
     if st.button(icon, key="guide_toggle"):
         st.session_state.show_guide = not st.session_state.show_guide
 
@@ -55,7 +55,7 @@ with col2:
             font-family: 'UnifrakturCook', serif; 
             text-align: center; 
             font-size: 3.5rem; 
-            margin-top: 0rem;
+            margin-top: -80rem;
             margin-bottom: 0.2rem;
         }
         .pub-info {
