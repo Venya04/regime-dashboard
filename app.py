@@ -35,42 +35,32 @@ if "show_guide" not in st.session_state:
 # === 2. Clickable floating hint in bottom-left ===
 st.markdown("""
 <style>
-  .guide-arrow-hint {
+/* Move Streamlit header to bottom-left */
+header[data-testid="stHeader"] {
     position: fixed;
     bottom: 12px;
-    left: 16px;
-    font-size: 13px;
-    font-family: 'Segoe UI', sans-serif;
-    color: #bbb;
-    background: rgba(255,255,255,0.08);
-    padding: 6px 12px;
-    border-radius: 8px;
-    z-index: 9999;
-    cursor: pointer;
-    pointer-events: auto;
-    transition: background 0.3s, color 0.3s;
-  }
-  .guide-arrow-hint:hover {
-    background: rgba(255,255,255,0.15);
-    color: white;
-  }
+    left: 12px;
+    background: transparent;
+    z-index: 10000;
+    width: auto;
+    height: auto;
+    padding: 0;
+}
+
+/* Hide all header content EXCEPT sidebar toggle */
+header[data-testid="stHeader"] > div:first-child {
+    visibility: visible;  /* This contains the arrows */
+}
+header[data-testid="stHeader"] > div:nth-child(2),
+header[data-testid="stHeader"] > div:nth-child(3) {
+    display: none;
+}
+
+/* Hide Streamlit’s top menu + footer */
+#MainMenu, footer, [data-testid="stToolbar"] {
+    display: none !important;
+}
 </style>
-
-<script>
-  function toggleGuideSidebar() {
-    const buttons = window.parent.document.querySelectorAll('button');
-    for (const btn of buttons) {
-      if (/guide/i.test(btn.innerText)) {
-        btn.click();
-        break;
-      }
-    }
-  }
-</script>
-
-<div class="guide-arrow-hint" onclick="toggleGuideSidebar()">
-  📘 User Guide
-</div>
 """, unsafe_allow_html=True)
 
 # === 3. Sidebar button that the JS clicks ===
