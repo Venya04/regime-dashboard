@@ -30,6 +30,10 @@ TICKERS = {
 # === SET PAGE & INITIAL STATE ===
 # === FIXED SPACING / STYLE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
+# ✅ Ensure the session state key is always defined
+if "show_guide" not in st.session_state:
+    st.session_state.show_guide = False
+
 st.markdown("""
     <style>
         .block-container {
