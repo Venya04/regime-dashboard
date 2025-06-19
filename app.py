@@ -75,13 +75,6 @@ if st.sidebar.button("Open Guide" if not st.session_state.show_guide else "Close
 if st.session_state.show_guide:
     st.markdown("""
     ### 📘 How to Read This Dashboard
-    … full guide content …
-    """, unsafe_allow_html=True)
-
-# === GUIDE BOX BELOW HEADER ===
-if st.session_state.show_guide:
-    st.markdown("""
-    ### 📘 How to Read This Dashboard
 
     Welcome to **The Regime Report** — your macro-aware investment guide.
 
