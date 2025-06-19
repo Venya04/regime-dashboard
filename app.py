@@ -33,13 +33,17 @@ if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
 # === BUTTON + HEADING ===
-left_col, _ = st.columns([0.2, 0.8])
+# === GUIDE BUTTON + HEADER ===
+left_col, right_col = st.columns([0.2, 0.8])
 with left_col:
     button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
     if st.button(button_label):
         st.session_state.show_guide = not st.session_state.show_guide
 
-# === HEADER (Centered) ===
+# ✅ Now space above header
+st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+
+# === HEADER STYLING ===
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
@@ -50,19 +54,20 @@ st.markdown("""
         font-weight: bold;
         letter-spacing: 1px;
         margin-bottom: 0.2rem;
-        margin-top: 10px;
+        /* ❌ No negative margin! */
+        margin-top: 5px;
     }
     .pub-info {
         text-align: center;
         font-family: 'Georgia', serif;
         font-size: 0.8rem;
-        margin-top: -18px;
+        margin-top: -10px;
         color: #ccc;
     }
     </style>
     <div class='gothic-title'>The Regime Report</div>
     <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -10px;'>
+    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0px;'>
         Asset Allocation in Current Market Conditions
     </h3>
 """, unsafe_allow_html=True)
