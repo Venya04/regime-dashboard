@@ -27,8 +27,6 @@ TICKERS = {
     "stablecoins": None
 }
 
-# === FIXED SPACING / STYLE ===
-st.set_page_config(page_title="Regime Report", layout="wide")
 # === CONFIG + SESSION ===
 st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
@@ -49,7 +47,14 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-=== FULL WIDTH HEADER ===
+# === BUTTON (ABSOLUTE POSITIONED) ===
+st.markdown('<div class="guide-button">', unsafe_allow_html=True)
+button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
+if st.button(button_label):
+    st.session_state.show_guide = not st.session_state.show_guide
+st.markdown('</div>', unsafe_allow_html=True)
+
+# === FULL WIDTH HEADER ===
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
@@ -60,6 +65,7 @@ st.markdown("""
         font-weight: bold;
         letter-spacing: 1px;
         margin-bottom: 0.2rem;
+        margin-top: -50px;
     }
     .pub-info {
         text-align: center;
@@ -75,7 +81,6 @@ st.markdown("""
         Asset Allocation in Current Market Conditions
     </h3>
 """, unsafe_allow_html=True)
-=== TOP STYLES ===
 
 if st.session_state.show_guide:
     st.markdown(
