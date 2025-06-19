@@ -59,6 +59,7 @@ button[kind="secondary"]:hover {
 }
 </style>
 """, unsafe_allow_html=True)
+
 # ✅ HIDE the floating button when the guide is open
 if st.session_state["show_guide"]:
     st.markdown("""
@@ -70,7 +71,7 @@ if st.session_state["show_guide"]:
     """, unsafe_allow_html=True)
 
 # === GUIDE BOX BELOW HEADER ===
-if st.session_state.show_guide:
+if st.session_state["show_guide"]:
     st.markdown("""
     ### 📘 How to Read This Dashboard
 
@@ -116,9 +117,7 @@ if st.session_state.show_guide:
     > **Discipline over desire always wins.**
     """, unsafe_allow_html=True)
 
-    # ✅ CLOSE guide-box div
-    st.markdown("</div>", unsafe_allow_html=True)
-    # 👇 Add a native Streamlit "Close Guide" button
+    # ✅ Native "Close Guide" button (not indented incorrectly!)
     close = st.button("❌ Close Guide", key="close_guide")
     if close:
         st.session_state["show_guide"] = False
