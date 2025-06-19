@@ -29,6 +29,28 @@ TICKERS = {
 
 
 st.set_page_config(page_title="Regime Report", layout="wide")
+st.markdown("""
+    <style>
+        .guide-arrow-hint {
+            position: fixed;
+            bottom: 10px;           /* 👇 Push to bottom */
+            left: 60px;             /* ⬅️ Nudge right from corner to align with arrows */
+            font-size: 13px;
+            font-family: 'Segoe UI', sans-serif;
+            color: #bbb;
+            background-color: rgba(255, 255, 255, 0.07);
+            padding: 4px 10px;
+            border-radius: 6px;
+            z-index: 10000;
+            pointer-events: none;   /* 👈 Doesn't block sidebar clicks */
+        }
+        .guide-arrow-hint:hover {
+            background-color: rgba(255,255,255,0.12);
+            color: white;
+        }
+    </style>
+    <div class="guide-arrow-hint">📘 User Guide</div>
+""", unsafe_allow_html=True)
 
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
