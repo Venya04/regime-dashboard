@@ -55,7 +55,7 @@ with col2:
             font-family: 'UnifrakturCook', serif; 
             text-align: center; 
             font-size: 3.5rem; 
-            margin-top: -2rem;
+            margin-top: -8rem;
             margin-bottom: 0.2rem;
         }
         .pub-info {
