@@ -67,7 +67,7 @@ st.markdown("""
         font-weight: bold;
         letter-spacing: 1px;
         margin-bottom: 0.2rem;
-        margin-top: -50px;
+        margin-top: -60px;
     }
     .pub-info {
         text-align: center;
