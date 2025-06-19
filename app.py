@@ -278,34 +278,34 @@ else:
 
 
 # === HEADER ===
-# st.markdown("""
-#     <style>
-#     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-#     .gothic-title {
-#         font-family: 'UnifrakturCook', serif;
-#         text-align: center;
-#         font-size: 3.5rem;
-#         font-weight: bold;
-#         padding: 0.5rem 0;
-#         letter-spacing: 1px;
-#         text-align: center;
-#         margin-bottom: 0.2rem;
-#         margin-top: 10px;
-#     }
-#     .pub-info {
-#         text-align: center;
-#         font-family: 'Georgia', serif;
-#         font-size: 0.8rem;
-#         margin-top: -18px;
-#         color: #ccc;
-#     }
-#     </style>
-#     <div class='gothic-title'>The Regime Report</div>
-#     <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-#     <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -10px;'>
-#         Asset Allocation in Current Market Conditions
-#     </h3>
-# """, unsafe_allow_html=True)
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+    .gothic-title {
+        font-family: 'UnifrakturCook', serif;
+        text-align: center;
+        font-size: 3.5rem;
+        font-weight: bold;
+        padding: 0.5rem 0;
+        letter-spacing: 1px;
+        text-align: center;
+        margin-bottom: 0.2rem;
+        margin-top: 10px;
+    }
+    .pub-info {
+        text-align: center;
+        font-family: 'Georgia', serif;
+        font-size: 0.8rem;
+        margin-top: -18px;
+        color: #ccc;
+    }
+    </style>
+    <div class='gothic-title'>The Regime Report</div>
+    <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -10px;'>
+        Asset Allocation in Current Market Conditions
+    </h3>
+""", unsafe_allow_html=True)
 
 st.markdown("""
     <style>
