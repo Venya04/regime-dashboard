@@ -29,41 +29,42 @@ TICKERS = {
 
 # === PAGE CONFIG & STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
-st.markdown("""
-    <style>
-    .guide-inline-hint::after {
-        content: '📘 Click for guide';
-        font-size: 13px;
-        font-family: 'Segoe UI', sans-serif;
-        color: #aaa;
-        position: fixed;
-        top: 18px;
-        left: 50px;
-        z-index: 1001;
-        background-color: rgba(255, 255, 255, 0.03);
-        padding: 2px 8px;
-        border-radius: 5px;
-        transition: all 0.3s ease-in-out;
-        cursor: default;
-    }
-
-    .guide-inline-hint:hover::after {
-        color: #fff;
-        background-color: rgba(255, 255, 255, 0.08);
-        transform: scale(1.05);
-        box-shadow: 0 0 5px rgba(255,255,255,0.2);
-    }
-    </style>
-    <div class="guide-inline-hint"></div>
-""", unsafe_allow_html=True)
-
+# Toggle guide from sidebar
 if "show_guide" not in st.session_state:
-    st.session_state["show_guide"] = False
-
-# === Sidebar Toggle Button ===
+    st.session_state.show_guide = False
 st.sidebar.markdown("## 📘 User Guide")
 if st.sidebar.button("Open Guide" if not st.session_state.show_guide else "Close Guide"):
     st.session_state.show_guide = not st.session_state.show_guide
+
+# CSS to place hint near sidebar chevron
+st.markdown("""
+<style>
+    /* Put hint right next to the sidebar toggle chevron */
+    .sidebar-hint {
+        position: fixed;
+        top: 20px;          /* Adjust vertically with button */
+        left: 40px;         /* Align just right of arrows */
+        font-size: 13px;
+        color: #aaa;
+        background: rgba(255,255,255,0.05);
+        padding: 4px 8px;
+        border-radius: 4px;
+        z-index: 1000;
+        pointer-events: none;
+        transition: opacity 0.3s;
+    }
+    /* Fade hint when guide is visible */
+    .sidebar-hint.hidden {
+        opacity: 0;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# Hint div that disappears once guide is open
+hint_class = "sidebar-hint"
+if st.session_state.show_guide:
+    hint_class += " hidden"
+st.markdown(f"<div class='{hint_class}'>📘 Click here to open the guide</div>", unsafe_allow_html=True)
 
 # # === HEADER ===
 # st.markdown("""
