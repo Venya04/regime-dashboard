@@ -28,15 +28,6 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
-    st.markdown("""
-    <style>
-        .center-dash-container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-    </style>
-    <div class="center-dash-container">
-""", unsafe_allow_html=True)
 # === USER GUIDE TOGGLE STATE ===
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
@@ -76,7 +67,6 @@ with col2:
             Asset Allocation in Current Market Conditions
         </h3>
     """, unsafe_allow_html=True)
-st.markdown("</div>", unsafe_allow_html=True)
 
 if st.session_state.show_guide:
     st.markdown(
