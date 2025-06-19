@@ -65,6 +65,10 @@ st.markdown("""
     </script>
     <div class="guide-arrow-hint" onclick="toggleGuide()">📘 User Guide</div>
 """, unsafe_allow_html=True)
+st.sidebar.button(
+  "Open Guide" if not st.session_state.show_guide else "Close Guide",
+  key="guide_toggle"
+)
 
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
