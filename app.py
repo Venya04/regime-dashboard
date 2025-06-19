@@ -27,62 +27,45 @@ TICKERS = {
     "stablecoins": None
 }
 
-# === PAGE CONFIG ===
+# === PAGE CONFIG & STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
-# === HEADERS + STYLING ===
-st.markdown("""
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+# === TOP SPACER REDUCED ===
+st.markdown("""<style>.block-container { padding-top: 0.5rem !important; }</style>""", unsafe_allow_html=True)
 
-      /* Position the entire Streamlit block relatively */
-      [data-testid="stAppViewContainer"] {
-          position: relative;
-      }
-      /* Style for heading moved upward */
-      .gothic-title {
-          font-family: 'UnifrakturCook', serif;
-          text-align: center;
-          font-size: 3.5rem;
-          margin-top: 0px;
-          margin-bottom: 0.2rem;
-      }
-      .pub-info {
-          text-align: center;
-          font-family: Georgia, serif;
-          font-size: 0.8rem;
-          margin-top: -10px;
-          color: #ccc;
-      }
-      /* Div wrapper to absolutely position only the button */
-      .guide-button-wrapper {
-          position: absolute;
-          top: 0px;
-          left: 20px;
-          z-index: 999;
-      }
-    </style>
-""", unsafe_allow_html=True)
+# === BUTTON + HEADER IN COLUMNS ===
+col1, col2 = st.columns([0.1, 0.9])
+with col1:
+    icon = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
+    if st.button(icon, key="guide_toggle"):
+        st.session_state.show_guide = not st.session_state.show_guide
+with col2:
+    st.markdown("""
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+        .gothic-title { 
+            font-family: 'UnifrakturCook', serif; 
+            text-align: center; 
+            font-size: 3.5rem; 
+            margin-top: -4rem;
+            margin-bottom: 0.2rem;
+        }
+        .pub-info {
+            font-family: Georgia, serif;
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: -1rem;
+            color: #ccc;
+        }
+        </style>
+        <div class="gothic-title">The Regime Report</div>
+        <div class="pub-info">No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+        <h3 style="text-align:center; margin-top:0;">Asset Allocation in Current Market Conditions</h3>
+    """, unsafe_allow_html=True)
 
-# === BUTTON in Absolute Position Wrapper ===
-st.markdown('<div class="guide-button-wrapper">', unsafe_allow_html=True)
-btn_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-if st.button(btn_label, key="guide_toggle"):
-    st.session_state.show_guide = not st.session_state.show_guide
-st.markdown('</div>', unsafe_allow_html=True)
-
-# === HEADER HTML ===
-st.markdown("""
-    <div class="gothic-title">The Regime Report</div>
-    <div class="pub-info">No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-    <h3 style="text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0;">
-        Asset Allocation in Current Market Conditions
-    </h3>
-""", unsafe_allow_html=True)
-
-# === GUIDE CONTENT ===
+# === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
     st.markdown("""
     ### 📘 How to Read This Dashboard
