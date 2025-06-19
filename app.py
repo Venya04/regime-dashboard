@@ -51,7 +51,7 @@ with col1:
 
         /* Move the button upward */
         div[data-testid="column"] {
-            margin-top: -60px;
+            margin-top: -100px;
         }
         </style>
     """, unsafe_allow_html=True)
