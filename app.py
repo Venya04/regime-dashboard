@@ -46,6 +46,7 @@ st.markdown("""
         text-align: center;
         font-size: 3.5rem;
         font-weight: bold;
+        margin-top: -70px;
     }
     .pub-info {
         text-align: center;
