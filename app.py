@@ -521,19 +521,18 @@ if not perf_df.empty:
 # Hide Streamlit menu and footer
 st.markdown("""
     <style>
-        #MainMenu {visibility: hidden;}
+        /* ✅ Hide footer */
         footer {visibility: hidden;}
 
-        /* Hide top-right icons completely */
-        .st-emotion-cache-18ni7ap {
-            display: none !important;
-        }
-        .st-emotion-cache-6qob1r {
-            display: none !important;
-        }
+        /* ✅ Hide main menu (top-left burger) */
+        #MainMenu {visibility: hidden;}
 
-        /* Generic backup — remove header toolbar */
-        header [data-testid="stToolbar"] {
+        /* ❌ Do NOT hide the entire toolbar (preserves sidebar toggle) */
+        /* Removed stToolbar hiding */
+
+        /* Optional: hide emoji containers only if needed */
+        .st-emotion-cache-18ni7ap,
+        .st-emotion-cache-6qob1r {
             display: none !important;
         }
     </style>
