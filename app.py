@@ -70,57 +70,39 @@ if st.session_state["show_guide"]:
     </style>
     """, unsafe_allow_html=True)
 
-# === GUIDE BOX BELOW HEADER ===
 if st.session_state["show_guide"]:
-    st.markdown("""
-    ### 📘 How to Read This Dashboard
+    with st.container():
+        st.markdown("""
+        <div style='
+            background-color: #1e1e1e;
+            padding: 25px;
+            border: 2px solid #444;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 30px auto;
+        '>
+        <h3>📘 How to Read This Dashboard</h3>
+        <p>This dashboard is built around a core truth:</p>
+        <blockquote><strong>You can’t tell the market what to do — but you can choose how to respond.</strong></blockquote>
+        <p>The market doesn’t care whether you want to 10x your money or protect it from inflation. It moves with forces far beyond our control.  
+        What we <strong>can</strong> do is manage risk, adjust wisely, and respond rationally.</p>
+        <hr>
+        <ul>
+            <li><strong>🥧 Portfolio Allocation Pie Chart:</strong> Allocation by current regime</li>
+            <li><strong>📈 Performance Chart:</strong> Strategy vs. passive</li>
+            <li><strong>🧠 Market Insight:</strong> Interprets macro signals</li>
+            <li><strong>🎯 Strategy Note:</strong> What to do now</li>
+            <li><strong>💡 Trader’s Conclusion:</strong> Rebalance? Hedge?</li>
+        </ul>
+        <p><em>This dashboard is both actionable and educational — your macro compass.</em></p>
+        <p style='text-align: center;'><strong>Discipline over desire always wins.</strong></p>
+        </div>
+        """, unsafe_allow_html=True)
 
-    This dashboard is built around a core truth:
+        # ✅ Native close button
+        if st.button("❌ Close Guide", key="close_guide"):
+            st.session_state["show_guide"] = False
 
-    > 💭 **You can’t tell the market what to do — but you can choose how to respond.**
-
-    The market doesn’t care whether you want to 10x your money or simply protect it from inflation. It moves with forces far beyond our control.  
-    What we **can** do is manage risk, adjust wisely, and respond rationally.
-
-    This dashboard helps you do exactly that.
-
-    ---
-
-    We identify the current **economic regime** using macro data (GDP, inflation, etc.) and show you:
-    - Optimal asset allocation
-    - Portfolio performance
-    - Market insight and strategy updates
-
-    ---
-
-    #### 🥧 Portfolio Allocation Pie Chart
-    Suggests how to allocate assets (stocks, crypto, cash, etc.) based on the current regime.
-
-    #### 📈 Portfolio Performance Chart
-    Shows how the strategy performed over time vs. passive alternatives.
-
-    #### 🧠 Market Insight
-    Interprets current macro signals — inflation, growth, credit, liquidity.
-
-    #### 🎯 Top Strategy Note
-    Tactical view: what to do based on the current regime.
-
-    #### 💡 Trader’s Conclusion
-    Simple takeaway: hold, hedge, rebalance?
-
-    ---
-
-    ### 💬 Still Learning?
-    No worries — this dashboard is designed to be educational and actionable.  
-    Think of it as your **macro compass** — helping you navigate instead of guess.
-
-    > **Discipline over desire always wins.**
-    """, unsafe_allow_html=True)
-
-    # ✅ Native "Close Guide" button (not indented incorrectly!)
-    close = st.button("❌ Close Guide", key="close_guide")
-    if close:
-        st.session_state["show_guide"] = False
 
 # === LOAD DATA ===
 @st.cache_data
