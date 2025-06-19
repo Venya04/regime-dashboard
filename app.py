@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np
 import yfinance as yf
 import os
-import streamlit.components.v1 as components
 
 
 def get_file_version(path):
@@ -28,42 +27,42 @@ TICKERS = {
     "stablecoins": None
 }
 
-st.set_page_config(page_title="Regime Report", layout="wide")
+st.set_page_config(page_title="Test", layout="wide")
 
-# === STATE INIT (must come early) ===
+# 1. Initialize session state
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
-# === GUIDE HINT NEXT TO ARROWS (always visible) ===
+# 2. Inject hint HTML & CSS
 st.markdown("""
-    <style>
-        .guide-arrow-hint {
-            position: fixed;
-            top: 14px;
-            left: 80px;  /* 👈 tweak to align nicely */
-            font-size: 13px;
-            font-family: 'Segoe UI', sans-serif;
-            color: #bbb;
-            background-color: rgba(255, 255, 255, 0.07);
-            padding: 3px 9px;
-            border-radius: 6px;
-            z-index: 20000;
-            transition: all 0.3s ease-in-out;
-            # pointer-events: none;  /* ensures it doesn't block sidebar arrows */
-        }
-
-        .guide-arrow-hint:hover {
-            background-color: rgba(255,255,255,0.12);
-            color: white;
-        }
-    </style>
-    <div class="guide-arrow-hint">📘 User Guide</div>
+  <style>
+    .guide-arrow-hint {
+      position: fixed;
+      top: 14px;
+      left: 60px;  /* adjust as needed */
+      font-size: 13px;
+      color: #bbb;
+      background: rgba(255,255,255,0.07);
+      padding: 4px 10px;
+      border-radius: 6px;
+      z-index: 30000;
+      pointer-events: auto;
+    }
+  </style>
+  <div class="guide-arrow-hint">📘 User Guide</div>
 """, unsafe_allow_html=True)
 
-# === SIDEBAR BUTTON (Required for toggle to work) ===
+# 3. Sidebar button to toggle guide
 st.sidebar.markdown("## 📘 User Guide")
-if st.sidebar.button("Open Guide" if not st.session_state.show_guide else "Close Guide", key="guide_toggle"):
+if st.sidebar.button(
+    "Open Guide" if not st.session_state.show_guide else "Close Guide",
+    key="toggle"
+):
     st.session_state.show_guide = not st.session_state.show_guide
+
+# 4. The guide box itself
+if st.session_state.show_guide:
+    st.info("🛠️ Guide is now visible!")
 
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
