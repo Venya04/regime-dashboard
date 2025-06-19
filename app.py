@@ -39,14 +39,14 @@ st.markdown("""
     .guide-arrow-hint {
       position: fixed;
       top: 14px;
-      left: 60px;  /* adjust as needed */
+      left: 100px;  /* adjust as needed */
       font-size: 13px;
       color: #bbb;
       background: rgba(255,255,255,0.07);
       padding: 4px 10px;
       border-radius: 6px;
       z-index: 30000;
-      pointer-events: auto;
+      pointer-events: none;
     }
   </style>
   <div class="guide-arrow-hint">📘 User Guide</div>
