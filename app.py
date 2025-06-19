@@ -28,34 +28,24 @@ TICKERS = {
 }
 
 # === 1. Set page and initialize session state
-# === 1. Set page and initialize session state
+# === 1. Page Config & Session State
 st.set_page_config(page_title="Regime Report", layout="wide")
-
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
-# === 2. Capture query param early (NEW API)
-query_params = st.query_params
-if "_user_guide_clicked" in query_params:
-    st.session_state["show_guide"] = True
-    st.set_query_params()  # Clear URL after use
-
-# === 3. Show floating button if guide is NOT open
+# === 2. Floating "User Guide" Button (bottom-left)
 if not st.session_state["show_guide"]:
+    # Display button
+    if st.button("📘 User Guide", key="guide_btn"):
+        st.session_state["show_guide"] = True
+    # Float with CSS
     st.markdown("""
-    <div class="user-guide-float">
-        <form action="">
-            <button type="submit">📘 User Guide</button>
-        </form>
-    </div>
     <style>
-        .user-guide-float {
-            position: fixed;
+        button[kind="secondary"] {
+            position: fixed !important;
             bottom: 15px;
             left: 15px;
             z-index: 9999;
-        }
-        .user-guide-float button {
             background-color: rgba(255,255,255,0.08);
             color: #eee;
             border: none;
@@ -64,21 +54,20 @@ if not st.session_state["show_guide"]:
             border-radius: 6px;
             cursor: pointer;
         }
-        .user-guide-float button:hover {
+        button[kind="secondary"]:hover {
             background-color: rgba(255,255,255,0.18);
         }
     </style>
-    <script>
-    const form = window.parent.document.querySelector('.user-guide-float form');
-    if (form) {
-        form.onsubmit = (e) => {
-            e.preventDefault();
-            const url = new URL(window.location.href);
-            url.searchParams.set("_user_guide_clicked", "1");
-            window.location.href = url.toString();
+    """, unsafe_allow_html=True)
+
+# === 3. Hide the floating button when guide is open
+if st.session_state["show_guide"]:
+    st.markdown("""
+    <style>
+        button[kind="secondary"] {
+            display: none !important;
         }
-    }
-    </script>
+    </style>
     """, unsafe_allow_html=True)
 
 # === 4. Show the guide content when open
