@@ -117,14 +117,15 @@ if st.session_state["show_guide"]:
 
         > **Discipline over desire always wins.**
         """, unsafe_allow_html=True)
-        # 🧱 Add a spacer to make sure the button isn't jammed
+
         st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
-        # ✅ Show a real Streamlit close button clearly
         if st.button("❌ Close Guide", key="close_guide"):
             st.session_state["show_guide"] = False
- # ⛔️ Stop rendering anything else
+
+    # ⛔️ Must be outside `with st.container()`
     st.stop()
+    
 # === LOAD DATA ===
 @st.cache_data
 def load_csv_from_repo(path, version=None):
