@@ -28,60 +28,54 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
+# === USER GUIDE TOGGLE STATE ===
+if "show_guide" not in st.session_state:
+    st.session_state.show_guide = False
+
+# === STYLES FOR HEADER ===
 st.markdown("""
     <style>
-        /* Layout row for button + title */
-        .header-flex-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .header-left {
-            flex: 0 0 auto;
-        }
-
-        .header-right {
-            flex: 1;
-            text-align: center;
-        }
-
         .gothic-title {
             font-family: 'UnifrakturCook', serif;
             font-size: 3.5rem;
             font-weight: bold;
             letter-spacing: 1px;
-            margin-bottom: 0;
+            margin-bottom: 0rem;
+            margin-top: 0.5rem;
         }
-
         .pub-info {
             font-family: 'Georgia', serif;
             font-size: 0.8rem;
             color: #ccc;
-            margin-top: -8px;
+            margin-top: -10px;
         }
-
         .sub-title {
             font-family: Georgia, serif;
             font-style: italic;
-            margin-top: -5px;
             font-size: 1.2rem;
+            margin-top: -8px;
+        }
+        .stButton>button {
+            margin-top: 20px;
         }
     </style>
+""", unsafe_allow_html=True)
 
-    <div class="header-flex-container">
-        <div class="header-left">
-    """, unsafe_allow_html=True)
+# === USE COLUMNS FOR BUTTON + TITLE ===
+col1, col2 = st.columns([0.15, 0.85])
 
-# === Render the Button ===
-if not st.session_state.show_guide:
-    if st.button("📘 Open Guide"):
-        st.session_state.show_guide = True
-else:
-    if st.button("❌ Close Guide"):
-        st.session_state.show_guide = False
+with col1:
+    if not st.session_state.show_guide:
+        if st.button("📘 Open Guide"):
+            st.session_state.show_guide = True
+    else:
+        if st.button("❌ Close Guide"):
+            st.session_state.show_guide = False
+
+with col2:
+    st.markdown("<div class='gothic-title'>The Regime Report</div>", unsafe_allow_html=True)
+    st.markdown("<div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>", unsafe_allow_html=True)
+    st.markdown("<div class='sub-title'>Asset Allocation in Current Market Conditions</div>", unsafe_allow_html=True)
 
 # === Continue Header ===
 st.markdown("""
