@@ -121,7 +121,8 @@ if st.session_state["show_guide"]:
         # ✅ Native close button
         if st.button("❌ Close Guide", key="close_guide"):
             st.session_state["show_guide"] = False
-
+ # ⛔️ Stop rendering anything else
+    st.stop()
 # === LOAD DATA ===
 @st.cache_data
 def load_csv_from_repo(path, version=None):
