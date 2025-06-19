@@ -39,7 +39,7 @@ st.markdown("""
             padding-top: 0rem !important;
         }
         .guide-button {
-            position: absolute;
+            position: relative;
             top: 70px;
             left: 10px;
             z-index: 100;
