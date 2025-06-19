@@ -89,13 +89,6 @@ if st.session_state.show_guide:
         """,
         unsafe_allow_html=True
     )
-
-    st.markdown("""
-    ### 📘 How to Read This Dashboard
-    ... your guide content here ...
-    """, unsafe_allow_html=True)
-
-    # ✅ Close guide box
     st.markdown("</div>", unsafe_allow_html=True)
 
 if st.session_state.show_guide:
