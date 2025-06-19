@@ -38,7 +38,7 @@ st.markdown("""
         .guide-arrow-hint {
             position: fixed;
             top: 14px;
-            left: 42px;  /* 👈 Move left/right to align with arrows */
+            left: 60px;  /* 👈 Move left/right to align with arrows */
             font-size: 13px;
             font-family: 'Segoe UI', sans-serif;
             color: #bbb;
