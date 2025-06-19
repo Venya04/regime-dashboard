@@ -59,6 +59,15 @@ button[kind="secondary"]:hover {
 }
 </style>
 """, unsafe_allow_html=True)
+# ✅ HIDE the floating button when the guide is open
+if st.session_state["show_guide"]:
+    st.markdown("""
+    <style>
+    button[kind="secondary"] {
+        display: none !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
