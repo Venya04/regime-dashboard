@@ -31,20 +31,20 @@ TICKERS = {
 st.set_page_config(page_title="Regime Report", layout="wide")
 st.markdown("""
     <style>
-        .sidebar-hint {
+        .sidebar-label {
             position: fixed;
-            top: 16px;
-            left: 55px;  /* ← adjust if needed for perfect alignment */
-            background-color: rgba(255, 255, 255, 0.08);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 12px;
+            top: 14px;
+            left: 48px;  /* ↔ Adjust if needed */
+            font-size: 13px;
             font-family: 'Segoe UI', sans-serif;
-            color: #ccc;
-            z-index: 1001;
+            color: #aaa;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2px 8px;
+            border-radius: 5px;
+            z-index: 9999;
         }
     </style>
-    <div class="sidebar-hint">📘 Click arrows for guide</div>
+    <div class="sidebar-label">📘 Click arrows for guide</div>
 """, unsafe_allow_html=True)
 
 if "show_guide" not in st.session_state:
