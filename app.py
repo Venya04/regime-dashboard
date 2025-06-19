@@ -30,51 +30,69 @@ TICKERS = {
 st.set_page_config(page_title="Regime Report", layout="wide")
 st.markdown("""
     <style>
-        /* Eliminate top margin/padding from main layout */
-        .block-container {
-            padding-top: 1rem !important;
+        /* Layout row for button + title */
+        .header-flex-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
         }
 
-        .main {
-            padding-top: -1rem !important;
+        .header-left {
+            flex: 0 0 auto;
         }
 
-        /* Optional: remove top margin from title */
+        .header-right {
+            flex: 1;
+            text-align: center;
+        }
+
         .gothic-title {
-            margin-top: -1rem !important;
+            font-family: 'UnifrakturCook', serif;
+            font-size: 3.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 0;
+        }
+
+        .pub-info {
+            font-family: 'Georgia', serif;
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-top: -8px;
+        }
+
+        .sub-title {
+            font-family: Georgia, serif;
+            font-style: italic;
+            margin-top: -5px;
+            font-size: 1.2rem;
         }
     </style>
+
+    <div class="header-flex-container">
+        <div class="header-left">
+    """, unsafe_allow_html=True)
+
+# === Render the Button ===
+if not st.session_state.show_guide:
+    if st.button("📘 Open Guide"):
+        st.session_state.show_guide = True
+else:
+    if st.button("❌ Close Guide"):
+        st.session_state.show_guide = False
+
+# === Continue Header ===
+st.markdown("""
+        </div>
+        <div class="header-right">
+            <div class="gothic-title">The Regime Report</div>
+            <div class="pub-info">No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+            <div class="sub-title">Asset Allocation in Current Market Conditions</div>
+        </div>
+    </div>
 """, unsafe_allow_html=True)
-
-# === USER GUIDE STATE ===
-if "show_guide" not in st.session_state:
-    st.session_state.show_guide = False
-
-# === HORIZONTAL LAYOUT FOR BUTTON + TITLE ===
-top_cols = st.columns([0.2, 0.8])
-
-# Left: Guide Button
-with top_cols[0]:
-    st.markdown(
-        """
-        <style>
-        .guide-button-container {
-            margin-top: 18px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-    with st.container():
-        st.markdown("<div class='guide-button-container'>", unsafe_allow_html=True)
-        if not st.session_state.show_guide:
-            if st.button("📘 Open Guide"):
-                st.session_state.show_guide = True
-        else:
-            if st.button("❌ Close Guide"):
-                st.session_state.show_guide = False
-        st.markdown("</div>", unsafe_allow_html=True)
 
 if st.session_state.show_guide:
     st.markdown(
