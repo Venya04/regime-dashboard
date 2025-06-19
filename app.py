@@ -29,6 +29,7 @@ TICKERS = {
 
 # === PAGE CONFIG & STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
+st.sidebar.markdown("## ▶️  📘 Click here to open the guide")
 st.markdown("""
     <style>
         .sidebar-label {
