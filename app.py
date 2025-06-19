@@ -29,59 +29,55 @@ TICKERS = {
 
 # === PAGE CONFIG ===
 st.set_page_config(page_title="Regime Report", layout="wide")
-
-# === SESSION INIT ===
 if "show_guide" not in st.session_state:
-    st.session_state["show_guide"] = False
+    st.session_state.show_guide = False
 
-# === STYLE BLOCK ===
+# === HEADERS + STYLING ===
 st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
 
-        .gothic-title {
-            font-family: 'UnifrakturCook', serif;
-            text-align: center;
-            font-size: 3.5rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin-bottom: 0.2rem;
-            margin-top: -80px;
-        }
-
-        .pub-info {
-            text-align: center;
-            font-family: 'Georgia', serif;
-            font-size: 0.8rem;
-            margin-top: -10px;
-            color: #ccc;
-        }
-
-        [data-testid="stAppViewContainer"] {
-            position: relative;
-        }
-
-        .guide-button-wrapper {
-            position: absolute;
-            top: 110px;
-            left: 20px;
-            z-index: 999;
-        }
+      /* Position the entire Streamlit block relatively */
+      [data-testid="stAppViewContainer"] {
+          position: relative;
+      }
+      /* Style for heading moved upward */
+      .gothic-title {
+          font-family: 'UnifrakturCook', serif;
+          text-align: center;
+          font-size: 3.5rem;
+          margin-top: -80px;
+          margin-bottom: 0.2rem;
+      }
+      .pub-info {
+          text-align: center;
+          font-family: Georgia, serif;
+          font-size: 0.8rem;
+          margin-top: -10px;
+          color: #ccc;
+      }
+      /* Div wrapper to absolutely position only the button */
+      .guide-button-wrapper {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          z-index: 999;
+      }
     </style>
 """, unsafe_allow_html=True)
 
-# === BUTTON (WORKING + POSITIONED) ===
+# === BUTTON in Absolute Position Wrapper ===
 st.markdown('<div class="guide-button-wrapper">', unsafe_allow_html=True)
-button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-if st.button(button_label, key="guide_toggle"):
+btn_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
+if st.button(btn_label, key="guide_toggle"):
     st.session_state.show_guide = not st.session_state.show_guide
 st.markdown('</div>', unsafe_allow_html=True)
 
-# === HEADER ===
+# === HEADER HTML ===
 st.markdown("""
-    <div class='gothic-title'>The Regime Report</div>
-    <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0px;'>
+    <div class="gothic-title">The Regime Report</div>
+    <div class="pub-info">No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+    <h3 style="text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0;">
         Asset Allocation in Current Market Conditions
     </h3>
 """, unsafe_allow_html=True)
