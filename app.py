@@ -73,7 +73,7 @@ st.markdown("""
             text-align: center;
             font-family: 'Georgia', serif;
             font-size: 0.8rem;
-            margin-top: -10px;
+            margin-top: -30px;
             color: #ccc;
         }
         </style>
