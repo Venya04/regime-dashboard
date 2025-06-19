@@ -29,63 +29,73 @@ TICKERS = {
 
 # === PAGE CONFIG & STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
+
+# === SESSION INIT ===
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
-# === TOP SPACER REDUCED ===
-st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
+# === CSS Styling ===
+st.markdown("""
+<style>
+/* Relative context for absolute positioning */
+[data-testid="stAppViewContainer"] {
+    position: relative;
+    padding-top: 2rem;
+}
 
-# Render horizontal button with proper HTML wrapper
-col1, col2 = st.columns([1.2, 20])  # Slightly wider col1 for alignment
+/* Float the guide button to the top-left */
+.guide-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+}
+.guide-button .stButton > button {
+    width: 130px;
+    text-align: left;
+    font-size: 0.9rem;
+}
 
-with col1:
-    st.markdown("""
-        <style>
-        .stButton>button {
-            width: 120px;
-            text-align: left;
-            padding: 6px 10px;
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
+/* Safe upward movement using padding (not margin-top) */
+.header-wrap {
+    padding-top: 0rem;
+}
+.gothic-title {
+    font-family: 'UnifrakturCook', serif;
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+}
+.pub-info {
+    text-align: center;
+    font-family: 'Georgia', serif;
+    font-size: 0.8rem;
+    margin-top: -10px;
+    color: #ccc;
+}
+</style>
+""", unsafe_allow_html=True)
 
-        /* Adjust vertical alignment to title */
-        .move-button {
-            margin-top: -200px;  /* 💡 Tweak this until it looks perfect */
-        }
-        </style>
-        <div class="move-button">
-    """, unsafe_allow_html=True)
+# === ABSOLUTE BUTTON WRAPPER ===
+st.markdown('<div class="guide-button">', unsafe_allow_html=True)
+label = "📘 Guide" if not st.session_state.show_guide else "❌ Close Guide"
+if st.button(label, key="guide_toggle"):
+    st.session_state.show_guide = not st.session_state.show_guide
+st.markdown('</div>', unsafe_allow_html=True)
 
-    icon = "📘 Guide" if not st.session_state.show_guide else "❌ Close Guide"
-    if st.button(icon, key="guide_toggle"):
-        st.session_state.show_guide = not st.session_state.show_guide
+# === HEADER WRAPPER ===
+st.markdown("""
+<div class="header-wrap">
+    <div class='gothic-title'>The Regime Report</div>
+    <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0px;'>
+        Asset Allocation in Current Market Conditions
+    </h3>
+</div>
+""", unsafe_allow_html=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
-with col2:
-    st.markdown("""
-        <style>
-        @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-        .gothic-title { 
-            font-family: 'UnifrakturCook', serif; 
-            text-align: center; 
-            font-size: 3.5rem; 
-            margin-top: -7rem;
-            margin-bottom: 0.2rem;
-        }
-        .pub-info {
-            font-family: Georgia, serif;
-            text-align: center;
-            font-size: 0.8rem;
-            margin-top: -1rem;
-            color: #ccc;
-        }
-        </style>
-        <div class="gothic-title">The Regime Report</div>
-        <div class="pub-info">No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-        <h3 style="text-align:center; margin-top:0;">Asset Allocation in Current Market Conditions</h3>
-    """, unsafe_allow_html=True)
 
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
