@@ -36,7 +36,7 @@ if "show_guide" not in st.session_state:
 st.markdown("""<style>.block-container { padding-top: 0.5rem !important; }</style>""", unsafe_allow_html=True)
 
 # === BUTTON + HEADER IN COLUMNS ===
-col1, col2 = st.columns([0.5, 0.9])
+col1, col2 = st.columns([0.01, 0.9])
 with col1:
     icon = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
     if st.button(icon, key="guide_toggle"):
