@@ -512,13 +512,10 @@ st.markdown("""
     <style>
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
-
-        /* Hide top-right toolbar container */
-        .stActionButtonHeader, .stToolbar {
-            display: none !important;
-        }
+        /* header {visibility: hidden;} <-- Don't hide header! */
     </style>
 """, unsafe_allow_html=True)
+
 
 
 
