@@ -28,46 +28,19 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
-
-# Initialize toggle state
+# === USER GUIDE TOGGLE STATE ===
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
-# 1. Define CSS + open container
-# … earlier setup …
-st.markdown("""
-  <style>
-    .guide-button {
-      position: absolute;
-      top: 10px; left: 10px; z-index: 999;
-    }
-  </style>
-  <div class="guide-button">
-""", unsafe_allow_html=True)
+# === HEADER + GUIDE BUTTON ===
+col1, col2 = st.columns([0.15, 0.85])
 
-# Button widget
-btn = st.button("📘 Open Guide", key="toggle_guide")
-if btn:
-    st.session_state.show_guide = not st.session_state.show_guide
+with col1:
+    button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
+    if st.button(button_label):
+        st.session_state.show_guide = not st.session_state.show_guide
 
-# Close the guide-button container
-st.markdown("</div>", unsafe_allow_html=True)
-
-# Now inject your header HTML (no overlap)
-st.markdown("""
-  <style> /* header styles… */ </style>
-  <div class='gothic-title'>The Regime Report</div>
-  <!-- etc -->
-""", unsafe_allow_html=True)
-
-
-# 2. Place the button inside that container
-button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-if st.button(button_label, key="toggle_guide"):
-    st.session_state.show_guide = not st.session_state.show_guide
-
-# 3. Close the container
-st.markdown("</div>", unsafe_allow_html=True)
+with col2:
 
 st.markdown("""
         <style>
