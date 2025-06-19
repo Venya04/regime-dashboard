@@ -67,7 +67,7 @@ components.html("""
     }
   </script>
   <div class="guide-arrow-hint" onclick="toggleGuide()">📘 User Guide</div>
-""", height=60)
+""", height=100)
 
 
 
