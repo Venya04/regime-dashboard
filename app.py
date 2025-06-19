@@ -54,10 +54,10 @@ if st.session_state.show_guide:
             overflow-y: auto;
         }
         </style>
-        """, unsafe_allow_html=True
+        <div class="guide-box">
+        """,
+        unsafe_allow_html=True
     )
-
-    st.markdown('<div class="guide-box">', unsafe_allow_html=True)
 
     st.markdown("""
     ### 📘 How to Read This Dashboard
@@ -106,8 +106,8 @@ if st.session_state.show_guide:
     > **Discipline over desire always wins.**
     """, unsafe_allow_html=True)
 
-    st.markdown('</div>', unsafe_allow_html=True)
-
+    # ✅ CLOSE guide-box div
+    st.markdown("</div>", unsafe_allow_html=True)
 # === LOAD DATA ===
 @st.cache_data
 def load_csv_from_repo(path, version=None):
