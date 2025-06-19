@@ -37,7 +37,7 @@ st.markdown("""
       .guide-arrow-hint {
         position: fixed;
         top: 12px;
-        left: 42px;  /* ← tweak to align perfectly under the arrows */
+        left: 100px;  /* ← tweak to align perfectly under the arrows */
         font-size: 13px;
         color: #bbb;
         background: rgba(255,255,255,0.07);
