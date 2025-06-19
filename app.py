@@ -51,7 +51,7 @@ with col2:
             font-weight: bold;
             letter-spacing: 1px;
             margin-bottom: 0.2rem;
-            margin-top: -10px;
+            margin-top: -20px;
         }
         .pub-info {
             text-align: center;
