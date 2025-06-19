@@ -57,52 +57,26 @@ st.markdown("""
             color: #ccc;
         }
 
-        /* Ensure parent is relatively positioned */
         [data-testid="stAppViewContainer"] {
             position: relative;
         }
 
-        .guide-button {
+        .guide-button-wrapper {
             position: absolute;
             top: 110px;
             left: 20px;
-            z-index: 1000;
+            z-index: 999;
         }
     </style>
 """, unsafe_allow_html=True)
 
-# === GUIDE BUTTON IN FIXED POSITION ===
+# === BUTTON (WORKING + POSITIONED) ===
+st.markdown('<div class="guide-button-wrapper">', unsafe_allow_html=True)
 button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-
-guide_button_html = f"""
-<div style="
-    position: absolute;
-    top: 0px;
-    left: 20px;
-    z-index: 1000;
-">
-    <form action="" method="post">
-        <button type="submit" name="toggle_guide" style="
-            font-size: 16px;
-            padding: 8px 16px;
-            background-color: #404040;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        ">
-            {button_label}
-        </button>
-    </form>
-</div>
-"""
-
-st.markdown(guide_button_html, unsafe_allow_html=True)
-
-# Check for form submission using query param (simulate toggle)
-if "toggle_guide" in st.query_params:
+if st.button(button_label, key="guide_toggle"):
     st.session_state.show_guide = not st.session_state.show_guide
-    
+st.markdown('</div>', unsafe_allow_html=True)
+
 # === HEADER ===
 st.markdown("""
     <div class='gothic-title'>The Regime Report</div>
@@ -114,13 +88,6 @@ st.markdown("""
 
 # === GUIDE CONTENT ===
 if st.session_state.show_guide:
-    st.markdown("""
-        <div style="margin-top: 1rem; background-color: #111111; color: white; padding: 1rem; border-radius: 10px;">
-            <h4>📘 How to Use This Dashboard</h4>
-            <p>Useful information about navigating and understanding the dashboard content.</p>
-        </div>
-    """, unsafe_allow_html=True)
-    
     st.markdown("""
     ### 📘 How to Read This Dashboard
 
