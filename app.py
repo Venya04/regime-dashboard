@@ -31,15 +31,33 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 # === USER GUIDE TOGGLE STATE ===
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
+# === GUIDE BUTTON (Always clickable, floats left) ===
+st.markdown("""
+    <div style="display: flex; justify-content: flex-start; margin-bottom: -30px; z-index: 999;">
+        <div style="position: relative; z-index: 999;">
+            <form action="#">
+                <button type="submit" style="
+                    background-color: #1f1f1f;
+                    color: white;
+                    border: 1px solid #444;
+                    padding: 8px 16px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 0.9rem;
+                ">
+                    📘 Open Guide
+                </button>
+            </form>
+        </div>
+    </div>
+""", unsafe_allow_html=True)
 
-# === GUIDE BUTTON (left-aligned) ===
-button_col, _ = st.columns([0.15, 0.85])
-with button_col:
-    button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-    if st.button(button_label):
-        st.session_state.show_guide = not st.session_state.show_guide
+# But actual button logic MUST still be in Streamlit form!
+button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
+if st.button(button_label):
+    st.session_state.show_guide = not st.session_state.show_guide
 
-# Now the header is in a full-width container and will be centered properly
+# === HEADER ===
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
@@ -50,7 +68,9 @@ st.markdown("""
         font-weight: bold;
         letter-spacing: 1px;
         margin-bottom: 0.2rem;
-        margin-top: -120px;
+        margin-top: -60px;
+        z-index: 1;
+        position: relative;
     }
     .pub-info {
         text-align: center;
@@ -58,11 +78,13 @@ st.markdown("""
         font-size: 0.8rem;
         margin-top: -18px;
         color: #ccc;
+        position: relative;
+        z-index: 1;
     }
     </style>
     <div class='gothic-title'>The Regime Report</div>
     <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -10px;'>
+    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -10px; position: relative; z-index: 1;'>
         Asset Allocation in Current Market Conditions
     </h3>
 """, unsafe_allow_html=True)
