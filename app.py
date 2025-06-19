@@ -59,12 +59,6 @@ st.markdown('</div>', unsafe_allow_html=True)
 # === FULL WIDTH HEADER ===
 st.markdown("""
     <style>
-    .block-container {
-            padding-top: 0rem !important;
-        }
-        .header-wrap {
-            margin-top: -160px;  /* ✅ This is now safe */
-        }
     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
     .gothic-title {
         font-family: 'UnifrakturCook', serif;
