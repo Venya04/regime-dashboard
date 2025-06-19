@@ -33,8 +33,14 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
+# === 2. Capture query param early before rendering
+query_params = st.experimental_get_query_params()
+if "_user_guide_clicked" in query_params:
+    st.session_state["show_guide"] = True
+    st.experimental_set_query_params()  # Clear URL
+
+# === 3. Floating button (only when guide is closed)
 if not st.session_state["show_guide"]:
-    # Floating button in HTML container
     st.markdown("""
     <div class="user-guide-float">
         <form action="">
@@ -61,19 +67,10 @@ if not st.session_state["show_guide"]:
             background-color: rgba(255,255,255,0.18);
         }
     </style>
-    """, unsafe_allow_html=True)
-
-    # Capture click using query param trigger
-    if "_user_guide_clicked" in st.query_params:
-        st.session_state["show_guide"] = True
-        st.experimental_set_query_params()  # Clear query params
-
-    # Add query param when clicked (JS form hack)
-    st.markdown("""
     <script>
-    const btn = window.parent.document.querySelector('.user-guide-float form');
-    if (btn) {
-        btn.onsubmit = (e) => {
+    const form = window.parent.document.querySelector('.user-guide-float form');
+    if (form) {
+        form.onsubmit = (e) => {
             e.preventDefault();
             const url = new URL(window.location.href);
             url.searchParams.set("_user_guide_clicked", "1");
@@ -83,17 +80,7 @@ if not st.session_state["show_guide"]:
     </script>
     """, unsafe_allow_html=True)
 
-# # === 2b. Hide floating button if guide is open
-# if st.session_state["show_guide"]:
-#     st.markdown("""
-#     <style>
-#     button[kind="secondary"] {
-#         display: none !important;
-#     }
-#     </style>
-#     """, unsafe_allow_html=True)
-
-# === 3. Show Guide Content + Close Button
+# === 4. Show Guide + Close
 if st.session_state["show_guide"]:
     with st.container():
         st.markdown("""
@@ -144,8 +131,8 @@ if st.session_state["show_guide"]:
 
         st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
-        # === Close button in a real form
-        with st.form(key="close_guide_form"):
+        # Close button
+        with st.form("close_guide_form"):
             st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
             submitted = st.form_submit_button("❌ Close Guide")
             st.markdown("</div>", unsafe_allow_html=True)
@@ -154,7 +141,6 @@ if st.session_state["show_guide"]:
                 st.session_state["show_guide"] = False
                 st.rerun()
 
-    # 🛑 Stop further rendering when guide is active
     st.stop()
 
     
