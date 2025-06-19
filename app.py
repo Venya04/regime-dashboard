@@ -59,29 +59,35 @@ st.markdown('</div>', unsafe_allow_html=True)
 # === FULL WIDTH HEADER ===
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-    .gothic-title {
-        font-family: 'UnifrakturCook', serif;
-        text-align: center;
-        font-size: 3.5rem;
-        font-weight: bold;
-        letter-spacing: 1px;
-        margin-bottom: 0.2rem;
-        margin-top: -60px;
-    }
-    .pub-info {
-        text-align: center;
-        font-family: 'Georgia', serif;
-        font-size: 0.8rem;
-        margin-top: -10px;
-        color: #ccc;
-    }
+        .block-container {
+            padding-top: 0rem !important;
+        }
+        .header-wrap {
+            margin-top: -80px;  /* ✅ This is now safe */
+        }
+        .gothic-title {
+            font-family: 'UnifrakturCook', serif;
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 0.2rem;
+        }
+        .pub-info {
+            text-align: center;
+            font-family: 'Georgia', serif;
+            font-size: 0.8rem;
+            margin-top: -10px;
+            color: #ccc;
+        }
     </style>
-    <div class='gothic-title'>The Regime Report</div>
-    <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0px;'>
-        Asset Allocation in Current Market Conditions
-    </h3>
+    <div class="header-wrap">
+        <div class='gothic-title'>The Regime Report</div>
+        <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+        <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0px;'>
+            Asset Allocation in Current Market Conditions
+        </h3>
+    </div>
 """, unsafe_allow_html=True)
 
 if st.session_state.show_guide:
