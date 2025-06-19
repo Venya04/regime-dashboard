@@ -27,75 +27,38 @@ TICKERS = {
     "stablecoins": None
 }
 
-
-# Set page config at the very top
-if "show_guide" not in st.session_state:
-    st.session_state["show_guide"] = False
-
 # === 2. Clickable floating hint in bottom-left ===
 st.set_page_config(page_title="Regime Report", layout="wide")
+
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
-# === 1. Move header arrows to bottom-left + hide menu/footer
-st.markdown("""
-<style>
-header[data-testid="stHeader"] {
-    position: fixed;
-    bottom: 12px;
-    left: 12px;
-    background: transparent;
-    z-index: 10000;
-    padding: 0;
-}
-header[data-testid="stHeader"] > div:first-child { visibility: visible; }
-header[data-testid="stHeader"] > div:nth-child(2),
-header[data-testid="stHeader"] > div:nth-child(3) { display: none; }
-#MainMenu, footer, [data-testid="stToolbar"] { display: none !important; }
-</style>
-""", unsafe_allow_html=True)
+# Floating Toggle Guide Button
+toggle = st.button("📘 User Guide", key="guide_btn")
+if toggle:
+    st.session_state["show_guide"] = not st.session_state["show_guide"]
 
-# === 2. Always-visible floating hint next to the arrows
-# === 2. Clickable floating hint that toggles the sidebar button
+# Inject CSS to float the button bottom-left
 st.markdown("""
 <style>
-.guide-float {
-    position: fixed;
-    bottom: 10px;
-    left: 60px;
-    font-size: 13px;
-    font-family: 'Segoe UI', sans-serif;
+button[kind="secondary"] {
+    position: fixed !important;
+    bottom: 15px;
+    left: 15px;
+    z-index: 9999;
+    background-color: rgba(255,255,255,0.08);
     color: #eee;
-    background-color: rgba(255, 255, 255, 0.08);
+    border: none;
     padding: 6px 12px;
+    font-size: 13px;
     border-radius: 6px;
     cursor: pointer;
-    z-index: 9999;
-    transition: background 0.3s;
 }
-.guide-float:hover {
+button[kind="secondary"]:hover {
     background-color: rgba(255,255,255,0.18);
-    color: white;
 }
 </style>
-<script>
-function toggleSidebarGuide() {
-    const buttons = window.parent.document.querySelectorAll('button');
-    for (let b of buttons) {
-        if (/guide/i.test(b.innerText)) {
-            b.click();
-            break;
-        }
-    }
-}
-</script>
-<div class="guide-float" onclick="toggleSidebarGuide()">📘 User Guide</div>
 """, unsafe_allow_html=True)
-
-# === 3. Sidebar toggle button
-st.sidebar.markdown("## 📘 User Guide")
-if st.sidebar.button("Open Guide" if not st.session_state.show_guide else "Close Guide", key="guide_toggle"):
-    st.session_state.show_guide = not st.session_state.show_guide
 
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
