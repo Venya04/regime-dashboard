@@ -38,9 +38,12 @@ st.markdown("""<style>.block-container { padding-top: 0.5rem !important; }</styl
 # === BUTTON + HEADER IN COLUMNS ===
 col1, col2 = st.columns([0.1, 0.9])
 with col1:
+    st.markdown("<div style='padding-top: 2rem;'>", unsafe_allow_html=True)  # Move button lower
     icon = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
     if st.button(icon, key="guide_toggle"):
         st.session_state.show_guide = not st.session_state.show_guide
+    st.markdown("</div>", unsafe_allow_html=True)  # close div (optional)
+
 with col2:
     st.markdown("""
         <style>
