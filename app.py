@@ -33,6 +33,7 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 # === GUIDE HINT NEXT TO ARROWS (always visible) ===
+if st.session_state.show_guide:
 st.markdown("""
     <style>
         .guide-arrow-hint {
