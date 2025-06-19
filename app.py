@@ -35,15 +35,16 @@ if "show_guide" not in st.session_state:
 # === CUSTOM STYLING ===
 st.markdown("""
     <style>
-        .block-container {
-            position: relative;  /* 🛠️ Set context for absolute children */
-            padding-top: 0rem !important;
+        /* Make entire Streamlit app a positioned container */
+        [data-testid="stAppViewContainer"] {
+            position: relative;
         }
+
         .guide-button {
             position: absolute;
-            top: 70px;  /* ✅ Adjust this to move lower */
+            top: 120px;  /* 🔽 Increase this value to move the button lower */
             left: 20px;
-            z-index: 100;
+            z-index: 1000;
         }
     </style>
 """, unsafe_allow_html=True)
