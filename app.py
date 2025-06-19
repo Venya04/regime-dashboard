@@ -58,32 +58,32 @@ st.sidebar.markdown("## 📘 User Guide")
 if st.sidebar.button("Open Guide" if not st.session_state.show_guide else "Close Guide"):
     st.session_state.show_guide = not st.session_state.show_guide
 
-# === HEADER ===
-st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-    .gothic-title {
-        font-family: 'UnifrakturCook', serif;
-        text-align: center;
-        font-size: 3.5rem;
-        font-weight: bold;
-        margin-top: -60px;
-    }
-    .pub-info {
-        text-align: center;
-        font-family: Georgia, serif;
-        font-size: 0.8rem;
-        color: #ccc;
-        margin-top: -10px;
-    }
-    </style>
+# # === HEADER ===
+# st.markdown("""
+#     <style>
+#     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+#     .gothic-title {
+#         font-family: 'UnifrakturCook', serif;
+#         text-align: center;
+#         font-size: 3.5rem;
+#         font-weight: bold;
+#         margin-top: -60px;
+#     }
+#     .pub-info {
+#         text-align: center;
+#         font-family: Georgia, serif;
+#         font-size: 0.8rem;
+#         color: #ccc;
+#         margin-top: -10px;
+#     }
+#     </style>
 
-    <div class='gothic-title'>The Regime Report</div>
-    <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -5px;'>
-        Asset Allocation in Current Market Conditions
-    </h3>
-""", unsafe_allow_html=True)
+#     <div class='gothic-title'>The Regime Report</div>
+#     <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+#     <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -5px;'>
+#         Asset Allocation in Current Market Conditions
+#     </h3>
+# """, unsafe_allow_html=True)
 
 
 # === GUIDE BOX BELOW HEADER ===
@@ -288,35 +288,35 @@ else:
 # st.write(current_alloc)
 
 
-# # === HEADER ===
-# st.markdown("""
-#     <style>
-#     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-#     .gothic-title {
-#         font-family: 'UnifrakturCook', serif;
-#         text-align: center;
-#         font-size: 3.5rem;
-#         font-weight: bold;
-#         padding: 0.5rem 0;
-#         letter-spacing: 1px;
-#         text-align: center;
-#         margin-bottom: 0.2rem;
-#         margin-top: 10px;
-#     }
-#     .pub-info {
-#         text-align: center;
-#         font-family: 'Georgia', serif;
-#         font-size: 0.8rem;
-#         margin-top: -18px;
-#         color: #ccc;
-#     }
-#     </style>
-#     <div class='gothic-title'>The Regime Report</div>
-#     <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-#     <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -10px;'>
-#         Asset Allocation in Current Market Conditions
-#     </h3>
-# """, unsafe_allow_html=True)
+# === HEADER ===
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+    .gothic-title {
+        font-family: 'UnifrakturCook', serif;
+        text-align: center;
+        font-size: 3.5rem;
+        font-weight: bold;
+        padding: 0.5rem 0;
+        letter-spacing: 1px;
+        text-align: center;
+        margin-bottom: 0.2rem;
+        margin-top: -60px;
+    }
+    .pub-info {
+        text-align: center;
+        font-family: 'Georgia', serif;
+        font-size: 0.8rem;
+        margin-top: -18px;
+        color: #ccc;
+    }
+    </style>
+    <div class='gothic-title'>The Regime Report</div>
+    <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -10px;'>
+        Asset Allocation in Current Market Conditions
+    </h3>
+""", unsafe_allow_html=True)
 
 st.markdown("""
     <style>
@@ -539,25 +539,25 @@ if not perf_df.empty:
     </div>
     """, height=400)
     
-# # Hide Streamlit menu and footer
-# st.markdown("""
-#     <style>
-#         /* ✅ Hide footer */
-#         footer {visibility: hidden;}
+# Hide Streamlit menu and footer
+st.markdown("""
+    <style>
+        /* ✅ Hide footer */
+        footer {visibility: hidden;}
 
-#         /* ✅ Hide main menu (top-left burger) */
-#         #MainMenu {visibility: hidden;}
+        /* ✅ Hide main menu (top-left burger) */
+        #MainMenu {visibility: hidden;}
 
-#         /* ❌ Do NOT hide the entire toolbar (preserves sidebar toggle) */
-#         /* Removed stToolbar hiding */
+        /* ❌ Do NOT hide the entire toolbar (preserves sidebar toggle) */
+        /* Removed stToolbar hiding */
 
-#         /* Optional: hide emoji containers only if needed */
-#         .st-emotion-cache-18ni7ap,
-#         .st-emotion-cache-6qob1r {
-#             display: none !important;
-#         }
-#     </style>
-# """, unsafe_allow_html=True)
+        /* Optional: hide emoji containers only if needed */
+        .st-emotion-cache-18ni7ap,
+        .st-emotion-cache-6qob1r {
+            display: none !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 
 
