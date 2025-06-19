@@ -27,32 +27,41 @@ TICKERS = {
     "stablecoins": None
 }
 
-# === 1. Set page and session state
+# === 1. Set page and initialize session state
 st.set_page_config(page_title="Regime Report", layout="wide")
-# === 1. Ensure guide toggle state is initialized
+
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
-# === 2. Floating "User Guide" button with unique ID
-with st.container():
-    st.markdown('<div id="user-guide-button">', unsafe_allow_html=True)
+# === 2. Floating "User Guide" Button (visible only if guide is closed)
+if not st.session_state["show_guide"]:
     toggle = st.button("📘 User Guide", key="guide_btn")
-    st.markdown('</div>', unsafe_allow_html=True)
-
     if toggle:
-        st.session_state["show_guide"] = not st.session_state["show_guide"]
+        st.session_state["show_guide"] = True
 
-# === 3. Conditionally hide the floating button
-if st.session_state["show_guide"]:
+    # === Inject CSS to float button in bottom-left
     st.markdown("""
     <style>
-        #user-guide-button {
-            display: none !important;
-        }
+    button[kind="secondary"] {
+        position: fixed !important;
+        bottom: 15px;
+        left: 15px;
+        z-index: 9999;
+        background-color: rgba(255,255,255,0.08);
+        color: #eee;
+        border: none;
+        padding: 6px 12px;
+        font-size: 13px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    button[kind="secondary"]:hover {
+        background-color: rgba(255,255,255,0.18);
+    }
     </style>
     """, unsafe_allow_html=True)
 
-# === 4. Show User Guide content
+# === 3. Show Guide Content + Close Button
 if st.session_state["show_guide"]:
     with st.container():
         st.markdown("""
@@ -71,9 +80,9 @@ if st.session_state["show_guide"]:
         ---
 
         We identify the current **economic regime** using macro data (GDP, inflation, etc.) and show you:
-        - Optimal asset allocation
-        - Portfolio performance
-        - Market insight and strategy updates
+        - Optimal asset allocation  
+        - Portfolio performance  
+        - Market insight and strategy updates  
 
         ---
 
@@ -103,7 +112,7 @@ if st.session_state["show_guide"]:
 
         st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
-        # ✅ Streamlit-native close button at the end
+        # === Close button in a real form
         with st.form(key="close_guide_form"):
             st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
             submitted = st.form_submit_button("❌ Close Guide")
@@ -113,7 +122,7 @@ if st.session_state["show_guide"]:
                 st.session_state["show_guide"] = False
                 st.rerun()
 
-    # 🛑 Stop rendering dashboard content
+    # 🛑 Stop further rendering when guide is active
     st.stop()
 
     
