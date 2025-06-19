@@ -51,7 +51,7 @@ with col1:
 
         /* Adjust vertical alignment to title */
         .move-button {
-            margin-top: -20px;  /* 💡 Tweak this until it looks perfect */
+            margin-top: 200px;  /* 💡 Tweak this until it looks perfect */
         }
         </style>
         <div class="move-button">
