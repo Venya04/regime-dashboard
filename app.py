@@ -38,19 +38,20 @@ components.html("""
   <style>
     .guide-arrow-hint {
       position: fixed;
-      top: 40px;
-      left: -10px;
+      top: 14px;
+      left: 30px;  /* ← Tweak this if needed */
       font-size: 13px;
+      font-family: 'Segoe UI', sans-serif;
       color: #bbb;
-      background: rgba(255,255,255,0.07);
+      background-color: rgba(255, 255, 255, 0.07);
       padding: 4px 10px;
       border-radius: 6px;
       cursor: pointer;
       z-index: 10000;
-      transition: background 0.3s, color 0.3s;
+      transition: background 0.3s ease-in-out;
     }
     .guide-arrow-hint:hover {
-      background: rgba(255,255,255,0.15);
+      background-color: rgba(255, 255, 255, 0.15);
       color: white;
     }
   </style>
@@ -66,7 +67,7 @@ components.html("""
     }
   </script>
   <div class="guide-arrow-hint" onclick="toggleGuide()">📘 User Guide</div>
-""", height=50)
+""", height=60)
 
 
 
