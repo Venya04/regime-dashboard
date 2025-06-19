@@ -29,38 +29,59 @@ TICKERS = {
 
 
 # Set page config at the very top
+# === 1. Page config & state init very early ===
 st.set_page_config(page_title="Regime Report", layout="wide")
-# === Ensure guide state is initialized early
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
-# === Bottom Left Guide Label ===
+# === 2. Clickable floating hint in bottom-left ===
 st.markdown("""
 <style>
-.guide-arrow-hint {
+  .guide-arrow-hint {
     position: fixed;
     bottom: 12px;
-    left: 16px;  /* align near sidebar arrows */
+    left: 16px;
     font-size: 13px;
     font-family: 'Segoe UI', sans-serif;
     color: #bbb;
-    background-color: rgba(255,255,255,0.08);
-    padding: 4px 10px;
-    border-radius: 6px;
+    background: rgba(255,255,255,0.08);
+    padding: 6px 12px;
+    border-radius: 8px;
     z-index: 9999;
-    pointer-events: auto;  /* ✅ lets you still click the sidebar toggle */
-    box-shadow: 0 0 4px rgba(0,0,0,0.2);
-    user-select: none;
-}
-.guide-arrow-hint:hover {
-    background-color: rgba(255,255,255,0.15);
+    cursor: pointer;
+    pointer-events: auto;
+    transition: background 0.3s, color 0.3s;
+  }
+  .guide-arrow-hint:hover {
+    background: rgba(255,255,255,0.15);
     color: white;
-}
+  }
 </style>
 
-<div class="guide-arrow-hint">📘 User Guide</div>
+<script>
+  function toggleGuideSidebar() {
+    const buttons = window.parent.document.querySelectorAll('button');
+    for (const btn of buttons) {
+      if (/guide/i.test(btn.innerText)) {
+        btn.click();
+        break;
+      }
+    }
+  }
+</script>
+
+<div class="guide-arrow-hint" onclick="toggleGuideSidebar()">
+  📘 User Guide
+</div>
 """, unsafe_allow_html=True)
 
+# === 3. Sidebar button that the JS clicks ===
+st.sidebar.markdown("## 📘 User Guide")
+if st.sidebar.button(
+    "Open Guide" if not st.session_state.show_guide else "Close Guide",
+    key="guide_toggle"
+):
+    st.session_state.show_guide = not st.session_state.show_guide
 
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
