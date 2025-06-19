@@ -41,7 +41,6 @@ with col1:
         st.session_state.show_guide = not st.session_state.show_guide
 
 with col2:
-
 st.markdown("""
         <style>
         @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
