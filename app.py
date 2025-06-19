@@ -118,6 +118,10 @@ if st.session_state.show_guide:
 
     # ✅ CLOSE guide-box div
     st.markdown("</div>", unsafe_allow_html=True)
+    # 👇 Add a native Streamlit "Close Guide" button
+        close = st.button("❌ Close Guide", key="close_guide")
+        if close:
+            st.session_state["show_guide"] = False
 
 # === LOAD DATA ===
 @st.cache_data
