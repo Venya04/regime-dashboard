@@ -77,7 +77,7 @@ button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Cl
 guide_button_html = f"""
 <div style="
     position: absolute;
-    top: 10px;
+    top: 0px;
     left: 20px;
     z-index: 1000;
 ">
