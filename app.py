@@ -64,7 +64,7 @@ st.markdown("""
         letter-spacing: 1px;
         margin-bottom: 0.2rem;
         /* ❌ No negative margin! */
-        margin-top: 5px;
+        margin-top: -90px;
     }
     .pub-info {
         text-align: center;
