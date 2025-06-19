@@ -28,29 +28,36 @@ TICKERS = {
 }
 
 
+# Set page config at the very top
 st.set_page_config(page_title="Regime Report", layout="wide")
+
+# === Bottom Left Guide Label ===
 st.markdown("""
-    <style>
-        .guide-arrow-hint {
-            position: fixed;
-            bottom: 10px;           /* 👇 Push to bottom */
-            left: 60px;             /* ⬅️ Nudge right from corner to align with arrows */
-            font-size: 13px;
-            font-family: 'Segoe UI', sans-serif;
-            color: #bbb;
-            background-color: rgba(255, 255, 255, 0.07);
-            padding: 4px 10px;
-            border-radius: 6px;
-            z-index: 10000;
-            pointer-events: none;   /* 👈 Doesn't block sidebar clicks */
-        }
-        .guide-arrow-hint:hover {
-            background-color: rgba(255,255,255,0.12);
-            color: white;
-        }
-    </style>
-    <div class="guide-arrow-hint">📘 User Guide</div>
+<style>
+.guide-arrow-hint {
+    position: fixed;
+    bottom: 12px;
+    left: 16px;  /* align near sidebar arrows */
+    font-size: 13px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #bbb;
+    background-color: rgba(255,255,255,0.08);
+    padding: 4px 10px;
+    border-radius: 6px;
+    z-index: 9999;
+    pointer-events: auto;  /* ✅ lets you still click the sidebar toggle */
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    user-select: none;
+}
+.guide-arrow-hint:hover {
+    background-color: rgba(255,255,255,0.15);
+    color: white;
+}
+</style>
+
+<div class="guide-arrow-hint">📘 User Guide</div>
 """, unsafe_allow_html=True)
+
 
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
