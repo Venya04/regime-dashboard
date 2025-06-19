@@ -32,13 +32,14 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
-with st.sidebar:
-    if st.session_state.show_guide:
-        if st.button("❌ Close Guide"):
-            st.session_state.show_guide = False
-    else:
+top_left, _ = st.columns([0.2, 0.8])
+with top_left:
+    if not st.session_state.show_guide:
         if st.button("📘 Open Guide"):
             st.session_state.show_guide = True
+    else:
+        if st.button("❌ Close Guide"):
+            st.session_state.show_guide = False
 
 if st.session_state.show_guide:
     st.markdown(
