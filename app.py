@@ -33,7 +33,7 @@ if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
 # === Sidebar Toggle Button ===
-st.sidebar.markdown("### 📘 Guide")
+st.sidebar.markdown("## 📘 User Guide")
 if st.sidebar.button("Open Guide" if not st.session_state.show_guide else "Close Guide"):
     st.session_state.show_guide = not st.session_state.show_guide
 
