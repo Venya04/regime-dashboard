@@ -29,47 +29,34 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
+# === STATE INIT (must come early) ===
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
-
-# === CLICKABLE TEXT NEXT TO ARROWS ===
-
-components.html("""
-  <style>
-    .guide-arrow-hint {
-      position: fixed;
-      top: -10px;
-      left: -10px;  /* ← Tweak this if needed */
-      font-size: 13px;
-      font-family: 'Segoe UI', sans-serif;
-      color: #bbb;
-      background-color: rgba(255, 255, 255, 0.07);
-      padding: 4px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      z-index: 10000;
-      transition: background 0.3s ease-in-out;
-    }
-    .guide-arrow-hint:hover {
-      background-color: rgba(255, 255, 255, 0.15);
-      color: white;
-    }
-  </style>
-  <script>
-    function toggleGuide() {
-      const btns = window.parent.document.querySelectorAll('button');
-      for (let b of btns) {
-        if (/guide/i.test(b.innerText)) {
-          b.click();
-          return;
+# === GUIDE HINT NEXT TO ARROWS (always visible) ===
+st.markdown("""
+    <style>
+        .guide-arrow-hint {
+            position: fixed;
+            top: 14px;
+            left: 42px;  /* 👈 Move left/right to align with arrows */
+            font-size: 13px;
+            font-family: 'Segoe UI', sans-serif;
+            color: #bbb;
+            background-color: rgba(255, 255, 255, 0.07);
+            padding: 3px 9px;
+            border-radius: 6px;
+            z-index: 10000;
+            transition: all 0.3s ease-in-out;
+            pointer-events: none;  /* 👈 ensures it doesn't block clicks */
         }
-      }
-    }
-  </script>
-  <div class="guide-arrow-hint" onclick="toggleGuide()">📘 User Guide</div>
-""", height=100)
 
-
+        .guide-arrow-hint:hover {
+            background-color: rgba(255,255,255,0.12);
+            color: white;
+        }
+    </style>
+    <div class="guide-arrow-hint">📘 User Guide</div>
+""", unsafe_allow_html=True)
 
 # === SIDEBAR BUTTON (Required for toggle to work) ===
 st.sidebar.markdown("## 📘 User Guide")
