@@ -71,13 +71,38 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# === FAKE SPACER TO HOLD BUTTON PLACE ===
-st.markdown('<div class="guide-button">', unsafe_allow_html=True)
+# === GUIDE BUTTON IN FIXED POSITION ===
 button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-if st.button(button_label, key="real_guide_button"):
-    st.session_state.show_guide = not st.session_state.show_guide
-st.markdown('</div>', unsafe_allow_html=True)
 
+guide_button_html = f"""
+<div style="
+    position: absolute;
+    top: 110px;
+    left: 20px;
+    z-index: 1000;
+">
+    <form action="" method="post">
+        <button type="submit" name="toggle_guide" style="
+            font-size: 16px;
+            padding: 8px 16px;
+            background-color: #404040;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        ">
+            {button_label}
+        </button>
+    </form>
+</div>
+"""
+
+st.markdown(guide_button_html, unsafe_allow_html=True)
+
+# Check for form submission using query param (simulate toggle)
+if "toggle_guide" in st.query_params:
+    st.session_state.show_guide = not st.session_state.show_guide
+    
 # === HEADER ===
 st.markdown("""
     <div class='gothic-title'>The Regime Report</div>
