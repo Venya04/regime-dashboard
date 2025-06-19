@@ -27,21 +27,25 @@ TICKERS = {
     "stablecoins": None
 }
 
-# === 2. Clickable floating hint in bottom-left ===
+# === 1. Set page and session state
 st.set_page_config(page_title="Regime Report", layout="wide")
 
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
-# Floating Toggle Guide Button
-toggle = st.button("📘 User Guide", key="guide_btn")
-if toggle:
-    st.session_state["show_guide"] = not st.session_state["show_guide"]
+# === 2. Floating button container with ID
+with st.container():
+    st.markdown('<div id="user-guide-button">', unsafe_allow_html=True)
+    toggle = st.button("📘 User Guide", key="guide_btn")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-# Inject CSS to float the button bottom-left
+    if toggle:
+        st.session_state["show_guide"] = True
+
+# === 3. Style the floating toggle
 st.markdown("""
 <style>
-button[kind="secondary"] {
+#user-guide-button button[kind="secondary"] {
     position: fixed !important;
     bottom: 15px;
     left: 15px;
@@ -54,37 +58,23 @@ button[kind="secondary"] {
     border-radius: 6px;
     cursor: pointer;
 }
-button[kind="secondary"]:hover {
+#user-guide-button button[kind="secondary"]:hover {
     background-color: rgba(255,255,255,0.18);
 }
 </style>
 """, unsafe_allow_html=True)
 
-# === 1. Ensure guide toggle state is initialized
-if "show_guide" not in st.session_state:
-    st.session_state["show_guide"] = False
-
-# === 2. Floating "User Guide" button with unique ID
-with st.container():
-    st.markdown('<div id="user-guide-button">', unsafe_allow_html=True)
-    toggle = st.button("📘 User Guide", key="guide_btn")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    if toggle:
-        st.session_state["show_guide"] = not st.session_state["show_guide"]
-
-# === 3. Conditionally hide the floating button
+# === 4. Hide the toggle button when guide is open
 if st.session_state["show_guide"]:
     st.markdown("""
     <style>
-    /* Only hide the very first button (User Guide) */
-    div[data-testid="stButton"] button {
+    #user-guide-button {
         display: none !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# === 4. Show User Guide content
+# === 5. Show the User Guide and native close button
 if st.session_state["show_guide"]:
     with st.container():
         st.markdown("""
@@ -135,7 +125,7 @@ if st.session_state["show_guide"]:
 
         st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
-        # ✅ Streamlit-native close button at the end
+        # ✅ Close guide button
         with st.form(key="close_guide_form"):
             st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
             submitted = st.form_submit_button("❌ Close Guide")
@@ -145,9 +135,8 @@ if st.session_state["show_guide"]:
                 st.session_state["show_guide"] = False
                 st.rerun()
 
-    # 🛑 Stop rendering dashboard content
+    # 🛑 Prevent the rest of the app from rendering
     st.stop()
-
 
     
 # === LOAD DATA ===
