@@ -90,6 +90,13 @@ st.markdown("""
 # === GUIDE CONTENT ===
 if st.session_state.show_guide:
     st.markdown("""
+        <div style="margin-top: 1rem; background-color: #111111; color: white; padding: 1rem; border-radius: 10px;">
+            <h4>📘 How to Use This Dashboard</h4>
+            <p>Useful information about navigating and understanding the dashboard content.</p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
     ### 📘 How to Read This Dashboard
 
     Welcome to **The Regime Report** — your macro-aware investment guide.
