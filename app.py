@@ -53,6 +53,7 @@ st.markdown("""
     </style>
     <div class="sidebar-hint">📘 Click arrows for guide</div>
 """, unsafe_allow_html=True)
+
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
