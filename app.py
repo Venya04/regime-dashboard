@@ -27,35 +27,32 @@ TICKERS = {
     "stablecoins": None
 }
 
-# === PAGE CONFIG & STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
 
-# === SESSION STATE FOR GUIDE ===
-if "show_guide" not in st.session_state:
-    st.session_state.show_guide = False
-
-# === SIDEBAR TOGGLE ===
-st.sidebar.markdown("## 📘 User Guide")
-if st.sidebar.button("Open Guide" if not st.session_state.show_guide else "Close Guide"):
-    st.session_state.show_guide = not st.session_state.show_guide
-
-# === FIXED HINT NEXT TO ARROWS ===
+# === GUIDE HINT NEXT TO ARROWS (always visible) ===
 st.markdown("""
-<style>
-  .sidebar-hint {
-    position: fixed;
-    top: 16px;
-    left: 36px; /* Adjust to line up next to arrows */
-    font-size: 14px;
-    color: #ccc;
-    background: rgba(255,255,255,0.05);
-    padding: 4px 8px;
-    border-radius: 4px;
-    z-index: 1000;
-    pointer-events: none;
-  }
-</style>
-<div class="sidebar-hint">📘 User Guide</div>
+    <style>
+        .guide-arrow-hint {
+            position: fixed;
+            top: 14px;
+            left: 42px;  /* 👈 Move left/right to align with arrows */
+            font-size: 13px;
+            font-family: 'Segoe UI', sans-serif;
+            color: #bbb;
+            background-color: rgba(255, 255, 255, 0.07);
+            padding: 3px 9px;
+            border-radius: 6px;
+            z-index: 10000;
+            transition: all 0.3s ease-in-out;
+            pointer-events: none;  /* 👈 ensures it doesn't block clicks */
+        }
+
+        .guide-arrow-hint:hover {
+            background-color: rgba(255,255,255,0.12);
+            color: white;
+        }
+    </style>
+    <div class="guide-arrow-hint">📘 User Guide</div>
 """, unsafe_allow_html=True)
 
 # # === HEADER ===
