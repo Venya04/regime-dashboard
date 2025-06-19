@@ -30,31 +30,34 @@ TICKERS = {
 # === SET PAGE & INITIAL STATE ===
 # === FIXED SPACING / STYLE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
-# ✅ Ensure the session state key is always defined
+# === CONFIG + SESSION ===
+st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
+# === CUSTOM STYLING ===
 st.markdown("""
     <style>
         .block-container {
             padding-top: 0rem !important;
         }
-        .gothic-title {
-            margin-top: -10px;
+        .guide-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
         }
     </style>
 """, unsafe_allow_html=True)
 
-# === INLINE BUTTON + HEADING ===
-col1, col2 = st.columns([0.15, 0.85])
+# === BUTTON (ABSOLUTE POSITIONED) ===
+st.markdown('<div class="guide-button">', unsafe_allow_html=True)
+button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
+if st.button(button_label):
+    st.session_state.show_guide = not st.session_state.show_guide
+st.markdown('</div>', unsafe_allow_html=True)
 
-with col1:
-    st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
-    button_label = "📘 Open Guide" if not st.session_state.get("show_guide", False) else "❌ Close Guide"
-    if st.button(button_label):
-        st.session_state.show_guide = not st.session_state.get("show_guide", False)
-
-with col2:
+# === FULL WIDTH HEADER ===
     st.markdown("""
         <style>
         @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
