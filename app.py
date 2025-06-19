@@ -43,15 +43,17 @@ st.markdown("""
     z-index: 2000;
   }
 </style>
+<div class="guide-button">
 """, unsafe_allow_html=True)
 
-# Create the button inside the container
+# ✅ NOW the button is inside the div
 button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
 btn_clicked = st.button(button_label, key="toggle_guide")
 
 if btn_clicked:
     st.session_state.show_guide = not st.session_state.show_guide
 
+# ✅ properly close the div now
 st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown("""
