@@ -41,32 +41,76 @@ with col1:
         st.session_state.show_guide = not st.session_state.show_guide
 
 with col2:
+    # st.markdown("""
+    #     <style>
+    #     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+    #     .gothic-title {
+    #         font-family: 'UnifrakturCook', serif;
+    #         text-align: center;
+    #         font-size: 3.5rem;
+    #         font-weight: bold;
+    #         letter-spacing: 1px;
+    #         margin-bottom: 0.2rem;
+    #         margin-top: -90px;
+    #     }
+    #     .pub-info {
+    #         text-align: center;
+    #         font-family: 'Georgia', serif;
+    #         font-size: 0.8rem;
+    #         margin-top: -18px;
+    #         color: #ccc;
+    #     }
+    #     </style>
+    #     <div class='gothic-title'>The Regime Report</div>
+    #     <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+    #     <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -10px;'>
+    #         Asset Allocation in Current Market Conditions
+    #     </h3>
+    # """, unsafe_allow_html=True)
     st.markdown("""
-        <style>
-        @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-        .gothic-title {
-            font-family: 'UnifrakturCook', serif;
-            text-align: center;
-            font-size: 3.5rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin-bottom: 0.2rem;
-            margin-top: -90px;
-        }
-        .pub-info {
-            text-align: center;
-            font-family: 'Georgia', serif;
-            font-size: 0.8rem;
-            margin-top: -18px;
-            color: #ccc;
-        }
-        </style>
-        <div class='gothic-title'>The Regime Report</div>
-        <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-        <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -10px;'>
-            Asset Allocation in Current Market Conditions
-        </h3>
-    """, unsafe_allow_html=True)
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+
+    .header-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .gothic-title {
+        font-family: 'UnifrakturCook', serif;
+        font-size: 3.5rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-bottom: 0.2rem;
+        text-align: center;
+    }
+
+    .pub-info {
+        font-family: 'Georgia', serif;
+        font-size: 0.8rem;
+        color: #ccc;
+        text-align: center;
+        margin-top: -8px;
+    }
+
+    .sub-title {
+        font-family: Georgia, serif;
+        font-style: italic;
+        font-size: 1.5rem;
+        margin-top: 0.5rem;
+        text-align: center;
+    }
+    </style>
+
+    <div class="header-container">
+        <div class="gothic-title">The Regime Report</div>
+        <div class="pub-info">No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+        <div class="sub-title">Asset Allocation in Current Market Conditions</div>
+    </div>
+""", unsafe_allow_html=True)
 
 if st.session_state.show_guide:
     st.markdown(
