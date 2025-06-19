@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import yfinance as yf
 import os
+import streamlit.components.v1 as components
 
 
 def get_file_version(path):
@@ -32,24 +33,41 @@ if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
 # === CLICKABLE TEXT NEXT TO ARROWS ===
-st.markdown("""
+
+components.html("""
   <style>
     .guide-arrow-hint {
       position: fixed;
-      top: 14px;
+      top: 12px;
       left: 42px;
       font-size: 13px;
-      font-family: 'Segoe UI', sans-serif;
       color: #bbb;
-      background-color: rgba(255, 255, 255, 0.07);
-      padding: 3px 9px;
+      background: rgba(255,255,255,0.07);
+      padding: 4px 10px;
       border-radius: 6px;
+      cursor: pointer;
       z-index: 10000;
-      pointer-events: none;
+      transition: background 0.3s, color 0.3s;
+    }
+    .guide-arrow-hint:hover {
+      background: rgba(255,255,255,0.15);
+      color: white;
     }
   </style>
-  <div class="guide-arrow-hint">📘 User Guide</div>
-""", unsafe_allow_html=True)
+  <script>
+    function toggleGuide() {
+      const btns = window.parent.document.querySelectorAll('button');
+      for (let b of btns) {
+        if (/guide/i.test(b.innerText)) {
+          b.click();
+          return;
+        }
+      }
+    }
+  </script>
+  <div class="guide-arrow-hint" onclick="toggleGuide()">📘 User Guide</div>
+""", height=50)
+
 
 
 # === SIDEBAR BUTTON (Required for toggle to work) ===
