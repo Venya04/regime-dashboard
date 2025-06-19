@@ -40,7 +40,7 @@ st.markdown("""
         }
         .guide-button {
             position: absolute;
-            top: 20px;
+            top: 70px;
             left: 20px;
             z-index: 100;
         }
