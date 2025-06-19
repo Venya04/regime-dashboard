@@ -28,20 +28,20 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
-# === USER GUIDE TOGGLE STATE ===
-if "show_guide" not in st.session_state:
-    st.session_state.show_guide = False
+# # === USER GUIDE TOGGLE STATE ===
+# if "show_guide" not in st.session_state:
+#     st.session_state.show_guide = False
 
-# === USE COLUMNS FOR BUTTON + TITLE ===
-col1, col2 = st.columns([0.15, 0.85])
+# # === USE COLUMNS FOR BUTTON + TITLE ===
+# col1, col2 = st.columns([0.15, 0.85])
 
-with col1:
-    if not st.session_state.show_guide:
-        if st.button("📘 Open Guide"):
-            st.session_state.show_guide = True
-    else:
-        if st.button("❌ Close Guide"):
-            st.session_state.show_guide = False
+# with col1:
+#     if not st.session_state.show_guide:
+#         if st.button("📘 Open Guide"):
+#             st.session_state.show_guide = True
+#     else:
+#         if st.button("❌ Close Guide"):
+#             st.session_state.show_guide = False
 
 with col2:
     st.markdown("<div class='gothic-title'>The Regime Report</div>", unsafe_allow_html=True)
