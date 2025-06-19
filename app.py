@@ -59,7 +59,7 @@ st.markdown("""
       /* Div wrapper to absolutely position only the button */
       .guide-button-wrapper {
           position: absolute;
-          top: 20px;
+          top: 0px;
           left: 20px;
           z-index: 999;
       }
