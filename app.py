@@ -37,24 +37,34 @@ st.markdown("""
         .guide-arrow-hint {
             position: fixed;
             top: 14px;
-            left: 42px;  /* 👈 Move left/right to align with arrows */
+            left: 42px;
             font-size: 13px;
             font-family: 'Segoe UI', sans-serif;
-            color: #bbb;
+            color: #ddd;
             background-color: rgba(255, 255, 255, 0.07);
-            padding: 3px 9px;
+            padding: 4px 10px;
             border-radius: 6px;
             z-index: 10000;
             transition: all 0.3s ease-in-out;
-            pointer-events: none;  /* 👈 ensures it doesn't block clicks */
         }
 
         .guide-arrow-hint:hover {
-            background-color: rgba(255,255,255,0.12);
+            background-color: rgba(255,255,255,0.15);
             color: white;
+            cursor: pointer;
         }
     </style>
-    <div class="guide-arrow-hint">📘 User Guide</div>
+
+    <script>
+    function toggleSidebarGuide() {
+        const guideButton = window.parent.document.querySelector('button[kind="secondary"]');
+        if (guideButton) guideButton.click();
+    }
+    </script>
+
+    <div class="guide-arrow-hint" onclick="toggleSidebarGuide()">
+        📘 User Guide
+    </div>
 """, unsafe_allow_html=True)
 
 # # === HEADER ===
