@@ -30,15 +30,19 @@ TICKERS = {
 # === USER GUIDE TOGGLE STATE ===
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
+# === SET PAGE & INITIAL STATE ===
+st.set_page_config(page_title="Regime Report", layout="wide")
+if "show_guide" not in st.session_state:
+    st.session_state.show_guide = False
 
-# === BUTTON + HEADING LAYOUT ===
+# === BUTTON + HEADING ===
 left_col, _ = st.columns([0.2, 0.8])
 with left_col:
     button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
     if st.button(button_label):
         st.session_state.show_guide = not st.session_state.show_guide
 
-# === HEADER ===
+# === HEADER (Centered) ===
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
@@ -65,6 +69,34 @@ st.markdown("""
         Asset Allocation in Current Market Conditions
     </h3>
 """, unsafe_allow_html=True)
+
+# ✅ RENDER GUIDE AFTER toggle
+if st.session_state.show_guide:
+    st.markdown(
+        """
+        <style>
+        .guide-box {
+            background-color: #111111;
+            color: #e0e0e0;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        </style>
+        <div class="guide-box">
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown("""
+    ### 📘 How to Read This Dashboard
+    ... your guide content here ...
+    """, unsafe_allow_html=True)
+
+    # ✅ Close guide box
+    st.markdown("</div>", unsafe_allow_html=True)
 
 if st.session_state.show_guide:
     st.markdown(
