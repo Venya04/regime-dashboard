@@ -36,15 +36,14 @@ if "show_guide" not in st.session_state:
 # === CUSTOM POSITION FOR BUTTON ===
 st.markdown("""
     <style>
-    .custom-button-container {
+    .guide-button {
         position: absolute;
         top: 20px;
-        left: 5px;
-        z-index: 9999;
+        left: 5px;  /* moved blood left */
+        z-index: 1000;
     }
     </style>
-    <div class="custom-button-container" id="custom-button">
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # Create the button inside the container
 button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
