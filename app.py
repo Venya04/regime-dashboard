@@ -38,8 +38,8 @@ components.html("""
   <style>
     .guide-arrow-hint {
       position: fixed;
-      top: 20px;
-      left: 20px;
+      top: 100px;
+      left: 5px;
       font-size: 13px;
       color: #bbb;
       background: rgba(255,255,255,0.07);
