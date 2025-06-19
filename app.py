@@ -38,7 +38,7 @@ components.html("""
   <style>
     .guide-arrow-hint {
       position: fixed;
-      top: 30px;
+      top: 60px;
       left: 5px;
       font-size: 13px;
       color: #bbb;
