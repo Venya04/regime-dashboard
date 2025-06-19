@@ -29,9 +29,6 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
-# === STATE INIT (must come early) ===
-if "show_guide" not in st.session_state:
-    st.session_state["show_guide"] = False
 # === GUIDE HINT NEXT TO ARROWS (always visible) ===
 if st.session_state.show_guide:
 st.markdown("""
@@ -58,6 +55,8 @@ st.markdown("""
     </style>
     <div class="guide-arrow-hint">📘 User Guide</div>
 """, unsafe_allow_html=True)
+if "show_guide" not in st.session_state:
+    st.session_state["show_guide"] = False
 
 # === SIDEBAR BUTTON (Required for toggle to work) ===
 st.sidebar.markdown("## 📘 User Guide")
