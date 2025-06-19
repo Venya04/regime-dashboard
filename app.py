@@ -39,7 +39,7 @@ components.html("""
     .guide-arrow-hint {
       position: fixed;
       top: 40px;
-      left: 0px;
+      left: -10px;
       font-size: 13px;
       color: #bbb;
       background: rgba(255,255,255,0.07);
