@@ -56,16 +56,40 @@ header[data-testid="stHeader"] > div:nth-child(3) { display: none; }
 """, unsafe_allow_html=True)
 
 # === 2. Always-visible floating hint next to the arrows
+# === 2. Clickable floating hint that toggles the sidebar button
 st.markdown("""
-<div style="
-    position: fixed; bottom: 10px; left: 60px;
-    font-size: 13px; padding: 6px 12px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 6px; z-index: 9999;
+<style>
+.guide-float {
+    position: fixed;
+    bottom: 10px;
+    left: 60px;
+    font-size: 13px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #eee;
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 6px 12px;
+    border-radius: 6px;
     cursor: pointer;
-">
-    📘 User Guide
-</div>
+    z-index: 9999;
+    transition: background 0.3s;
+}
+.guide-float:hover {
+    background-color: rgba(255,255,255,0.18);
+    color: white;
+}
+</style>
+<script>
+function toggleSidebarGuide() {
+    const buttons = window.parent.document.querySelectorAll('button');
+    for (let b of buttons) {
+        if (/guide/i.test(b.innerText)) {
+            b.click();
+            break;
+        }
+    }
+}
+</script>
+<div class="guide-float" onclick="toggleSidebarGuide()">📘 User Guide</div>
 """, unsafe_allow_html=True)
 
 # === 3. Sidebar toggle button
