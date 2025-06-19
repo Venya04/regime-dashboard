@@ -28,7 +28,6 @@ TICKERS = {
 }
 
 # === 1. Set page and initialize session state
-# === 1. Set page and initialize session state
 st.set_page_config(page_title="Regime Report", layout="wide")
 
 if "show_guide" not in st.session_state:
@@ -71,7 +70,7 @@ if not st.session_state["show_guide"]:
 if st.session_state["show_guide"]:
     st.markdown("""
     <style>
-    .user-guide-float {
+    button[kind="secondary"] {
         display: none !important;
     }
     </style>
