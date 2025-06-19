@@ -29,14 +29,18 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
+
+# === STATE INIT (must come early) ===
+if "show_guide" not in st.session_state:
+    st.session_state["show_guide"] = False
+
 # === GUIDE HINT NEXT TO ARROWS (always visible) ===
-if st.session_state.show_guide:
 st.markdown("""
     <style>
         .guide-arrow-hint {
             position: fixed;
             top: 14px;
-            left: 60px;  /* 👈 Move left/right to align with arrows */
+            left: 60px;  /* 👈 tweak to align nicely */
             font-size: 13px;
             font-family: 'Segoe UI', sans-serif;
             color: #bbb;
@@ -45,7 +49,7 @@ st.markdown("""
             border-radius: 6px;
             z-index: 10000;
             transition: all 0.3s ease-in-out;
-            pointer-events: none;  /* 👈 ensures it doesn't block clicks */
+            pointer-events: none;  /* ensures it doesn't block sidebar arrows */
         }
 
         .guide-arrow-hint:hover {
@@ -55,8 +59,6 @@ st.markdown("""
     </style>
     <div class="guide-arrow-hint">📘 User Guide</div>
 """, unsafe_allow_html=True)
-if "show_guide" not in st.session_state:
-    st.session_state["show_guide"] = False
 
 # === SIDEBAR BUTTON (Required for toggle to work) ===
 st.sidebar.markdown("## 📘 User Guide")
