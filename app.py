@@ -108,34 +108,21 @@ if st.session_state["show_guide"]:
         > **Discipline over desire always wins.**
         """, unsafe_allow_html=True)
 
-        # Spacer for clean scroll
+        # Spacer
         st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
-        # Centered and styled Close Guide button
-        st.markdown("""
-        <div style="display: flex; justify-content: center; margin-top: 20px;">
-            <form action="" method="post">
-                <button name="close_guide_button" style="
-                    background-color: #522D2D;
-                    color: white;
-                    font-size: 15px;
-                    padding: 10px 24px;
-                    border: none;
-                    border-radius: 8px;
-                    cursor: pointer;
-                ">❌ Close Guide</button>
-            </form>
-        </div>
-        """, unsafe_allow_html=True)
+        # ✅ Use a real Streamlit form to close the guide
+        with st.form(key="close_guide_form"):
+            st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+            submitted = st.form_submit_button("❌ Close Guide")
+            st.markdown("</div>", unsafe_allow_html=True)
 
-        # Invisible form listener (must be outside HTML form)
-        close_guide_button = st.form_submit_button("close_guide_button")
-        if close_guide_button:
-            st.session_state["show_guide"] = False
-            st.rerun()
+            if submitted:
+                st.session_state["show_guide"] = False
+                st.rerun()
 
-    # ⛔ Stop rest of dashboard from rendering
     st.stop()
+
     
 # === LOAD DATA ===
 @st.cache_data
