@@ -28,7 +28,6 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
-
 # === USER GUIDE BUTTON TOGGLE ===
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
