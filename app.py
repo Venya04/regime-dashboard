@@ -65,8 +65,6 @@ if st.session_state.show_guide:
     st.markdown("""
     ### 📘 How to Read This Dashboard
 
-    Welcome to **The Regime Report** — your macro-aware investment guide.
-
     This dashboard is built around a core truth:
 
     > 💭 **You can’t tell the market what to do — but you can choose how to respond.**
