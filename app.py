@@ -28,7 +28,9 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
-
+# === STATE INIT (must come early) ===
+if "show_guide" not in st.session_state:
+    st.session_state["show_guide"] = False
 # === GUIDE HINT NEXT TO ARROWS (always visible) ===
 st.markdown("""
     <style>
