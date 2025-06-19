@@ -45,6 +45,7 @@ st.markdown("""
 col1, col2 = st.columns([0.15, 0.85])
 
 with col1:
+    st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
     button_label = "📘 Open Guide" if not st.session_state.get("show_guide", False) else "❌ Close Guide"
     if st.button(button_label):
         st.session_state.show_guide = not st.session_state.get("show_guide", False)
