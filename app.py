@@ -39,7 +39,7 @@ st.markdown("""
     .custom-button-container {
         position: fixed;
         top: 20px;
-        left: -20px;
+        left: 20px;
         z-index: 9999;
     }
     </style>
@@ -65,7 +65,7 @@ st.markdown("""
             font-weight: bold;
             letter-spacing: 1px;
             margin-bottom: 0.2rem;
-            margin-top: -90px;
+            margin-top: -150px;
         }
         .pub-info {
             text-align: center;
