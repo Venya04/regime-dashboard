@@ -60,17 +60,6 @@ button[kind="secondary"]:hover {
 </style>
 """, unsafe_allow_html=True)
 
-# ✅ HIDE the floating button when the guide is open
-if st.session_state["show_guide"]:
-    st.markdown("""
-    <style>
-    /* Only hide the very first button (User Guide) */
-    div[data-testid="stButton"] button {
-        display: none !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
 if st.session_state["show_guide"]:
     with st.container():
         st.markdown("""
@@ -95,36 +84,57 @@ if st.session_state["show_guide"]:
 
         ---
 
-        #### 🥧 Portfolio Allocation Pie Chart
+        #### 🥧 Portfolio Allocation Pie Chart  
         Suggests how to allocate assets (stocks, crypto, cash, etc.) based on the current regime.
 
-        #### 📈 Portfolio Performance Chart
+        #### 📈 Portfolio Performance Chart  
         Shows how the strategy performed over time vs. passive alternatives.
 
-        #### 🧠 Market Insight
+        #### 🧠 Market Insight  
         Interprets current macro signals — inflation, growth, credit, liquidity.
 
-        #### 🎯 Top Strategy Note
+        #### 🎯 Top Strategy Note  
         Tactical view: what to do based on the current regime.
 
-        #### 💡 Trader’s Conclusion
+        #### 💡 Trader’s Conclusion  
         Simple takeaway: hold, hedge, rebalance?
 
         ---
 
-        ### 💬 Still Learning?
+        ### 💬 Still Learning?  
         No worries — this dashboard is designed to be educational and actionable.  
         Think of it as your **macro compass** — helping you navigate instead of guess.
 
         > **Discipline over desire always wins.**
         """, unsafe_allow_html=True)
 
+        # Spacer for clean scroll
         st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
-        if st.button("❌ Close Guide", key="close_guide"):
-            st.session_state["show_guide"] = False
+        # Centered and styled Close Guide button
+        st.markdown("""
+        <div style="display: flex; justify-content: center; margin-top: 20px;">
+            <form action="" method="post">
+                <button name="close_guide_button" style="
+                    background-color: #522D2D;
+                    color: white;
+                    font-size: 15px;
+                    padding: 10px 24px;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                ">❌ Close Guide</button>
+            </form>
+        </div>
+        """, unsafe_allow_html=True)
 
-    # ⛔️ Must be outside `with st.container()`
+        # Invisible form listener (must be outside HTML form)
+        close_guide_button = st.form_submit_button("close_guide_button")
+        if close_guide_button:
+            st.session_state["show_guide"] = False
+            st.rerun()
+
+    # ⛔ Stop rest of dashboard from rendering
     st.stop()
     
 # === LOAD DATA ===
