@@ -47,11 +47,14 @@ if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
 # === GUIDE BUTTON + HEADER ===
+# Tweak the guide button’s vertical placement separately
 left_col, right_col = st.columns([0.2, 0.8])
 with left_col:
+    st.markdown("<div style='padding-top: 0.2rem;'>", unsafe_allow_html=True)  # tighten
     button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
     if st.button(button_label):
         st.session_state.show_guide = not st.session_state.show_guide
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # ✅ Now space above header
 st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
