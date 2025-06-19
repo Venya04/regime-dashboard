@@ -33,43 +33,46 @@ if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
 # === 2. Clickable floating hint in bottom-left ===
+st.set_page_config(page_title="Regime Report", layout="wide")
+if "show_guide" not in st.session_state:
+    st.session_state["show_guide"] = False
+
+# === 1. Move header arrows to bottom-left + hide menu/footer
 st.markdown("""
 <style>
-/* Move Streamlit header to bottom-left */
 header[data-testid="stHeader"] {
     position: fixed;
     bottom: 12px;
     left: 12px;
     background: transparent;
     z-index: 10000;
-    width: auto;
-    height: auto;
     padding: 0;
 }
-
-/* Hide all header content EXCEPT sidebar toggle */
-header[data-testid="stHeader"] > div:first-child {
-    visibility: visible;  /* This contains the arrows */
-}
+header[data-testid="stHeader"] > div:first-child { visibility: visible; }
 header[data-testid="stHeader"] > div:nth-child(2),
-header[data-testid="stHeader"] > div:nth-child(3) {
-    display: none;
-}
-
-/* Hide Streamlit’s top menu + footer */
-#MainMenu, footer, [data-testid="stToolbar"] {
-    display: none !important;
-}
+header[data-testid="stHeader"] > div:nth-child(3) { display: none; }
+#MainMenu, footer, [data-testid="stToolbar"] { display: none !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# === 3. Sidebar button that the JS clicks ===
+# === 2. Always-visible floating hint next to the arrows
+st.markdown("""
+<div style="
+    position: fixed; bottom: 10px; left: 60px;
+    font-size: 13px; padding: 6px 12px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 6px; z-index: 9999;
+    cursor: pointer;
+">
+    📘 User Guide
+</div>
+""", unsafe_allow_html=True)
+
+# === 3. Sidebar toggle button
 st.sidebar.markdown("## 📘 User Guide")
-if st.sidebar.button(
-    "Open Guide" if not st.session_state.show_guide else "Close Guide",
-    key="guide_toggle"
-):
+if st.sidebar.button("Open Guide" if not st.session_state.show_guide else "Close Guide", key="guide_toggle"):
     st.session_state.show_guide = not st.session_state.show_guide
+
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
     st.markdown("""
