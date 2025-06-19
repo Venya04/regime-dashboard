@@ -33,37 +33,54 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
-# === 2. Floating "User Guide" Button (visible only if guide is closed)
 if not st.session_state["show_guide"]:
-    st.markdown("<div class='user-guide-float'>", unsafe_allow_html=True)
-    toggle = st.button("📘 User Guide", key="guide_btn")
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    if toggle:
-        st.session_state["show_guide"] = True
-
-    # === Inject CSS to float button in bottom-left
+    # Floating button in HTML container
     st.markdown("""
+    <div class="user-guide-float">
+        <form action="">
+            <button type="submit">📘 User Guide</button>
+        </form>
+    </div>
     <style>
-    .user-guide-float {
-        position: fixed !important;
-        bottom: 15px;
-        left: 15px;
-        z-index: 9999;
-    }
-    .user-guide-float button[kind="secondary"] {
-        background-color: rgba(255,255,255,0.08);
-        color: #eee;
-        border: none;
-        padding: 6px 12px;
-        font-size: 13px;
-        border-radius: 6px;
-        cursor: pointer;
-    }
-    .user-guide-float button[kind="secondary"]:hover {
-        background-color: rgba(255,255,255,0.18);
-    }
+        .user-guide-float {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            z-index: 9999;
+        }
+        .user-guide-float button {
+            background-color: rgba(255,255,255,0.08);
+            color: #eee;
+            border: none;
+            padding: 6px 12px;
+            font-size: 13px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .user-guide-float button:hover {
+            background-color: rgba(255,255,255,0.18);
+        }
     </style>
+    """, unsafe_allow_html=True)
+
+    # Capture click using query param trigger
+    if "_user_guide_clicked" in st.query_params:
+        st.session_state["show_guide"] = True
+        st.experimental_set_query_params()  # Clear query params
+
+    # Add query param when clicked (JS form hack)
+    st.markdown("""
+    <script>
+    const btn = window.parent.document.querySelector('.user-guide-float form');
+    if (btn) {
+        btn.onsubmit = (e) => {
+            e.preventDefault();
+            const url = new URL(window.location.href);
+            url.searchParams.set("_user_guide_clicked", "1");
+            window.location.href = url.toString();
+        }
+    }
+    </script>
     """, unsafe_allow_html=True)
 
 # === 2b. Hide floating button if guide is open
