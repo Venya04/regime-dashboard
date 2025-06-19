@@ -29,23 +29,25 @@ TICKERS = {
 
 # === PAGE CONFIG & STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
-st.sidebar.markdown("## ▶️  📘 Click here to open the guide")
+# === PERMANENT TEXT NEXT TO COLLAPSE ARROWS ===
 st.markdown("""
     <style>
-        .sidebar-label {
-            position: fixed;
-            top: 14px;
-            left: 0px;  /* ↔ Adjust if needed */
-            font-size: 13px;
-            font-family: 'Segoe UI', sans-serif;
-            color: #aaa;
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 2px 8px;
-            border-radius: 5px;
-            z-index: 9999;
-        }
+    /* Overlay a label next to Streamlit's sidebar toggle */
+    .guide-inline-hint::after {
+        content: '📘 Click for guide';
+        font-size: 13px;
+        font-family: 'Segoe UI', sans-serif;
+        color: #aaa;
+        position: fixed;
+        top: 18px;
+        left: 50px;  /* aligns nicely beside the arrows */
+        z-index: 1001;
+        background-color: rgba(255, 255, 255, 0.03);
+        padding: 2px 8px;
+        border-radius: 5px;
+    }
     </style>
-    <div class="sidebar-label">📘 Click arrows for guide</div>
+    <div class="guide-inline-hint"></div>
 """, unsafe_allow_html=True)
 
 if "show_guide" not in st.session_state:
