@@ -39,7 +39,7 @@ st.markdown("""
     .custom-button-container {
         position: fixed;
         top: 20px;
-        left: 20px;
+        left: 5px;
         z-index: 9999;
     }
     </style>
