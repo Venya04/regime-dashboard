@@ -33,16 +33,19 @@ if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
 # === TOP SPACER REDUCED ===
-st.markdown("""<style>.block-container { padding-top: 0.5rem !important; }</style>""", unsafe_allow_html=True)
+st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
 
-# === BUTTON + HEADER IN COLUMNS ===
-col1, col2 = st.columns([0.1, 2.5])
+# Render horizontal button with proper HTML wrapper
+col1, _ = st.columns([0.15, 0.85])
 with col1:
-    st.markdown("<div style='padding-top: 2rem;'>", unsafe_allow_html=True)  # Move button lower
+    # Use a div only for spacing, not wrapping the button directly
+    st.markdown("<div style='padding-left: 10px;'>", unsafe_allow_html=True)
+
     icon = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
     if st.button(icon, key="guide_toggle"):
         st.session_state.show_guide = not st.session_state.show_guide
-    st.markdown("</div>", unsafe_allow_html=True)  # close div (optional)
+
+    st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
