@@ -97,7 +97,7 @@ placeholder = st.empty()
 # === HEADER & BUTTON HTML/CSS ===
 button_html = """
 <div style="position: relative; width: 100%;">
-  <div class="guide-button-wrapper" style="position: absolute; top: 150px; left: 20px; z-index: 1000;">
+  <div class="guide-button-wrapper" style="position: absolute; top: 30px; left: 20px; z-index: 1000;">
     <form action="#">
       <button type="submit" style="
         background-color: #1f1f1f;
