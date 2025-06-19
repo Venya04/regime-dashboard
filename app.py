@@ -275,7 +275,7 @@ st.markdown("""
         letter-spacing: 1px;
         text-align: center;
         margin-bottom: 0.2rem;
-        margin-top: -90px;
+        margin-top: -110px;
     }
     .pub-info {
         text-align: center;
