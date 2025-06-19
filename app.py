@@ -29,10 +29,19 @@ TICKERS = {
 
 # === SET PAGE & INITIAL STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
+
+# === REMOVE DEFAULT TOP PADDING === ✅ PLACE THIS RIGHT HERE
+st.markdown("""
+    <style>
+        .block-container {
+            padding-top: 1rem !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
-# === BUTTON + HEADING ===
 # === GUIDE BUTTON + HEADER ===
 left_col, right_col = st.columns([0.2, 0.8])
 with left_col:
