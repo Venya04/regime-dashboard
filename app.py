@@ -35,21 +35,22 @@ if "show_guide" not in st.session_state:
 
 # 2. Inject hint HTML & CSS
 st.markdown("""
-  <style>
-    .guide-arrow-hint {
-      position: fixed;
-      top: 14px;
-      left: 100px;  /* adjust as needed */
-      font-size: 13px;
-      color: #bbb;
-      background: rgba(255,255,255,0.07);
-      padding: 4px 10px;
-      border-radius: 6px;
-      z-index: 30000;
-      pointer-events: none;
-    }
-  </style>
-  <div class="guide-arrow-hint">📘 User Guide</div>
+    <style>
+        .guide-arrow-hint {
+            position: fixed;
+            top: 14px;
+            left: 65px;
+            font-size: 13px;
+            font-family: 'Segoe UI', sans-serif;
+            color: black;
+            background-color: #f0f0f0;
+            padding: 3px 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            z-index: 10000;
+        }
+    </style>
+    <div class="guide-arrow-hint">📘 User Guide</div>
 """, unsafe_allow_html=True)
 
 # 3. Sidebar button to toggle guide
