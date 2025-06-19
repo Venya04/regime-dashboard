@@ -102,7 +102,7 @@ st.markdown("""
         }
 
         .header-wrap {
-            transform: translateY(-160px);  /* ✅ This replaces margin-top */
+            transform: translateY(-160px);  
         }
 
         @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
