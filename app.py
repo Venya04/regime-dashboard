@@ -37,7 +37,7 @@ st.markdown("""
       .guide-arrow-hint {
         position: fixed;
         top: 12px;
-        left: 42px;
+        left: 42px;  /* ← tweak to align perfectly under the arrows */
         font-size: 13px;
         color: #bbb;
         background: rgba(255,255,255,0.07);
@@ -45,7 +45,7 @@ st.markdown("""
         border-radius: 6px;
         cursor: pointer;
         z-index: 10000;
-        transition: 0.3s;
+        transition: background 0.3s, color 0.3s;
       }
       .guide-arrow-hint:hover {
         background: rgba(255,255,255,0.15);
