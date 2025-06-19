@@ -36,7 +36,7 @@ if "show_guide" not in st.session_state:
 st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
 
 # Render horizontal button with proper HTML wrapper
-col1, col2 = st.columns([1, 20])
+col1, col2 = st.columns([1.2, 20])  # Slightly wider col1 for alignment
 
 with col1:
     st.markdown("""
@@ -49,9 +49,9 @@ with col1:
             white-space: nowrap;
         }
 
-        /* 🔼 Move this div up */
+        /* Adjust vertical alignment to title */
         .move-button {
-            margin-top: -1000px;  /* Tweak as needed */
+            margin-top: -110px;  /* 💡 Tweak this until it looks perfect */
         }
         </style>
         <div class="move-button">
