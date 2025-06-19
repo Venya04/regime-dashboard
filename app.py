@@ -29,11 +29,19 @@ TICKERS = {
 
 st.set_page_config(page_title="Regime Report", layout="wide")
 
-# === USER GUIDE SIDEBAR ===
-with st.sidebar:
-    show_guide = st.checkbox("📘 How to Read This Dashboard", value=False)
+# === USER GUIDE BUTTON TOGGLE ===
+if "show_guide" not in st.session_state:
+    st.session_state.show_guide = False
 
-if show_guide:
+with st.sidebar:
+    if st.session_state.show_guide:
+        if st.button("❌ Close Guide"):
+            st.session_state.show_guide = False
+    else:
+        if st.button("📘 Open Guide"):
+            st.session_state.show_guide = True
+
+if st.session_state.show_guide:
     st.markdown(
         """
         <style>
