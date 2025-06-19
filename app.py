@@ -46,7 +46,7 @@ st.markdown("""
           font-family: 'UnifrakturCook', serif;
           text-align: center;
           font-size: 3.5rem;
-          margin-top: -160px;
+          margin-top: 0px;
           margin-bottom: 0.2rem;
       }
       .pub-info {
