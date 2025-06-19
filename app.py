@@ -520,14 +520,14 @@ if not perf_df.empty:
     </div>
     """, height=400)
     
-# # Hide Streamlit menu and footer
-# st.markdown("""
-#     <style>
-#         #MainMenu {visibility: hidden;}
-#         footer {visibility: hidden;}
-#         header {visibility: hidden;}
-#     </style>
-# """, unsafe_allow_html=True)
+# Hide Streamlit menu and footer
+st.markdown("""
+    <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+    </style>
+""", unsafe_allow_html=True)
 
 
 
