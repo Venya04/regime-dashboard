@@ -35,7 +35,7 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 st.markdown("""
     <style>
         .block-container {
-            padding-top: 0.5rem !important;
+            padding-top: 0rem !important;
         }
         .gothic-title {
             margin-top: 0rem;  /* ✅ no negative margin */
