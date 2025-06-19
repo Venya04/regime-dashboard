@@ -513,12 +513,21 @@ st.markdown("""
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
 
-        /* Hide top-right toolbar container */
-        .stActionButtonHeader, .stToolbar {
+        /* Hide top-right icons completely */
+        .st-emotion-cache-18ni7ap {
+            display: none !important;
+        }
+        .st-emotion-cache-6qob1r {
+            display: none !important;
+        }
+
+        /* Generic backup — remove header toolbar */
+        header [data-testid="stToolbar"] {
             display: none !important;
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 
