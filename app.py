@@ -33,6 +33,9 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
+# === SETTINGS ===
+BUTTON_TOP_OFFSET = 80 
+
 # === CSS Styling ===
 st.markdown("""
     <style>
@@ -45,7 +48,7 @@ st.markdown("""
 
     .guide-button {
         position: absolute;
-        top: 30px;
+        top: {BUTTON_TOP_OFFSET}px;
         left: 20px;
         z-index: 9999;
     }
