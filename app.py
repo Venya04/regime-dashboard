@@ -28,64 +28,65 @@ TICKERS = {
 }
 
 # === PAGE CONFIG & STATE ===
+# === PAGE CONFIG & SESSION ===
 st.set_page_config(page_title="Regime Report", layout="wide")
-
-# === SESSION INIT ===
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
 # === CSS Styling ===
 st.markdown("""
-<style>
-/* Relative context for absolute positioning */
-[data-testid="stAppViewContainer"] {
-    position: relative;
-    padding-top: 2rem;
-}
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
 
-/* Float the guide button to the top-left */
-.guide-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 9999;
-}
-.guide-button .stButton > button {
-    width: 130px;
-    text-align: left;
-    font-size: 0.9rem;
-}
+    [data-testid="stAppViewContainer"] {
+        position: relative;
+        padding-top: 2rem;
+    }
 
-/* Safe upward movement using padding (not margin-top) */
-.header-wrap {
-    padding-top: 0rem;
-}
-.gothic-title {
-    font-family: 'UnifrakturCook', serif;
-    text-align: center;
-    font-size: 3.5rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin-bottom: 0.2rem;
-}
-.pub-info {
-    text-align: center;
-    font-family: 'Georgia', serif;
-    font-size: 0.8rem;
-    margin-top: -10px;
-    color: #ccc;
-}
-</style>
+    .guide-button {
+        position: absolute;
+        top: 30px;
+        left: 20px;
+        z-index: 9999;
+    }
+
+    .guide-button .stButton > button {
+        width: 130px;
+        text-align: left;
+        font-size: 0.9rem;
+    }
+
+    .header-wrap {
+        padding-top: 0rem;
+    }
+
+    .gothic-title {
+        font-family: 'UnifrakturCook', serif;
+        text-align: center;
+        font-size: 3.5rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-bottom: 0.2rem;
+    }
+
+    .pub-info {
+        text-align: center;
+        font-family: Georgia, serif;
+        font-size: 0.8rem;
+        margin-top: -10px;
+        color: #ccc;
+    }
+    </style>
 """, unsafe_allow_html=True)
 
-# === ABSOLUTE BUTTON WRAPPER ===
+# === ABSOLUTE BUTTON ===
 st.markdown('<div class="guide-button">', unsafe_allow_html=True)
-label = "📘 Guide" if not st.session_state.show_guide else "❌ Close Guide"
-if st.button(label, key="guide_toggle"):
+button_label = "📘 Guide" if not st.session_state.show_guide else "❌ Close Guide"
+if st.button(button_label, key="guide_toggle"):
     st.session_state.show_guide = not st.session_state.show_guide
 st.markdown('</div>', unsafe_allow_html=True)
 
-# === HEADER WRAPPER ===
+# === HEADER ===
 st.markdown("""
 <div class="header-wrap">
     <div class='gothic-title'>The Regime Report</div>
