@@ -36,12 +36,13 @@ if "show_guide" not in st.session_state:
 st.markdown("""
     <style>
         .block-container {
+            position: relative;  /* 🛠️ Set context for absolute children */
             padding-top: 0rem !important;
         }
         .guide-button {
-            position: relative;
-            top: 70px;
-            left: 10px;
+            position: absolute;
+            top: 70px;  /* ✅ Adjust this to move lower */
+            left: 20px;
             z-index: 100;
         }
     </style>
