@@ -38,8 +38,7 @@ st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
 # Render horizontal button with proper HTML wrapper
 col1, col2 = st.columns([0.1, 4])
 with col1:
-    # Use a div only for spacing, not wrapping the button directly
-    st.markdown("<div style='padding-top: -50px;'>", unsafe_allow_html=True)
+    st.markdown("<div style='padding-top: 0px;'>", unsafe_allow_html=True)
 
     icon = "📘 Guide" if not st.session_state.show_guide else "❌ Close Guide"
     if st.button(icon, key="guide_toggle"):
