@@ -117,8 +117,10 @@ if st.session_state["show_guide"]:
 
         > **Discipline over desire always wins.**
         """, unsafe_allow_html=True)
+        # 🧱 Add a spacer to make sure the button isn't jammed
+        st.markdown("<br><hr><br>", unsafe_allow_html=True)
 
-        # ✅ Native close button
+        # ✅ Show a real Streamlit close button clearly
         if st.button("❌ Close Guide", key="close_guide"):
             st.session_state["show_guide"] = False
  # ⛔️ Stop rendering anything else
