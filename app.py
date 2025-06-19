@@ -40,16 +40,16 @@ st.markdown("""
         .guide-arrow-hint {
             position: fixed;
             top: 14px;
-            left: 60px;  /* 👈 tweak to align nicely */
+            left: 80px;  /* 👈 tweak to align nicely */
             font-size: 13px;
             font-family: 'Segoe UI', sans-serif;
             color: #bbb;
             background-color: rgba(255, 255, 255, 0.07);
             padding: 3px 9px;
             border-radius: 6px;
-            z-index: 10000;
+            z-index: 20000;
             transition: all 0.3s ease-in-out;
-            pointer-events: none;  /* ensures it doesn't block sidebar arrows */
+            # pointer-events: none;  /* ensures it doesn't block sidebar arrows */
         }
 
         .guide-arrow-hint:hover {
