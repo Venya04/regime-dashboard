@@ -27,9 +27,6 @@ TICKERS = {
     "stablecoins": None
 }
 
-# === USER GUIDE TOGGLE STATE ===
-if "show_guide" not in st.session_state:
-    st.session_state.show_guide = False
 # === SET PAGE & INITIAL STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
@@ -69,27 +66,6 @@ st.markdown("""
         Asset Allocation in Current Market Conditions
     </h3>
 """, unsafe_allow_html=True)
-
-# ✅ RENDER GUIDE AFTER toggle
-if st.session_state.show_guide:
-    st.markdown(
-        """
-        <style>
-        .guide-box {
-            background-color: #111111;
-            color: #e0e0e0;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-        </style>
-        <div class="guide-box">
-        """,
-        unsafe_allow_html=True
-    )
-    st.markdown("</div>", unsafe_allow_html=True)
 
 if st.session_state.show_guide:
     st.markdown(
