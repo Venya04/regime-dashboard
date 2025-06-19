@@ -38,7 +38,7 @@ st.markdown("""
             padding-top: 0rem !important;
         }
         .gothic-title {
-            margin-top: -3rem;  /* ✅ no negative margin */
+            margin-top: -5rem;  /* ✅ no negative margin */
         }
     </style>
 """, unsafe_allow_html=True)
