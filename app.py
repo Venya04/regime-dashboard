@@ -51,7 +51,7 @@ if "show_guide" not in st.session_state:
 left_col, right_col = st.columns([0.2, 0.8])
 with left_col:
     st.markdown("""
-        <div style='margin-top: 60px; display: flex; align-items: flex-start;'>
+        <div style='margin-top: 200px; display: flex; align-items: flex-start;'>
     """, unsafe_allow_html=True)
     
     button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
