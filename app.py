@@ -40,7 +40,7 @@ st.markdown("""
             padding-top: 0rem !important;
         }
         .gothic-title {
-            margin-top: -50px;
+            margin-top: -10px;
         }
     </style>
 """, unsafe_allow_html=True)
