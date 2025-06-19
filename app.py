@@ -31,7 +31,7 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
-# 👉 Make sure this block is here, *before* st.sidebar.button(...)
+# === CLICKABLE TEXT NEXT TO ARROWS ===
 st.markdown("""
     <style>
       .guide-arrow-hint {
@@ -66,9 +66,17 @@ st.markdown("""
     <div class="guide-arrow-hint" onclick="toggleGuide()">📘 User Guide</div>
 """, unsafe_allow_html=True)
 
+# === SIDEBAR BUTTON (Required for toggle to work) ===
 st.sidebar.markdown("## 📘 User Guide")
-if st.sidebar.button(...):
+if st.sidebar.button("Open Guide" if not st.session_state.show_guide else "Close Guide", key="guide_toggle"):
     st.session_state.show_guide = not st.session_state.show_guide
+
+# === GUIDE BOX BELOW HEADER ===
+if st.session_state.show_guide:
+    st.markdown("""
+    ### 📘 How to Read This Dashboard
+    … full guide content …
+    """, unsafe_allow_html=True)
 
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
