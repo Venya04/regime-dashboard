@@ -33,38 +33,24 @@ if "show_guide" not in st.session_state:
 
 # === CLICKABLE TEXT NEXT TO ARROWS ===
 st.markdown("""
-    <style>
-      .guide-arrow-hint {
-        position: fixed;
-        top: 12px;
-        left: 100px;  /* ← tweak to align perfectly under the arrows */
-        font-size: 13px;
-        color: #bbb;
-        background: rgba(255,255,255,0.07);
-        padding: 4px 10px;
-        border-radius: 6px;
-        cursor: pointer;
-        z-index: 10000;
-        transition: background 0.3s, color 0.3s;
-      }
-      .guide-arrow-hint:hover {
-        background: rgba(255,255,255,0.15);
-        color: white;
-      }
-    </style>
-    <script>
-    function toggleGuide() {
-      const btns = window.parent.document.querySelectorAll('button');
-      for (let b of btns) {
-        if (/guide/i.test(b.innerText)) {
-          b.click();
-          return;
-        }
-      }
+  <style>
+    .guide-arrow-hint {
+      position: fixed;
+      top: 14px;
+      left: 42px;
+      font-size: 13px;
+      font-family: 'Segoe UI', sans-serif;
+      color: #bbb;
+      background-color: rgba(255, 255, 255, 0.07);
+      padding: 3px 9px;
+      border-radius: 6px;
+      z-index: 10000;
+      pointer-events: none;
     }
-    </script>
-    <div class="guide-arrow-hint" onclick="toggleGuide()">📘 User Guide</div>
+  </style>
+  <div class="guide-arrow-hint">📘 User Guide</div>
 """, unsafe_allow_html=True)
+
 
 # === SIDEBAR BUTTON (Required for toggle to work) ===
 st.sidebar.markdown("## 📘 User Guide")
