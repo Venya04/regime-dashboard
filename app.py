@@ -29,42 +29,34 @@ TICKERS = {
 
 # === PAGE CONFIG & STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
-# Toggle guide from sidebar
+
+# === SESSION STATE FOR GUIDE ===
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
+
+# === SIDEBAR TOGGLE ===
 st.sidebar.markdown("## 📘 User Guide")
 if st.sidebar.button("Open Guide" if not st.session_state.show_guide else "Close Guide"):
     st.session_state.show_guide = not st.session_state.show_guide
 
-# CSS to place hint near sidebar chevron
+# === FIXED HINT NEXT TO ARROWS ===
 st.markdown("""
 <style>
-    /* Put hint right next to the sidebar toggle chevron */
-    .sidebar-hint {
-        position: fixed;
-        top: 20px;          /* Adjust vertically with button */
-        left: 40px;         /* Align just right of arrows */
-        font-size: 13px;
-        color: #aaa;
-        background: rgba(255,255,255,0.05);
-        padding: 4px 8px;
-        border-radius: 4px;
-        z-index: 1000;
-        pointer-events: none;
-        transition: opacity 0.3s;
-    }
-    /* Fade hint when guide is visible */
-    .sidebar-hint.hidden {
-        opacity: 0;
-    }
+  .sidebar-hint {
+    position: fixed;
+    top: 16px;
+    left: 36px; /* Adjust to line up next to arrows */
+    font-size: 14px;
+    color: #ccc;
+    background: rgba(255,255,255,0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+    z-index: 1000;
+    pointer-events: none;
+  }
 </style>
+<div class="sidebar-hint">📘 User Guide</div>
 """, unsafe_allow_html=True)
-
-# Hint div that disappears once guide is open
-hint_class = "sidebar-hint"
-if st.session_state.show_guide:
-    hint_class += " hidden"
-st.markdown(f"<div class='{hint_class}'>📘 Click here to open the guide</div>", unsafe_allow_html=True)
 
 # # === HEADER ===
 # st.markdown("""
