@@ -89,8 +89,9 @@ st.markdown("""
         Asset Allocation in Current Market Conditions
     </h3>
 """, unsafe_allow_html=True)
+
 # === BUTTON COMES AFTER (SEPARATE ROW) ===
-st.markdown("<div style='height: 3rem;'></div>", unsafe_allow_html=True)  # spacing between title and button row
+st.markdown("<div style='height: 20rem;'></div>", unsafe_allow_html=True)  # spacing between title and button row
 
 button_col, _ = st.columns([0.2, 0.8])
 with button_col:
