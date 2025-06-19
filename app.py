@@ -36,15 +36,25 @@ if "show_guide" not in st.session_state:
 st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
 
 # Render horizontal button with proper HTML wrapper
-col1, col2 = st.columns([0.1, 4])
+col1, col2 = st.columns([1, 20])
+
 with col1:
-    st.markdown("<div style='padding-top: 0px;'>", unsafe_allow_html=True)
+    # Prevent Streamlit from shrinking width and stacking text
+    st.markdown("""
+        <style>
+        .stButton>button {
+            width: 120px;
+            text-align: left;
+            padding: 6px 10px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
     icon = "📘 Guide" if not st.session_state.show_guide else "❌ Close Guide"
     if st.button(icon, key="guide_toggle"):
         st.session_state.show_guide = not st.session_state.show_guide
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
@@ -54,7 +64,7 @@ with col2:
             font-family: 'UnifrakturCook', serif; 
             text-align: center; 
             font-size: 3.5rem; 
-            margin-top: -8rem;
+            margin-top: -7rem;
             margin-bottom: 0.2rem;
         }
         .pub-info {
