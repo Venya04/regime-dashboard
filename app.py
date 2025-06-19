@@ -28,10 +28,11 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
-# === STATE INIT (must come early) ===
+
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
-# === GUIDE HINT NEXT TO ARROWS (always visible) ===
+
+# === GUIDE LABEL & CLICKABLE JS (must go before anything interactive) ===
 st.markdown("""
     <style>
         .guide-arrow-hint {
@@ -40,29 +41,31 @@ st.markdown("""
             left: 42px;
             font-size: 13px;
             font-family: 'Segoe UI', sans-serif;
-            color: #ddd;
-            background-color: rgba(255, 255, 255, 0.07);
+            color: #bbb;
+            background-color: rgba(255,255,255,0.07);
             padding: 4px 10px;
             border-radius: 6px;
             z-index: 10000;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .guide-arrow-hint:hover {
-            background-color: rgba(255,255,255,0.15);
-            color: white;
+            transition: background-color 0.3s ease;
             cursor: pointer;
         }
+        .guide-arrow-hint:hover {
+            background-color: rgba(255,255,255,0.15);
+            color: #fff;
+        }
     </style>
-
     <script>
-    function toggleSidebarGuide() {
-        const guideButton = window.parent.document.querySelector('button[kind="secondary"]');
-        if (guideButton) guideButton.click();
+    function toggleGuideSidebar() {
+        const buttons = window.parent.document.querySelectorAll("button");
+        for (const btn of buttons) {
+            if (btn.innerText.includes("Guide")) {
+                btn.click();
+                return;
+            }
+        }
     }
     </script>
-
-    <div class="guide-arrow-hint" onclick="toggleSidebarGuide()">
+    <div class="guide-arrow-hint" onclick="toggleGuideSidebar()">
         📘 User Guide
     </div>
 """, unsafe_allow_html=True)
