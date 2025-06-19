@@ -55,7 +55,7 @@ if btn_clicked:
 
 st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown("""
+st.markdown("""
         <style>
         @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
         .gothic-title {
