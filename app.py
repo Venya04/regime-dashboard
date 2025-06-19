@@ -34,7 +34,7 @@ st.markdown("""
         .sidebar-label {
             position: fixed;
             top: 14px;
-            left: 48px;  /* ↔ Adjust if needed */
+            left: 0px;  /* ↔ Adjust if needed */
             font-size: 13px;
             font-family: 'Segoe UI', sans-serif;
             color: #aaa;
