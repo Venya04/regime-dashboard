@@ -49,16 +49,19 @@ with col1:
             white-space: nowrap;
         }
 
-        /* Move the button upward */
-        div[data-testid="column"] {
-            margin-top: 100px;
+        /* 🔼 Move this div up */
+        .move-button {
+            margin-top: -60px;  /* Tweak as needed */
         }
         </style>
+        <div class="move-button">
     """, unsafe_allow_html=True)
 
     icon = "📘 Guide" if not st.session_state.show_guide else "❌ Close Guide"
     if st.button(icon, key="guide_toggle"):
         st.session_state.show_guide = not st.session_state.show_guide
+
+    st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
