@@ -30,73 +30,37 @@ TICKERS = {
 # === PAGE CONFIG & STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
-    st.session_state.show_guide = False
+    st.session_state["show_guide"] = False
 
-# ✅ Define button offset
-BUTTON_TOP_OFFSET = 100  # ← Change this to move button vertically
+# === Sidebar Toggle Button ===
+st.sidebar.markdown("### 📘 Guide")
+if st.sidebar.button("Open Guide" if not st.session_state.show_guide else "Close Guide"):
+    st.session_state.show_guide = not st.session_state.show_guide
 
-# === CSS Styling ===
-st.markdown(f"""
+# === HEADER ===
+st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-
-    [data-testid="stAppViewContainer"] {{
-        position: relative;
-        padding-top: 2rem;
-    }}
-
-    .guide-button {{
-        position: absolute;
-        top: {BUTTON_TOP_OFFSET}px;
-        left: 20px;
-        z-index: 9999;
-    }}
-
-    .guide-button .stButton > button {{
-        width: 130px;
-        text-align: left;
-        font-size: 0.9rem;
-    }}
-
-    .header-wrap {{
-        padding-top: 0rem;
-    }}
-
-    .gothic-title {{
+    .gothic-title {
         font-family: 'UnifrakturCook', serif;
         text-align: center;
         font-size: 3.5rem;
         font-weight: bold;
-        letter-spacing: 1px;
-        margin-bottom: 0.2rem;
-    }}
-
-    .pub-info {{
+    }
+    .pub-info {
         text-align: center;
         font-family: Georgia, serif;
         font-size: 0.8rem;
-        margin-top: -10px;
         color: #ccc;
-    }}
+        margin-top: -10px;
+    }
     </style>
-""", unsafe_allow_html=True)
 
-# === BUTTON (FLOATING) ===
-st.markdown('<div class="guide-button">', unsafe_allow_html=True)
-button_label = "📘 Guide" if not st.session_state.show_guide else "❌ Close Guide"
-if st.button(button_label, key="guide_toggle"):
-    st.session_state.show_guide = not st.session_state.show_guide
-st.markdown('</div>', unsafe_allow_html=True)
-
-# === HEADER ===
-st.markdown("""
-<div class="header-wrap">
     <div class='gothic-title'>The Regime Report</div>
-    <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: 0px;'>
+    <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
+    <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -5px;'>
         Asset Allocation in Current Market Conditions
     </h3>
-</div>
 """, unsafe_allow_html=True)
 
 
