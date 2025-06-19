@@ -38,8 +38,8 @@ components.html("""
   <style>
     .guide-arrow-hint {
       position: fixed;
-      top: 0px;
-      left: -5px;  /* ← Tweak this if needed */
+      top: -10px;
+      left: -10px;  /* ← Tweak this if needed */
       font-size: 13px;
       font-family: 'Segoe UI', sans-serif;
       color: #bbb;
