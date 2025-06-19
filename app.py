@@ -46,7 +46,7 @@ st.markdown(f"""
     }}
 
     .guide-button {{
-        position: absolute;
+        position: relative;
         top: {BUTTON_TOP_OFFSET}px;
         left: 20px;
         z-index: 9999;
