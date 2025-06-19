@@ -28,11 +28,7 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
-# === USER GUIDE TOGGLE STATE ===
-if "show_guide" not in st.session_state:
-    st.session_state.show_guide = False
-
-# === GUIDE BUTTON STYLE AND POSITION ===
+# === GUIDE BUTTON POSITIONED AT TOP-LEFT ===
 st.markdown("""
     <style>
     .guide-button {
@@ -50,6 +46,7 @@ if st.button(button_label):
     st.session_state.show_guide = not st.session_state.show_guide
 
 st.markdown("</div>", unsafe_allow_html=True)
+
 
     st.markdown("""
         <style>
