@@ -29,30 +29,23 @@ TICKERS = {
 
 # === PAGE CONFIG & STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
-# === SIDEBAR HINT (STABLE VISIBILITY) ===
-if "hide_hint" not in st.session_state:
-    st.session_state.hide_hint = False
-
-# Inject once and hold with conditional logic
-if not st.session_state.hide_hint:
-    st.markdown("""
-        <style>
-            .sidebar-hint {
-                position: fixed;
-                top: 18px;
-                left: 46px;
-                font-family: 'Segoe UI', sans-serif;
-                background: rgba(255, 255, 255, 0.06);
-                padding: 5px 12px;
-                border-radius: 8px;
-                color: #ccc;
-                font-size: 0.75rem;
-                z-index: 1000;
-                transition: opacity 0.4s ease-in-out;
-            }
-        </style>
-        <div class="sidebar-hint">📘 Click arrows for guide</div>
-    """, unsafe_allow_html=True)
+st.markdown("""
+    <style>
+        .sidebar-hint {
+            position: fixed;
+            top: 16px;
+            left: 55px;  /* ← adjust if needed for perfect alignment */
+            background-color: rgba(255, 255, 255, 0.08);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: 'Segoe UI', sans-serif;
+            color: #ccc;
+            z-index: 1001;
+        }
+    </style>
+    <div class="sidebar-hint">📘 Click arrows for guide</div>
+""", unsafe_allow_html=True)
 
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
