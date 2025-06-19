@@ -33,7 +33,7 @@ if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
 # === SETTINGS ===
-BUTTON_TOP_OFFSET = -100  # 🔧 Change this to move the button lower or higher
+BUTTON_TOP_OFFSET = 200  # 🔧 Change this to move the button lower or higher
 
 # === CSS Styling ===
 st.markdown(f"""
