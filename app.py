@@ -29,31 +29,30 @@ TICKERS = {
 
 st.set_page_config(page_title="Regime Report", layout="wide")
 
-# === USER GUIDE TOGGLE STATE ===
+# Initialize toggle state
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
-# === CUSTOM POSITION FOR BUTTON ===
+# 1. Define CSS + open container
 st.markdown("""
 <style>
+  /* Position guide button top-left */
   .guide-button {
     position: absolute;
     top: 10px;
-    left: 5px;
-    z-index: 3000;
+    left: 10px;
+    z-index: 9999;
   }
 </style>
 <div class="guide-button">
 """, unsafe_allow_html=True)
 
-# ✅ NOW the button is inside the div
+# 2. Place the button inside that container
 button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-btn_clicked = st.button(button_label, key="toggle_guide")
-
-if btn_clicked:
+if st.button(button_label, key="toggle_guide"):
     st.session_state.show_guide = not st.session_state.show_guide
 
-# ✅ properly close the div now
+# 3. Close the container
 st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown("""
