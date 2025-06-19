@@ -50,7 +50,7 @@ st.markdown("""
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
-top_left, _ = st.columns([0.2, 0.8])
+top_left, _ = st.columns([0.4, 0.8])
 with top_left:
     if not st.session_state.show_guide:
         if st.button("📘 Open Guide"):
