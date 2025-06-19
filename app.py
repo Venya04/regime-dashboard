@@ -38,7 +38,7 @@ st.markdown("""
 <style>
   .guide-button {
     position: absolute;
-    top: 20px;
+    top: 10px;
     left: 5px;
     z-index: 2000;
   }
