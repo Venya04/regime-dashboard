@@ -28,75 +28,43 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
-
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
-# === GUIDE LABEL & CLICKABLE JS (must go before anything interactive) ===
+# 👉 Make sure this block is here, *before* st.sidebar.button(...)
 st.markdown("""
     <style>
-        .guide-arrow-hint {
-            position: fixed;
-            top: 14px;
-            left: 42px;
-            font-size: 13px;
-            font-family: 'Segoe UI', sans-serif;
-            color: #bbb;
-            background-color: rgba(255,255,255,0.07);
-            padding: 4px 10px;
-            border-radius: 6px;
-            z-index: 10000;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-        }
-        .guide-arrow-hint:hover {
-            background-color: rgba(255,255,255,0.15);
-            color: #fff;
-        }
+      .guide-arrow-hint {
+        position: fixed;
+        top: 12px;
+        left: 42px;
+        font-size: 13px;
+        color: #bbb;
+        background: rgba(255,255,255,0.07);
+        padding: 4px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        z-index: 10000;
+        transition: 0.3s;
+      }
+      .guide-arrow-hint:hover {
+        background: rgba(255,255,255,0.15);
+        color: white;
+      }
     </style>
     <script>
-    function toggleGuideSidebar() {
-        const buttons = window.parent.document.querySelectorAll("button");
-        for (const btn of buttons) {
-            if (btn.innerText.includes("Guide")) {
-                btn.click();
-                return;
-            }
+    function toggleGuide() {
+      const btns = window.parent.document.querySelectorAll('button');
+      for (let b of btns) {
+        if (/guide/i.test(b.innerText)) {
+          b.click();
+          return;
         }
+      }
     }
     </script>
-    <div class="guide-arrow-hint" onclick="toggleGuideSidebar()">
-        📘 User Guide
-    </div>
+    <div class="guide-arrow-hint" onclick="toggleGuide()">📘 User Guide</div>
 """, unsafe_allow_html=True)
-
-# # === HEADER ===
-# st.markdown("""
-#     <style>
-#     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-#     .gothic-title {
-#         font-family: 'UnifrakturCook', serif;
-#         text-align: center;
-#         font-size: 3.5rem;
-#         font-weight: bold;
-#         margin-top: -60px;
-#     }
-#     .pub-info {
-#         text-align: center;
-#         font-family: Georgia, serif;
-#         font-size: 0.8rem;
-#         color: #ccc;
-#         margin-top: -10px;
-#     }
-#     </style>
-
-#     <div class='gothic-title'>The Regime Report</div>
-#     <div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-#     <h3 style='text-align: center; font-family: Georgia, serif; font-style: italic; margin-top: -5px;'>
-#         Asset Allocation in Current Market Conditions
-#     </h3>
-# """, unsafe_allow_html=True)
-
 
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
