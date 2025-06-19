@@ -67,13 +67,13 @@ st.markdown("""
         font-weight: bold;
         letter-spacing: 1px;
         margin-bottom: 0.2rem;
-        margin-top: -70px;
+        margin-top: -50px;
     }
     .pub-info {
         text-align: center;
         font-family: 'Georgia', serif;
         font-size: 0.8rem;
-        margin-top: -30px;
+        margin-top: -10px;
         color: #ccc;
     }
     </style>
