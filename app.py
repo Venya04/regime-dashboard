@@ -29,41 +29,6 @@ TICKERS = {
 
 
 st.set_page_config(page_title="Regime Report", layout="wide")
-if "show_guide" not in st.session_state:
-    st.session_state["show_guide"] = False
-
-# — Visual hint near arrows
-st.markdown("""
-<style>
-  .guide-arrow-hint {
-    position: fixed;
-    top: 8px;
-    left: 55px;
-    font-size: 12px;
-    color: #000;
-    background: #ffd;
-    padding: 4px 8px;
-    border: 1px solid #888;
-    z-index: 2000;
-  }
-</style>
-<div class="guide-arrow-hint">📘 Click side arrow to open guide</div>
-""", unsafe_allow_html=True)
-
-# — Sidebar toggle
-st.sidebar.markdown("## 📘 User Guide")
-if st.sidebar.button(
-    "Open Guide" 
-    if not st.session_state.show_guide 
-    else "Close Guide", key="guide_toggle"
-):
-    st.session_state.show_guide = not st.session_state.show_guide
-
-# — Main content
-st.title("Main App Content")
-
-if st.session_state.show_guide:
-    st.info("### 📘 How to Read This Dashboard\n\nHere is your guide content…")
 
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
@@ -280,7 +245,7 @@ st.markdown("""
         letter-spacing: 1px;
         text-align: center;
         margin-bottom: 0.2rem;
-        margin-top: -60px;
+        margin-top: -80px;
     }
     .pub-info {
         text-align: center;
