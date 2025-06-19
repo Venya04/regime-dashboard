@@ -40,7 +40,7 @@ st.markdown("""
     position: absolute;
     top: 10px;
     left: 5px;
-    z-index: 2000;
+    z-index: 3000;
   }
 </style>
 <div class="guide-button">
