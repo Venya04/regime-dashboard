@@ -31,10 +31,14 @@ TICKERS = {
 st.set_page_config(page_title="Regime Report", layout="wide")
 
 # === REMOVE DEFAULT TOP PADDING === ✅ PLACE THIS RIGHT HERE
+# Shrink default top padding + reduce vertical spacing between blocks
 st.markdown("""
     <style>
         .block-container {
-            padding-top: 1rem !important;
+            padding-top: 0.5rem !important;
+        }
+        .gothic-title {
+            margin-top: 0rem;  /* ✅ no negative margin */
         }
     </style>
 """, unsafe_allow_html=True)
