@@ -46,18 +46,35 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# === USER GUIDE BUTTON TOGGLE ===
+# === USER GUIDE STATE ===
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
-top_left, _ = st.columns([0.3, 0.1])
-with top_left:
-    if not st.session_state.show_guide:
-        if st.button("📘 Open Guide"):
-            st.session_state.show_guide = True
-    else:
-        if st.button("❌ Close Guide"):
-            st.session_state.show_guide = False
+# === HORIZONTAL LAYOUT FOR BUTTON + TITLE ===
+top_cols = st.columns([0.2, 0.8])
+
+# Left: Guide Button
+with top_cols[0]:
+    st.markdown(
+        """
+        <style>
+        .guide-button-container {
+            margin-top: 30px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    with st.container():
+        st.markdown("<div class='guide-button-container'>", unsafe_allow_html=True)
+        if not st.session_state.show_guide:
+            if st.button("📘 Open Guide"):
+                st.session_state.show_guide = True
+        else:
+            if st.button("❌ Close Guide"):
+                st.session_state.show_guide = False
+        st.markdown("</div>", unsafe_allow_html=True)
 
 if st.session_state.show_guide:
     st.markdown(
