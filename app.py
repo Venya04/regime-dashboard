@@ -64,7 +64,8 @@ button[kind="secondary"]:hover {
 if st.session_state["show_guide"]:
     st.markdown("""
     <style>
-    button[kind="secondary"] {
+    /* Only hide the very first button (User Guide) */
+    div[data-testid="stButton"] button {
         display: none !important;
     }
     </style>
