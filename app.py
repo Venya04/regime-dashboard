@@ -49,7 +49,7 @@ with col2:
             font-family: 'UnifrakturCook', serif; 
             text-align: center; 
             font-size: 3.5rem; 
-            margin-top: -4rem;
+            margin-top: 0rem;
             margin-bottom: 0.2rem;
         }
         .pub-info {
