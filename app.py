@@ -32,12 +32,12 @@ st.set_page_config(page_title="Regime Report", layout="wide")
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
 
-# === GUIDE BUTTON & HEADER (SEPARATE) ===
-st.markdown("<div style='text-align: left;'>", unsafe_allow_html=True)
-button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-if st.button(button_label):
-    st.session_state.show_guide = not st.session_state.show_guide
-st.markdown("</div>", unsafe_allow_html=True)
+# === GUIDE BUTTON (left-aligned) ===
+button_col, _ = st.columns([0.15, 0.85])
+with button_col:
+    button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
+    if st.button(button_label):
+        st.session_state.show_guide = not st.session_state.show_guide
 
 # Now the header is in a full-width container and will be centered properly
 st.markdown("""
