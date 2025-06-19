@@ -28,25 +28,32 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
-# === GUIDE BUTTON POSITIONED AT TOP-LEFT ===
+
+# === USER GUIDE TOGGLE STATE ===
+if "show_guide" not in st.session_state:
+    st.session_state.show_guide = False
+
+# === CUSTOM POSITION FOR BUTTON ===
 st.markdown("""
     <style>
-    .guide-button {
-        position: absolute;
+    .custom-button-container {
+        position: fixed;
         top: 20px;
         left: 20px;
-        z-index: 1000;
+        z-index: 9999;
     }
     </style>
-    <div class="guide-button">
-""", unsafe_allow_html=True)
+    <div class="custom-button-container" id="custom-button">
+    """, unsafe_allow_html=True)
 
+# Create the button inside the container
 button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-if st.button(button_label):
+btn_clicked = st.button(button_label, key="toggle_guide")
+
+if btn_clicked:
     st.session_state.show_guide = not st.session_state.show_guide
 
 st.markdown("</div>", unsafe_allow_html=True)
-
 
     st.markdown("""
         <style>
