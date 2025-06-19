@@ -29,38 +29,57 @@ TICKERS = {
 
 
 # Set page config at the very top
-st.set_page_config(page_title="Regime Report", layout="wide")
+if "show_guide" not in st.session_state:
+    st.session_state["show_guide"] = False
 
-# Move the sidebar toggle from top-left to bottom-left
+# === 2. Clickable floating hint in bottom-left ===
 st.markdown("""
-    <style>
-      header[data-testid="stHeader"] { 
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: auto !important;
-        height: auto !important;
-        background: transparent !important;
-        z-index: 10000;
+<style>
+  .guide-arrow-hint {
+    position: fixed;
+    bottom: 12px;
+    left: 16px;
+    font-size: 13px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #bbb;
+    background: rgba(255,255,255,0.08);
+    padding: 6px 12px;
+    border-radius: 8px;
+    z-index: 9999;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: background 0.3s, color 0.3s;
+  }
+  .guide-arrow-hint:hover {
+    background: rgba(255,255,255,0.15);
+    color: white;
+  }
+</style>
+
+<script>
+  function toggleGuideSidebar() {
+    const buttons = window.parent.document.querySelectorAll('button');
+    for (const btn of buttons) {
+      if (/guide/i.test(btn.innerText)) {
+        btn.click();
+        break;
       }
-      /* Hide the rest of the header's items (menu, logo), keep arrows visible */
-      header[data-testid="stHeader"] > div:nth-child(2) {
-        visibility: hidden;
-      }
-    </style>
+    }
+  }
+</script>
+
+<div class="guide-arrow-hint" onclick="toggleGuideSidebar()">
+  📘 User Guide
+</div>
 """, unsafe_allow_html=True)
 
-# Example sidebar toggle and guide content
-if "show_guide" not in st.session_state:
-    st.session_state.show_guide = False
-
+# === 3. Sidebar button that the JS clicks ===
 st.sidebar.markdown("## 📘 User Guide")
 if st.sidebar.button(
     "Open Guide" if not st.session_state.show_guide else "Close Guide",
     key="guide_toggle"
 ):
     st.session_state.show_guide = not st.session_state.show_guide
-
 # === GUIDE BOX BELOW HEADER ===
 if st.session_state.show_guide:
     st.markdown("""
