@@ -72,22 +72,6 @@ st.markdown("""
     </h3>
 """, unsafe_allow_html=True)
 
-with col2:
-    st.markdown("<div class='gothic-title'>The Regime Report</div>", unsafe_allow_html=True)
-    st.markdown("<div class='pub-info'>No. 01 · Published biWeekly · Market Bulletin · June 2025</div>", unsafe_allow_html=True)
-    st.markdown("<div class='sub-title'>Asset Allocation in Current Market Conditions</div>", unsafe_allow_html=True)
-
-# === Continue Header ===
-st.markdown("""
-        </div>
-        <div class="header-right">
-            <div class="gothic-title">The Regime Report</div>
-            <div class="pub-info">No. 01 · Published biWeekly · Market Bulletin · June 2025</div>
-            <div class="sub-title">Asset Allocation in Current Market Conditions</div>
-        </div>
-    </div>
-""", unsafe_allow_html=True)
-
 if st.session_state.show_guide:
     st.markdown(
         """
