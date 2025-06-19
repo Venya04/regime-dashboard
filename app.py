@@ -30,36 +30,36 @@ TICKERS = {
 # === SET PAGE & INITIAL STATE ===
 st.set_page_config(page_title="Regime Report", layout="wide")
 
-# === REMOVE DEFAULT TOP PADDING === ✅ PLACE THIS RIGHT HERE
-# Shrink default top padding + reduce vertical spacing between blocks
-st.markdown("""
-    <style>
-        .block-container {
-            padding-top: 0rem !important;
-        }
-        .gothic-title {
-            margin-top: 0rem;  /* ✅ no negative margin */
-        }
-    </style>
-""", unsafe_allow_html=True)
+# # === REMOVE DEFAULT TOP PADDING === ✅ PLACE THIS RIGHT HERE
+# # Shrink default top padding + reduce vertical spacing between blocks
+# st.markdown("""
+#     <style>
+#         .block-container {
+#             padding-top: 0rem !important;
+#         }
+#         .gothic-title {
+#             margin-top: 0rem;  /* ✅ no negative margin */
+#         }
+#     </style>
+# """, unsafe_allow_html=True)
 
-if "show_guide" not in st.session_state:
-    st.session_state.show_guide = False
+# if "show_guide" not in st.session_state:
+#     st.session_state.show_guide = False
 
-# === GUIDE BUTTON + HEADER ===
-# Tweak the guide button’s vertical placement separately
-st.empty()  # Invisible placeholder that takes 1 line
+# # === GUIDE BUTTON + HEADER ===
+# # Tweak the guide button’s vertical placement separately
+# st.empty()  # Invisible placeholder that takes 1 line
 
-left_col, _ = st.columns([0.2, 0.8])
-with left_col:
-    button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-    if st.button(button_label):
-        st.session_state.show_guide = not st.session_state.show_guide
+# left_col, _ = st.columns([0.2, 0.8])
+# with left_col:
+#     button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
+#     if st.button(button_label):
+#         st.session_state.show_guide = not st.session_state.show_guide
 
-    st.markdown("</div>", unsafe_allow_html=True)
+#     st.markdown("</div>", unsafe_allow_html=True)
 
-# ✅ Now space above header
-st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+# # ✅ Now space above header
+# st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
 
 # === HEADER STYLING ===
 st.markdown("""
@@ -89,6 +89,14 @@ st.markdown("""
         Asset Allocation in Current Market Conditions
     </h3>
 """, unsafe_allow_html=True)
+# === BUTTON COMES AFTER (SEPARATE ROW) ===
+st.markdown("<div style='height: 3rem;'></div>", unsafe_allow_html=True)  # spacing between title and button row
+
+button_col, _ = st.columns([0.2, 0.8])
+with button_col:
+    button_label = "📘 Open Guide" if not st.session_state.get("show_guide", False) else "❌ Close Guide"
+    if st.button(button_label):
+        st.session_state.show_guide = not st.session_state.get("show_guide", False)
 
 if st.session_state.show_guide:
     st.markdown(
