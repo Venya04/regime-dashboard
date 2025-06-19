@@ -28,6 +28,7 @@ TICKERS = {
 }
 
 # === 1. Set page and initialize session state
+# === 1. Set page and initialize session state
 st.set_page_config(page_title="Regime Report", layout="wide")
 
 if "show_guide" not in st.session_state:
@@ -35,18 +36,23 @@ if "show_guide" not in st.session_state:
 
 # === 2. Floating "User Guide" Button (visible only if guide is closed)
 if not st.session_state["show_guide"]:
+    st.markdown("<div class='user-guide-float'>", unsafe_allow_html=True)
     toggle = st.button("📘 User Guide", key="guide_btn")
+    st.markdown("</div>", unsafe_allow_html=True)
+
     if toggle:
         st.session_state["show_guide"] = True
 
     # === Inject CSS to float button in bottom-left
     st.markdown("""
     <style>
-    button[kind="secondary"] {
+    .user-guide-float {
         position: fixed !important;
         bottom: 15px;
         left: 15px;
         z-index: 9999;
+    }
+    .user-guide-float button[kind="secondary"] {
         background-color: rgba(255,255,255,0.08);
         color: #eee;
         border: none;
@@ -55,8 +61,18 @@ if not st.session_state["show_guide"]:
         border-radius: 6px;
         cursor: pointer;
     }
-    button[kind="secondary"]:hover {
+    .user-guide-float button[kind="secondary"]:hover {
         background-color: rgba(255,255,255,0.18);
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# === 2b. Hide floating button if guide is open
+if st.session_state["show_guide"]:
+    st.markdown("""
+    <style>
+    .user-guide-float {
+        display: none !important;
     }
     </style>
     """, unsafe_allow_html=True)
