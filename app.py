@@ -72,55 +72,55 @@ if st.session_state["show_guide"]:
 
 if st.session_state["show_guide"]:
     with st.container():
-    st.markdown("""
-    ### 📘 How to Read This Dashboard
+        st.markdown("""
+        ### 📘 How to Read This Dashboard
 
-    This dashboard is built around a core truth:
+        This dashboard is built around a core truth:
 
-    > 💭 **You can’t tell the market what to do — but you can choose how to respond.**
+        > 💭 **You can’t tell the market what to do — but you can choose how to respond.**
 
-    The market doesn’t care whether you want to 10x your money or simply protect it from inflation. It moves with forces far beyond our control.  
-    What we **can** do is manage risk, adjust wisely, and respond rationally.
+        The market doesn’t care whether you want to 10x your money or simply protect it from inflation.  
+        It moves with forces far beyond our control.  
+        What we **can** do is manage risk, adjust wisely, and respond rationally.
 
-    This dashboard helps you do exactly that.
+        This dashboard helps you do exactly that.
 
-    ---
+        ---
 
-    We identify the current **economic regime** using macro data (GDP, inflation, etc.) and show you:
-    - Optimal asset allocation
-    - Portfolio performance
-    - Market insight and strategy updates
+        We identify the current **economic regime** using macro data (GDP, inflation, etc.) and show you:
+        - Optimal asset allocation
+        - Portfolio performance
+        - Market insight and strategy updates
 
-    ---
+        ---
 
-    #### 🥧 Portfolio Allocation Pie Chart
-    Suggests how to allocate assets (stocks, crypto, cash, etc.) based on the current regime.
+        #### 🥧 Portfolio Allocation Pie Chart
+        Suggests how to allocate assets (stocks, crypto, cash, etc.) based on the current regime.
 
-    #### 📈 Portfolio Performance Chart
-    Shows how the strategy performed over time vs. passive alternatives.
+        #### 📈 Portfolio Performance Chart
+        Shows how the strategy performed over time vs. passive alternatives.
 
-    #### 🧠 Market Insight
-    Interprets current macro signals — inflation, growth, credit, liquidity.
+        #### 🧠 Market Insight
+        Interprets current macro signals — inflation, growth, credit, liquidity.
 
-    #### 🎯 Top Strategy Note
-    Tactical view: what to do based on the current regime.
+        #### 🎯 Top Strategy Note
+        Tactical view: what to do based on the current regime.
 
-    #### 💡 Trader’s Conclusion
-    Simple takeaway: hold, hedge, rebalance?
+        #### 💡 Trader’s Conclusion
+        Simple takeaway: hold, hedge, rebalance?
 
-    ---
+        ---
 
-    ### 💬 Still Learning?
-    No worries — this dashboard is designed to be educational and actionable.  
-    Think of it as your **macro compass** — helping you navigate instead of guess.
+        ### 💬 Still Learning?
+        No worries — this dashboard is designed to be educational and actionable.  
+        Think of it as your **macro compass** — helping you navigate instead of guess.
 
-    > **Discipline over desire always wins.**
-    """, unsafe_allow_html=True)
+        > **Discipline over desire always wins.**
+        """, unsafe_allow_html=True)
 
         # ✅ Native close button
         if st.button("❌ Close Guide", key="close_guide"):
             st.session_state["show_guide"] = False
-
 
 # === LOAD DATA ===
 @st.cache_data
