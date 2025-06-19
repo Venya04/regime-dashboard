@@ -59,7 +59,7 @@ with top_cols[0]:
         """
         <style>
         .guide-button-container {
-            margin-top: 5px;
+            margin-top: 18px;
         }
         </style>
         """,
