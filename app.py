@@ -28,6 +28,17 @@ TICKERS = {
 }
 
 st.set_page_config(page_title="Regime Report", layout="wide")
+st.markdown("""
+    <style>
+    .guide-button {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        z-index: 1000;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # === INITIALIZE GUIDE TOGGLE ===
 if "show_guide" not in st.session_state:
     st.session_state.show_guide = False
@@ -36,9 +47,22 @@ if "show_guide" not in st.session_state:
 col1, col2 = st.columns([0.15, 0.85])
 
 with col1:
-    button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
-    if st.button(button_label):
-        st.session_state.show_guide = not st.session_state.show_guide
+    # button_label = "📘 Open Guide" if not st.session_state.show_guide else "❌ Close Guide"
+    # if st.button(button_label):
+    #     st.session_state.show_guide = not st.session_state.show_guide
+    # === USER GUIDE TOGGLE STATE ===
+if "show_guide" not in st.session_state:
+    st.session_state.show_guide = False
+
+with st.container():
+    st.markdown("<div class='guide-button'>", unsafe_allow_html=True)
+    if not st.session_state.show_guide:
+        if st.button("📘 Open Guide"):
+            st.session_state.show_guide = True
+    else:
+        if st.button("❌ Close Guide"):
+            st.session_state.show_guide = False
+    st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
