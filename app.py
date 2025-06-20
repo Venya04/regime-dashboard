@@ -336,6 +336,15 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+def darken_hex(hex_color: str, amount: float = 0.25) -> str:
+    """Return a darker shade of `hex_color` by reducing its lightness."""
+    hcol = hex_color.lstrip('#')
+    r, g, b = [int(hcol[i:i+2], 16) for i in (0, 2, 4)]
+    h, l, s = colorsys.rgb_to_hls(r/255, g/255, b/255)
+    l = max(0, l - amount)
+    r2, g2, b2 = colorsys.hls_to_rgb(h, l, s)
+    return f'#{int(r2*255):02x}{int(g2*255):02x}{int(b2*255):02x}'
+    
 # === LAYOUT ===
 left_col, right_col = st.columns([1.3, 1])
 
@@ -367,29 +376,44 @@ with left_col:
                 hole=0,
                 color=list(filtered_alloc.keys()),
                 color_discrete_map={
-                    "stocks": "#55a630",
+                    "stocks": "#19212E",
                     "stablecoins": "#522D2D",
                     "cash": "#391514",
                     "crypto": "#212D40",
                     "commodities": "#6d5332",
                 }
-            )
+# ← minimal addition: compute darker-edge colours
+                edge_map = {k: darken_hex(v) for k, v in base_map.items()}
 
-            fig_pie.update_traces(
-                textinfo='percent',
-                textfont=dict(size=17, family="Georgia"),
-                # insidetextorientation='radial',
-                pull=[0.01] * len(filtered_alloc),
-                marker=dict(line=dict(color="#000000", width=1))
-            )
+                fig_pie = px.pie(
+                    names=list(filtered_alloc.keys()),
+                    values=list(filtered_alloc.values()),
+                    hole=0,
+                    color=list(filtered_alloc.keys()),
+                    color_discrete_map=base_map
+                )
+            
+                fig_pie.update_traces(
+                    textinfo='percent',
+                    textfont=dict(size=17, family="Georgia"),
+                    # insidetextorientation='radial',
+                    pull=[0] * len(filtered_alloc),
+                    marker=dict(
+                        line=dict(
+                            # replace static black with per-slice darker shade:
+                            color=[edge_map[k] for k in filtered_alloc.keys()],
+                            width=2
+                        )
+                    )
+                )
 
-            fig_pie.update_layout(
-                showlegend=False,
-                margin=dict(t=10, b=10, l=10, r=10),
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-            )
-            st.plotly_chart(fig_pie, use_container_width=True)
+                fig_pie.update_layout(
+                    showlegend=False,
+                    margin=dict(t=10, b=10, l=10, r=10),
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    plot_bgcolor='rgba(0,0,0,0)',
+                )
+                st.plotly_chart(fig_pie, use_container_width=True)
 
     # 🔽 Portfolio Holdings
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
