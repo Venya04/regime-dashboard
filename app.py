@@ -97,7 +97,7 @@ if st.session_state["show_guide"]:
         ---
 
         #### 🥧 Portfolio Allocation Pie Chart  
-        Suggests how to allocate assets (stocks, crypto, cash, etc.) based on the current regime.
+        Suggests how to allocate assets (stocks, crypto, gold, cash and stablecoins .) based on the current regime.
 
         #### 📈 Portfolio Performance Chart  
         Shows how the strategy performed over time vs. passive alternatives.
