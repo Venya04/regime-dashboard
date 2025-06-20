@@ -336,15 +336,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-def darken_hex(hex_color: str, amount: float = 0.3) -> str:
-    """Return a darker shade of `hex_color` by reducing its lightness."""
-    hcol = hex_color.lstrip('#')
-    r, g, b = [int(hcol[i:i+2],16) for i in (0,2,4)]
-    h, l, s = colorsys.rgb_to_hls(r/255, g/255, b/255)
-    l = max(0, l - amount)
-    r2, g2, b2 = colorsys.hls_to_rgb(h, l, s)
-    return f'#{int(r2*255):02x}{int(g2*255):02x}{int(b2*255):02x}'
-    
 # === LAYOUT ===
 left_col, right_col = st.columns([1.3, 1])
 
@@ -365,85 +356,40 @@ with left_col:
     # Limit left column content width
     st.markdown("<div style='max-width: 600px; margin: 0 auto;'>", unsafe_allow_html=True)
 
-if current_alloc:
-    filtered = {k: v for k, v in current_alloc.items() if v>0.001}
-    if filtered:
-        base_map = {
-            "stocks":      "#19212E",
-            "stablecoins": "#522D2D",
-            "cash":        "#391514",
-            "crypto":      "#212D40",
-            "commodities": "#6d5332",
-        }
+    if current_alloc:
+        # Filter out allocations smaller than 0.1%
+        filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
 
-        STEPS = 10  # how many mini‐slices per “real” slice
-        names, values, colors = [], [], []
-
-        for cat, frac in filtered.items():
-            base = base_map[cat]
-            # build a linear ramp of 10 colours from base → darker
-            ramp = [
-                darken_hex(base, amount=(i/(STEPS-1))*0.4)
-                for i in range(STEPS)
-            ]
-            # split the fraction evenly
-            mini_val = frac / STEPS
-            for i in range(STEPS):
-                names.append(cat)         # same name for grouping
-                values.append(mini_val)   
-                colors.append(ramp[i])
-
-        fig_pie = px.pie(
-            names=names,
-            values=values,
-            hole=0,
-            color=names,
-            color_discrete_map={name: col for name, col in zip(names, colors)}
-        )
-
-        # hide all the mini‐slice labels…
-        fig_pie.update_traces(
-            textinfo='none',
-            marker=dict(line_width=0)
-        )
-
-        # now overlay the real percent labels via annotations:
-        total = sum(filtered.values())
-        angle = 0
-        for cat, frac in filtered.items():
-            theta = angle + frac/2
-            angle += frac
-            fig_pie.add_annotation(
-                text=f"{frac/total:.0%}",
-                x=0.5 + 0.35 * np.cos(2*np.pi*theta),
-                y=0.5 + 0.35 * np.sin(2*np.pi*theta),
-                showarrow=False,
-                font=dict(size=17, family="Georgia", color="white")
+        if filtered_alloc:
+            fig_pie = px.pie(
+                names=list(filtered_alloc.keys()),
+                values=list(filtered_alloc.values()),
+                hole=0,
+                color=list(filtered_alloc.keys()),
+                color_discrete_map={
+                    "stocks": "#19212E",
+                    "stablecoins": "#522D2D",
+                    "cash": "#391514",
+                    "crypto": "#212D40",
+                    "commodities": "#6d5332",
+                }
             )
 
-        fig_pie.update_layout(
-            showlegend=False,
-            margin=dict(t=10,b=10,l=10,r=10),
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
-        )
-        st.plotly_chart(fig_pie, use_container_width=True)
+            fig_pie.update_traces(
+                textinfo='percent',
+                textfont=dict(size=17, family="Georgia"),
+                # insidetextorientation='radial',
+                pull=[0.01] * len(filtered_alloc),
+                marker=dict(line=dict(color="#000000", width=1))
+            )
 
-    # 🔽 Portfolio Holdings
-    st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
-    st.markdown(
-        """
-        <div style='text-align: center; margin-top: -5px;'>
-            <ul style='padding-left: 10; list-style-position: inside; text-align: left; display: inline-block;'>
-        """ + "".join([
-            f"<li><strong>{asset.capitalize()}</strong>: {weight:.1%}</li>"
-            for asset, weight in current_alloc.items()
-        ]) + """
-            </ul>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+            fig_pie.update_layout(
+                showlegend=False,
+                margin=dict(t=10, b=10, l=10, r=10),
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)',
+            )
+            st.plotly_chart(fig_pie, use_container_width=True)
 
     # 🔽 Performance Summary
     if not performance_df.empty:
