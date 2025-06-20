@@ -443,7 +443,6 @@ with left_col:
     #                 "commodities": "#dbb42c",
     #             }
     #         )
-
             fig_pie.update_traces(
                 textinfo='percent',
                 textfont=dict(size=17, family="Georgia"),
