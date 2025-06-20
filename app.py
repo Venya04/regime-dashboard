@@ -347,13 +347,13 @@ def darken_hex(hex_color: str, amount: float = 0.3) -> str:
     return f'#{int(r2*255):02x}{int(g2*255):02x}{int(b2*255):02x}'
 
 base_colors = {
-    "stocks":      "#55a630",  # 21%
-    "crypto":      "#80b918",  # 35%
-    "commodities": "#dbb42c",  #  6%
-    "cash":        "#ee6055",  # 18%
-    "car":         "#ef233c",  # 20%
+    "STOCK":      "#55a630",
+    "BOT":        "#39843a",
+    "CRYPTO":     "#276f27",
+    "METALL":     "#f7c332",
+    "CASH":       "#f37467",
+    "CAR":        "#ef233c",
 }
-
 edge_colors = {k: darken_hex(v, amount=0.25) for k, v in base_colors.items()}
 
 # — In your Streamlit app —
