@@ -38,9 +38,9 @@ else:
     admin_value = admin_param
 
 is_admin_mode = admin_value.lower() == "true"
-st.write("query_params:", query_params)
-st.write("admin_value:", admin_value)
-st.write("is_admin_mode:", is_admin_mode)
+# st.write("query_params:", query_params)
+# st.write("admin_value:", admin_value)
+# st.write("is_admin_mode:", is_admin_mode)
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
