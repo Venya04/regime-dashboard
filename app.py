@@ -347,39 +347,28 @@ def darken_hex(hex_color: str, amount: float = 0.3) -> str:
     return f'#{int(r2*255):02x}{int(g2*255):02x}{int(b2*255):02x}'
 
 base_colors = {
-    "stocks":      "#55a630",
-    "stablecoins": "#39843a",
-    "cash":        "#f37467",
-    "crypto":      "#276f27",
-    "commodities": "#f7c332",
+    "stocks":      "#55a630",  # 21%
+    "crypto":      "#80b918",  # 35%
+    "commodities": "#dbb42c",  #  6%
+    "cash":        "#ee6055",  # 18%
+    "car":         "#ef233c",  # 20%
 }
-edge_colors = {k: darken_hex(v) for k, v in base_colors.items()}
+
+edge_colors = {k: darken_hex(v, amount=0.25) for k, v in base_colors.items()}
 
 # — In your Streamlit app —
 left_col, right_col = st.columns([1.3, 1])
 
 with left_col:
-    st.markdown("""
-        <style>
-            .left-section-title {
-                font-family: Georgia, serif;
-                font-size: 1.1rem;
-                font-weight: bold;
-                text-transform: uppercase;
-                margin-bottom: 10px;
-                text-align: center;
-            }
-        </style>
-    """, unsafe_allow_html=True)
+    # (your existing CSS…)
     st.markdown("<div style='max-width:600px;margin:0 auto;'>", unsafe_allow_html=True)
 
     if current_alloc:
-        # 1) Filter out very small slices
+        # 1) filter
         filtered = {k: v for k, v in current_alloc.items() if v > 0.001}
-        labels = list(filtered.keys())
-        values = list(filtered.values())
+        labels, values = list(filtered.keys()), list(filtered.values())
 
-        # 2) Build the pie
+        # 2) build pie
         fig = px.pie(
             names=labels,
             values=values,
@@ -388,26 +377,24 @@ with left_col:
             color_discrete_map=base_colors
         )
 
-        # 3) Add white % text + darker-edge bevel
+        # 3) bevelled‐edge + radial text
         fig.update_traces(
             textinfo='percent',
+            insidetextorientation='radial',
             textfont=dict(size=17, family="Georgia", color="white"),
             pull=[0.01] * len(labels),
-            marker=dict(
-                line=dict(
-                    color=[edge_colors[l] for l in labels],
-                    width=4
-                )
-            )
+            marker_line_color=[edge_colors[l] for l in labels],
+            marker_line_width=3
         )
 
-        # 4) Final layout & render
+        # 4) match your dark background
         fig.update_layout(
             showlegend=False,
             margin=dict(t=10, b=10, l=10, r=10),
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='#212121',
+            plot_bgcolor='#212121',
         )
+
         st.plotly_chart(fig, use_container_width=True)
 
     # 🔽 Portfolio Holdings
