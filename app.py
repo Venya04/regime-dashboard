@@ -378,14 +378,14 @@ st.markdown("""
             font-family: Georgia, serif !important;
         font-size: 0.96rem;
         font-style: italic;
-        color: #ccc;
+        color: #fff;
         font-weight: 400;
         line-height: 1.5;
         margin-bottom: 0.3em;
     }
     .portfolio-list li strong {
         font-style: normal;
-        color: #d4af37;
+        color: #fff;
     }
     </style>
     """, unsafe_allow_html=True)
