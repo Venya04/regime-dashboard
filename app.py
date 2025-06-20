@@ -336,67 +336,62 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# — Helpers & Palettes (top of file) —
-def darken_hex(hex_color: str, amount: float = 0.3) -> str:
-    hcol = hex_color.lstrip('#')
-    r, g, b = [int(hcol[i:i+2],16) for i in (0,2,4)]
-    h, l, s = colorsys.rgb_to_hls(r/255, g/255, b/255)
-    l = max(0, l - amount)
-    r2, g2, b2 = colorsys.hls_to_rgb(h, l, s)
-    return f'#{int(r2*255):02x}{int(g2*255):02x}{int(b2*255):02x}'
-
-# keep your colours lower-case for simplicity
-base_colors = {
-    "stock":      "#55a630",
-    "bot":        "#39843a",
-    "crypto":     "#276f27",
-    "metall":     "#f7c332",
-    "cash":       "#f37467",
-    "car":        "#ef233c",
-}
-
+# === LAYOUT ===
 left_col, right_col = st.columns([1.3, 1])
+
 with left_col:
-    st.markdown("<div style='max-width:600px;margin:0 auto;'>", unsafe_allow_html=True)
+    st.markdown("""
+        <style>
+            .left-section-title {
+                font-family: Georgia, serif;
+                font-size: 1.1rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Limit left column content width
+    st.markdown("<div style='max-width: 600px; margin: 0 auto;'>", unsafe_allow_html=True)
 
     if current_alloc:
-        # 1) filter
-        filtered = {k: v for k, v in current_alloc.items() if v > 0.001}
-        labels = list(filtered.keys())
-        values = list(filtered.values())
+        # Filter out allocations smaller than 0.1%
+        filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
 
-        # 2) build dynamic maps
-        color_map = {}
-        edge_map  = {}
-        for lab in labels:
-            key = lab.lower()
-            col = base_colors.get(key, "#888888")        # fallback if missing
-            color_map[lab] = col
-            edge_map[lab]  = darken_hex(col, amount=0.25)
+        if filtered_alloc:
+            fig_pie = px.pie(
+                names=list(filtered_alloc.keys()),
+                values=list(filtered_alloc.values()),
+                hole=0,
+                color=list(filtered_alloc.keys()),
+                color_discrete_map={
+                    "stocks": "#19212E",
+                    "stablecoins": "#522D2D",
+                    "cash": "#391514",
+                    "crypto": "#212D40",
+                    "commodities": "#6d5332",
+                }
+            )
 
-        # 3) draw pie
-        fig = px.pie(
-            names=labels,
-            values=values,
-            hole=0,
-            color=labels,
-            color_discrete_map=color_map
-        )
-        fig.update_traces(
-            textinfo='percent',
-            insidetextorientation='radial',
-            textfont=dict(size=17, family="Georgia", color="white"),
-            pull=[0.01]*len(labels),
-            marker_line_color=[edge_map[lab] for lab in labels],
-            marker_line_width=3
-        )
-        fig.update_layout(
-            showlegend=False,
-            margin=dict(t=10,b=10,l=10,r=10),
-            paper_bgcolor='#212121',
-            plot_bgcolor='#212121',
-        )
-        st.plotly_chart(fig, use_container_width=True)
+            fig_pie.update_traces(
+                textinfo='percent',
+                textfont=dict(size=17, family="Georgia"),
+                # insidetextorientation='radial',
+                pull=[0.01] * len(filtered_alloc),
+                marker=dict(line=dict(color="#000000", width=1))
+            )
+
+            fig_pie.update_layout(
+                showlegend=False,
+                margin=dict(t=10, b=10, l=10, r=10),
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)',
+            )
+            st.plotly_chart(fig_pie, use_container_width=True)
+
+
 
     # 🔽 Performance Summary
     if not performance_df.empty:
