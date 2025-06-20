@@ -377,7 +377,7 @@ with left_col:
                 textinfo='percent',
                 textfont=dict(size=17, family="Georgia"),
                 # insidetextorientation='radial',
-                pull=[0.005] * len(filtered_alloc),
+                pull=[0.01] * len(filtered_alloc),
                 marker=dict(line=dict(color="#000000", width=1))
             )
 
@@ -388,6 +388,22 @@ with left_col:
                 plot_bgcolor='rgba(0,0,0,0)',
             )
             st.plotly_chart(fig_pie, use_container_width=True)
+
+    # 🔽 Portfolio Holdings
+    st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style='text-align: center; margin-top: -5px;'>
+            <ul style='padding-left: 10; list-style-position: inside; text-align: left; display: inline-block;'>
+        """ + "".join([
+            f"<li><strong>{asset.capitalize()}</strong>: {weight:.1%}</li>"
+            for asset, weight in current_alloc.items()
+        ]) + """
+            </ul>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     # 🔽 Performance Summary
     if not performance_df.empty:
@@ -400,7 +416,7 @@ with left_col:
         📈 <strong>Performance:</strong> {perf_pct:.2f}%
         </div>
         """, unsafe_allow_html=True)
-        
+
 with right_col:
     st.markdown("""
        <style>
