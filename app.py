@@ -455,7 +455,7 @@ with left_col:
         st.markdown(
             f"""
             <div class='left-section-title' style='margin-bottom: 8px; margin-top: 8px;'>
-                <span style='vertical-align: middle; font-size: 1.6rem;'>📈</span>
+                <span style='vertical-align: middle; font-size: 1.5rem;'>📈</span>
                 <span style='vertical-align: middle;'>Performance: {perf_pct:.2f}%</span>
             </div>
             """,
