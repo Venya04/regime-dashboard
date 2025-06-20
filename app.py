@@ -337,13 +337,11 @@ st.markdown("""
 
 # === LAYOUT ===
 left_col, right_col = st.columns([1.3, 1])
-
-# with left_col:
-    def darken_hex(hex_color: str, amount: float = 0.2) -> str:
+# 1) Helper to darken a hex colour by `amount` (0–1)
+def darken_hex(hex_color: str, amount: float = 0.3) -> str:
     hcol = hex_color.lstrip('#')
     r, g, b = [int(hcol[i : i + 2], 16) for i in (0, 2, 4)]
-    # RGB → HLS
-    h, l, s = colorsys.rgb_to_hls(r / 255, g / 255, b / 255)
+    h, l, s = colorsys.rgb_to_hls(r/255, g/255, b/255)
     l = max(0, l - amount)
     r2, g2, b2 = colorsys.hls_to_rgb(h, l, s)
     return f'#{int(r2*255):02x}{int(g2*255):02x}{int(b2*255):02x}'
@@ -352,12 +350,12 @@ left_col, right_col = st.columns([1.3, 1])
 base_colors = {
     "stocks":      "#55a630",
     "stablecoins": "#39843a",
-    "cash":        "#ee6055",
-    "crypto":      "#f37467",
+    "cash":        "#f37467",
+    "crypto":      "#276f27",
     "commodities": "#f7c332",
 }
 # precompute darker‐edge colours
-edge_colors = {k: darken_hex(v, amount=0.3) for k, v in base_colors.items()}
+edge_colors = {k: darken_hex(v) for k, v in base_colors.items()}
 
 # --- inside your Streamlit layout ---
 with left_col:
@@ -373,8 +371,7 @@ with left_col:
             }
         </style>
     """, unsafe_allow_html=True)
-
-    st.markdown("<div style='max-width: 600px; margin: 0 auto;'>", unsafe_allow_html=True)
+    st.markdown("<div style='max-width:600px;margin:0 auto;'>", unsafe_allow_html=True)
 
     if current_alloc:
         # filter out tiny slices
@@ -382,7 +379,7 @@ with left_col:
         labels = list(filtered.keys())
         values = list(filtered.values())
 
-        # build the pie
+        # build the pie into `fig`
         fig = px.pie(
             names=labels,
             values=values,
@@ -391,7 +388,7 @@ with left_col:
             color_discrete_map=base_colors
         )
 
-        # add white % text + dark bevel‐edges
+        # add white % text + “bevel” edges
         fig.update_traces(
             textinfo='percent',
             textfont=dict(size=17, family="Georgia", color="white"),
@@ -403,6 +400,15 @@ with left_col:
                 )
             )
         )
+
+        fig.update_layout(
+            showlegend=False,
+            margin=dict(t=10, b=10, l=10, r=10),
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
     # st.markdown("""
     #     <style>
     #         .left-section-title {
