@@ -497,7 +497,7 @@ with right_col:
         font-size: 18px;
         font-weight: bold;
         text-transform: uppercase;
-        margin-bottom: 0px;
+        margin-bottom: 4px;
         text-align: left;
         color: white;
         border-bottom: 1px solid #555;
@@ -513,7 +513,7 @@ with right_col:
     border-radius: 5px;
     min-height: 160px;
     border: 1px solid #444; /* optional: matches input box border */
-    margin-bottom: 0px; /* <-- add this */
+    margin-bottom: 4px; /* <-- add this */
 }
     @media (max-width: 768px) {
         .section-title {
