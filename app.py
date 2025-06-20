@@ -385,7 +385,7 @@ st.markdown("""
     }
     .portfolio-list li strong {
         font-style: normal;
-        color: #fff;
+        color: #d4af37;
     }
     </style>
     """, unsafe_allow_html=True)
