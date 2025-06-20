@@ -28,9 +28,10 @@ TICKERS = {
     "stablecoins": None
 }
 
-# === 1. Set page and initialize session state
 # === 1. Page Config & Session State
 st.set_page_config(page_title="Regime Report", layout="wide")
+    query_params = st.query_params
+    is_admin_mode = query_params.get("admin", ["false"])[0].lower() == "true"
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
 
@@ -131,6 +132,9 @@ if st.session_state["show_guide"]:
             if submitted:
                 st.session_state["show_guide"] = False
                 st.rerun()
+
+    st.write("Query params at top:", query_params)
+    st.write("is_admin_mode at top:", is_admin_mode)
 
     # 🛑 Stop dashboard rendering when guide is shown
     st.stop()
@@ -469,9 +473,6 @@ with right_col:
             commentary = json.load(f)
     except Exception:
         commentary = default_sections
-
-    query_params = st.query_params
-    is_admin_mode = query_params.get("admin", ["false"])[0].lower() == "true"
 
     if "auth" not in st.session_state:
         st.session_state.auth = False
