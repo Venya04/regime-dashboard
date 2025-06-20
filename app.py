@@ -446,27 +446,21 @@ with left_col:
         unsafe_allow_html=True
     )
 
-    # 🔽 Performance Summary (MATCHES Portfolio Holdings header style)
+    # 🔽 Performance Summary (Matches Portfolio Holdings Header Style)
     if not performance_df.empty:
         start_val = performance_df["value"].iloc[0]
         end_val = performance_df["value"].iloc[-1]
         perf_pct = ((end_val / start_val) - 1) * 100
 
-        st.markdown(f"""
-         <div style="
-            text-align: center;
-            font-family: Georgia, serif;
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
-            margin-top: 18px;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        ">
-                <span style="vertical-align: middle; font-size: 1.7rem;">📈</span>
-                <span style="vertical-align: middle;">Performance: {perf_pct:.2f}%</span>
-         </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            f"""
+            <div class='left-section-title' style='margin-bottom: 8px; margin-top: 8px;'>
+                <span style='vertical-align: middle; font-size: 1.6rem;'>📈</span>
+                <span style='vertical-align: middle;'>Performance: {perf_pct:.2f}%</span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     # === HERE: INSIDE left_col! ===
     if not perf_df.empty:
