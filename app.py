@@ -458,11 +458,11 @@ with left_col:
         st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)  # small spacer
         components.html(f"""
         <div style="display: flex; justify-content: center;">
-            <div style="max-width: 480px; width: 100%;">
+            <div style="max-width: 600px; width: 100%;">
                 {html}
             </div>
         </div>
-        """, height=280)
+        """, height=510)
 
 with right_col:
     st.markdown("""
