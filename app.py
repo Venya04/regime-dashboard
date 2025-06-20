@@ -470,26 +470,19 @@ with right_col:
     except Exception:
         commentary = default_sections
 
-query_params = st.query_params
-is_admin_mode = query_params.get("admin", ["false"])[0].lower() == "true"
+    query_params = st.query_params
+    is_admin_mode = query_params.get("admin", ["false"])[0].lower() == "true"
 
-if "auth" not in st.session_state:
-    st.session_state.auth = False
+    if "auth" not in st.session_state:
+        st.session_state.auth = False
 
-st.write("Admin param:", query_params)
-st.write("is_admin_mode:", is_admin_mode)
-st.write("auth:", st.session_state.auth)
-
-if is_admin_mode and not st.session_state.auth:
-    pwd = st.text_input("Password", type="password")
-    if pwd == st.secrets["auth"]["edit_password"]:
-        st.session_state.auth = True
-        st.success("Edit mode activated!")
-
-if is_admin_mode and st.session_state.auth:
-    st.text_area("Edit this", value="Editable!")
-else:
-    st.write("Viewer mode only.")
+    # Login form only if needed
+    if is_admin_mode and not st.session_state.auth:
+        with st.expander("🔒 Admin Login (edit mode)", expanded=False):
+            pwd = st.text_input("Enter password", type="password")
+            if pwd == st.secrets["auth"]["edit_password"]:
+                st.session_state.auth = True
+                st.success("Edit mode activated!")
 
     # Commentary boxes, always rendered here
     for section_title in commentary:
