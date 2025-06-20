@@ -488,6 +488,7 @@ with right_col:
     border-radius: 5px;
     min-height: 160px;
     border: 1px solid #444; /* optional: matches input box border */
+    margin-bottom: 4px; /* <-- add this */
 }
     @media (max-width: 768px) {
         .section-title {
