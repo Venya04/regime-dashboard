@@ -97,10 +97,7 @@ if st.session_state["show_guide"]:
         ---
 
         #### 🥧 Portfolio Allocation Pie Chart  
-        Suggests how to allocate assets (stocks, crypto, gold, cash and stablecoins .) based on the current regime.
-
-        #### 📈 Portfolio Performance Chart  
-        Shows how the strategy performed over time vs. passive alternatives.
+        Suggests how to allocate assets (stocks, crypto, gold, cash and stablecoins) based on the current regime.
 
         #### 🧠 Market Insight  
         Interprets current macro signals — inflation, growth, credit, liquidity.
@@ -110,6 +107,9 @@ if st.session_state["show_guide"]:
 
         #### 💡 Trader’s Conclusion  
         Simple takeaway: hold, hedge, rebalance?
+        
+        #### 📈 Portfolio Performance Chart  
+        Shows how the strategy performed over time vs. passive alternatives.
 
         ---
 
