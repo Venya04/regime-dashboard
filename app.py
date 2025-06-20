@@ -529,7 +529,7 @@ with right_col:
     font-family: Georgia, serif;
     font-size: 0.9rem;
     font-style: italic;
-    color: #ccc;
+    color: #fff;
     background-color: #262730;  /* 🎯 matches st.text_area theme */
     padding: 10px;
     border-radius: 5px;
