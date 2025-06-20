@@ -339,6 +339,28 @@ st.markdown("""
 left_col, right_col = st.columns([1.3, 1])
 
 with left_col:
+    def darken_hex(hex_color: str, amount: float = 0.2) -> str:
+    hcol = hex_color.lstrip('#')
+    r, g, b = [int(hcol[i : i + 2], 16) for i in (0, 2, 4)]
+    # RGB → HLS
+    h, l, s = colorsys.rgb_to_hls(r / 255, g / 255, b / 255)
+    l = max(0, l - amount)
+    r2, g2, b2 = colorsys.hls_to_rgb(h, l, s)
+    return f'#{int(r2*255):02x}{int(g2*255):02x}{int(b2*255):02x}'
+
+# 2) Your base palette
+base_colors = {
+    "stocks":      "#55a630",
+    "stablecoins": "#1a759f",
+    "cash":        "#ee6055",
+    "crypto":      "#80b918",
+    "commodities": "#dbb42c",
+}
+# precompute darker‐edge colours
+edge_colors = {k: darken_hex(v, amount=0.3) for k, v in base_colors.items()}
+
+# --- inside your Streamlit layout ---
+with left_col:
     st.markdown("""
         <style>
             .left-section-title {
@@ -352,27 +374,69 @@ with left_col:
         </style>
     """, unsafe_allow_html=True)
 
-    # Limit left column content width
     st.markdown("<div style='max-width: 600px; margin: 0 auto;'>", unsafe_allow_html=True)
 
     if current_alloc:
-        # Filter out allocations smaller than 0.1%
-        filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
+        # filter out tiny slices
+        filtered = {k: v for k, v in current_alloc.items() if v > 0.001}
+        labels = list(filtered.keys())
+        values = list(filtered.values())
 
-        if filtered_alloc:
-            fig_pie = px.pie(
-                names=list(filtered_alloc.keys()),
-                values=list(filtered_alloc.values()),
-                hole=0,
-                color=list(filtered_alloc.keys()),
-                color_discrete_map={
-                    "stocks": "#55a630",
-                    "stablecoins": "#1a759f",
-                    "cash": "#ee6055",
-                    "crypto": "#80b918",
-                    "commodities": "#dbb42c",
-                }
+        # build the pie
+        fig = px.pie(
+            names=labels,
+            values=values,
+            hole=0,
+            color=labels,
+            color_discrete_map=base_colors
+        )
+
+        # add white % text + dark bevel‐edges
+        fig.update_traces(
+            textinfo='percent',
+            textfont=dict(size=17, family="Georgia", color="white"),
+            pull=[0.01] * len(labels),
+            marker=dict(
+                line=dict(
+                    color=[edge_colors[l] for l in labels],
+                    width=4
+                )
             )
+        )
+    # st.markdown("""
+    #     <style>
+    #         .left-section-title {
+    #             font-family: Georgia, serif;
+    #             font-size: 1.1rem;
+    #             font-weight: bold;
+    #             text-transform: uppercase;
+    #             margin-bottom: 10px;
+    #             text-align: center;
+    #         }
+    #     </style>
+    # """, unsafe_allow_html=True)
+
+    # # Limit left column content width
+    # st.markdown("<div style='max-width: 600px; margin: 0 auto;'>", unsafe_allow_html=True)
+
+    # if current_alloc:
+    #     # Filter out allocations smaller than 0.1%
+    #     filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
+
+    #     if filtered_alloc:
+    #         fig_pie = px.pie(
+    #             names=list(filtered_alloc.keys()),
+    #             values=list(filtered_alloc.values()),
+    #             hole=0,
+    #             color=list(filtered_alloc.keys()),
+    #             color_discrete_map={
+    #                 "stocks": "#55a630",
+    #                 "stablecoins": "#1a759f",
+    #                 "cash": "#ee6055",
+    #                 "crypto": "#80b918",
+    #                 "commodities": "#dbb42c",
+    #             }
+    #         )
 
             fig_pie.update_traces(
                 textinfo='percent',
