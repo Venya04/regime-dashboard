@@ -430,6 +430,37 @@ with left_col:
         </div>
         """, unsafe_allow_html=True)
 
+# Insert the chart here
+    if not perf_df.empty:
+        perf_fig = px.line(
+            perf_df,
+            x="date",
+            y="value",
+            labels={"value": "Portfolio Value", "date": "Date"},
+            template="plotly_dark",
+            markers=True,
+            color_discrete_sequence=["#e85d04"]
+        )
+        perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
+        perf_fig.update_layout(
+            height=260,         # <--- make it smaller!
+            width=480,          # <--- make it fit the left column!
+            margin=dict(l=20, r=20, t=10, b=20),
+            autosize=False,     # <--- don't autosize, fix the width
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)'
+        )
+
+        html = perf_fig.to_html(include_plotlyjs='cdn', full_html=False)
+        st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)  # tiny spacer
+        components.html(f"""
+        <div style="display: flex; justify-content: center;">
+            <div style="max-width: 480px; width: 100%;">
+                {html}
+            </div>
+        </div>
+        """, height=280)
+
 with right_col:
     st.markdown("""
        <style>
@@ -516,43 +547,43 @@ with right_col:
         with open(NOTES_FILE, "w") as f:
             json.dump(commentary, f)
 
-# 🔽 Performance Chart
-import streamlit.components.v1 as components
+# # 🔽 Performance Chart
+# import streamlit.components.v1 as components
 
-# Read data first, outside of the chart function
-perf_df = pd.read_csv("portfolio_performance.csv", parse_dates=["date"])
+# # Read data first, outside of the chart function
+# perf_df = pd.read_csv("portfolio_performance.csv", parse_dates=["date"])
 
-if not perf_df.empty:
-    perf_fig = px.line(
-        perf_df,
-        x="date",
-        y="value",
-        labels={"value": "Portfolio Value", "date": "Date"},
-        template="plotly_dark",
-        markers=True,
-        color_discrete_sequence=["#e85d04"]
-    )
-#3DA5D9
-    #e85d04
-    perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
-    perf_fig.update_layout(
-        height=350,
-        width=1000,
-        margin=dict(l=20, r=20, t=10, b=20),
-        autosize=True,
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)'
-    )
+# if not perf_df.empty:
+#     perf_fig = px.line(
+#         perf_df,
+#         x="date",
+#         y="value",
+#         labels={"value": "Portfolio Value", "date": "Date"},
+#         template="plotly_dark",
+#         markers=True,
+#         color_discrete_sequence=["#e85d04"]
+#     )
+# #3DA5D9
+#     #e85d04
+#     perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
+#     perf_fig.update_layout(
+#         height=350,
+#         width=1000,
+#         margin=dict(l=20, r=20, t=10, b=20),
+#         autosize=True,
+#         paper_bgcolor='rgba(0,0,0,0)',
+#         plot_bgcolor='rgba(0,0,0,0)'
+#     )
 
-    html = perf_fig.to_html(include_plotlyjs='cdn', full_html=False)
+#     html = perf_fig.to_html(include_plotlyjs='cdn', full_html=False)
 
-    components.html(f"""
-    <div style="display: flex; justify-content: center;">
-        <div style="max-width: 900px; width: 100%;">
-            {html}
-        </div>
-    </div>
-    """, height=400)
+#     components.html(f"""
+#     <div style="display: flex; justify-content: center;">
+#         <div style="max-width: 900px; width: 100%;">
+#             {html}
+#         </div>
+#     </div>
+#     """, height=400)
     
 # Hide Streamlit menu and footer
 st.markdown("""
