@@ -448,10 +448,9 @@ with right_col:
         }
     }
 </style>
-
     """, unsafe_allow_html=True)
 
-import json
+    import json
 
     NOTES_FILE = "thoughts.txt"
 
