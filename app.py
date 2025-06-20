@@ -409,40 +409,7 @@ with left_col:
         )
 
         st.plotly_chart(fig, use_container_width=True)
-    # st.markdown("""
-    #     <style>
-    #         .left-section-title {
-    #             font-family: Georgia, serif;
-    #             font-size: 1.1rem;
-    #             font-weight: bold;
-    #             text-transform: uppercase;
-    #             margin-bottom: 10px;
-    #             text-align: center;
-    #         }
-    #     </style>
-    # """, unsafe_allow_html=True)
 
-    # # Limit left column content width
-    # st.markdown("<div style='max-width: 600px; margin: 0 auto;'>", unsafe_allow_html=True)
-
-    # if current_alloc:
-    #     # Filter out allocations smaller than 0.1%
-    #     filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
-
-    #     if filtered_alloc:
-    #         fig_pie = px.pie(
-    #             names=list(filtered_alloc.keys()),
-    #             values=list(filtered_alloc.values()),
-    #             hole=0,
-    #             color=list(filtered_alloc.keys()),
-    #             color_discrete_map={
-    #                 "stocks": "#55a630",
-    #                 "stablecoins": "#1a759f",
-    #                 "cash": "#ee6055",
-    #                 "crypto": "#80b918",
-    #                 "commodities": "#dbb42c",
-    #             }
-    #         )
             fig_pie.update_traces(
                 textinfo='percent',
                 textfont=dict(size=17, family="Georgia"),
