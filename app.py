@@ -538,7 +538,7 @@ with right_col:
                 commentary[section_title] = st.text_area(
                     f"{section_title} input",
                     value=commentary[section_title],
-                    height=110,
+                    height=100,
                     key=section_title
                 )
             else:
