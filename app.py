@@ -474,15 +474,15 @@ with right_col:
 query_params = st.experimental_get_query_params()
 is_admin_mode = query_params.get("admin", ["false"])[0].lower() == "true"
 
-    if "auth" not in st.session_state:
-        st.session_state.auth = False
+if "auth" not in st.session_state:
+    st.session_state.auth = False
 
-    if is_admin_mode and not st.session_state.auth:
-        with st.expander("🔒 Admin Login (edit mode)", expanded=False):
-            pwd = st.text_input("Enter password", type="password")
-            if pwd == st.secrets["auth"]["edit_password"]:
-                st.session_state.auth = True
-                st.success("Edit mode activated!")
+if is_admin_mode and not st.session_state.auth:
+    with st.expander("🔒 Admin Login (edit mode)", expanded=False):
+        pwd = st.text_input("Enter password", type="password")
+        if pwd == st.secrets["auth"]["edit_password"]:
+            st.session_state.auth = True
+            st.success("Edit mode activated!")
 
     for section_title in commentary:
         cols = st.columns([0.6, 0.1])
