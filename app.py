@@ -338,7 +338,7 @@ st.markdown("""
 # === LAYOUT ===
 left_col, right_col = st.columns([1.3, 1])
 
-with left_col:
+# with left_col:
     def darken_hex(hex_color: str, amount: float = 0.2) -> str:
     hcol = hex_color.lstrip('#')
     r, g, b = [int(hcol[i : i + 2], 16) for i in (0, 2, 4)]
@@ -351,10 +351,10 @@ with left_col:
 # 2) Your base palette
 base_colors = {
     "stocks":      "#55a630",
-    "stablecoins": "#1a759f",
+    "stablecoins": "#39843a",
     "cash":        "#ee6055",
-    "crypto":      "#80b918",
-    "commodities": "#dbb42c",
+    "crypto":      "#f37467",
+    "commodities": "#f7c332",
 }
 # precompute darker‐edge colours
 edge_colors = {k: darken_hex(v, amount=0.3) for k, v in base_colors.items()}
