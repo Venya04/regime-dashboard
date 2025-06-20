@@ -1,5 +1,5 @@
 {
-  "Market Insight": "",
-  "Top Strategy Note": "",
-  "Trader's Conclusion": ""
+  "🧭 Macro Outlook": "",
+  "🧮 Portfolio Positioning": "",
+  "🎯 Tactical Moves": ""
 }
