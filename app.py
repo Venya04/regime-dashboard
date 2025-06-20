@@ -451,7 +451,7 @@ with right_col:
 
     """, unsafe_allow_html=True)
 
-    import json
+import json
 
     NOTES_FILE = "thoughts.txt"
 
@@ -471,40 +471,41 @@ with right_col:
     except Exception:
         commentary = default_sections
 
-query_params = st.query_params
-is_admin_mode = query_params.get("admin", ["false"])[0].lower() == "true"
+    query_params = st.query_params
+    is_admin_mode = query_params.get("admin", ["false"])[0].lower() == "true"
 
-if "auth" not in st.session_state:
-    st.session_state.auth = False
+    if "auth" not in st.session_state:
+        st.session_state.auth = False
 
-if is_admin_mode and not st.session_state.auth:
-    with st.expander("🔒 Admin Login (edit mode)", expanded=False):
-        pwd = st.text_input("Enter password", type="password")
-        if pwd == st.secrets["auth"]["edit_password"]:
-            st.session_state.auth = True
-            st.success("Edit mode activated!")
+    # Login form only if needed
+    if is_admin_mode and not st.session_state.auth:
+        with st.expander("🔒 Admin Login (edit mode)", expanded=False):
+            pwd = st.text_input("Enter password", type="password")
+            if pwd == st.secrets["auth"]["edit_password"]:
+                st.session_state.auth = True
+                st.success("Edit mode activated!")
 
-# 👇 OUTSIDE the login-block, ALWAYS show commentary
-for section_title in commentary:
-    cols = st.columns([0.6, 0.1])
-    with cols[0]:
-        st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
-        if is_admin_mode and st.session_state.auth:
-            commentary[section_title] = st.text_area(
-                f"{section_title} input",
-                value=commentary[section_title],
-                height=130,
-                key=section_title
-            )
-        else:
-            content = commentary[section_title].strip() or "..."
-            st.markdown(f"<div class='section-comment'>{content}</div>", unsafe_allow_html=True)
-    st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+    # Commentary boxes, always rendered here
+    for section_title in commentary:
+        cols = st.columns([0.6, 0.1])
+        with cols[0]:
+            st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
+            if is_admin_mode and st.session_state.auth:
+                commentary[section_title] = st.text_area(
+                    f"{section_title} input",
+                    value=commentary[section_title],
+                    height=130,
+                    key=section_title
+                )
+            else:
+                content = commentary[section_title].strip() or "..."
+                st.markdown(f"<div class='section-comment'>{content}</div>", unsafe_allow_html=True)
+        st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
 
-# Save only if edited
-if is_admin_mode and st.session_state.auth:
-    with open(NOTES_FILE, "w") as f:
-        json.dump(commentary, f)
+    # Save only if edited
+    if is_admin_mode and st.session_state.auth:
+        with open(NOTES_FILE, "w") as f:
+            json.dump(commentary, f)
 
 # 🔽 Performance Chart
 import streamlit.components.v1 as components
