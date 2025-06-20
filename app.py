@@ -406,7 +406,7 @@ with left_col:
             st.plotly_chart(fig_pie, use_container_width=True)
 
     # 🔽 Portfolio Holdings
-    st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
+    st.markdown("<div class='left-section-title'>💼 Portfolio Holdings</div>", unsafe_allow_html=True)
     st.markdown(
         """
         <div style='text-align: center; margin-top: -5px;'>
@@ -503,9 +503,9 @@ with right_col:
     NOTES_FILE = "thoughts.txt"
 
     default_sections = {
-        "Market Insight": "",
-        "Top Strategy Note": "",
-        "Trader's Conclusion": ""
+        "🧭 Macro Outlook": "",
+        "🧮 Portfolio Positioning": "",
+        "🎯 Tactical Moves": ""
     }
 
     if not os.path.exists(NOTES_FILE):
