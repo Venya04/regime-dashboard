@@ -339,75 +339,64 @@ st.markdown("""
 # — Helpers & Palettes (top of file) —
 def darken_hex(hex_color: str, amount: float = 0.3) -> str:
     hcol = hex_color.lstrip('#')
-    r, g, b = [int(hcol[i:i+2], 16) for i in (0, 2, 4)]
+    r, g, b = [int(hcol[i:i+2],16) for i in (0,2,4)]
     h, l, s = colorsys.rgb_to_hls(r/255, g/255, b/255)
     l = max(0, l - amount)
     r2, g2, b2 = colorsys.hls_to_rgb(h, l, s)
     return f'#{int(r2*255):02x}{int(g2*255):02x}{int(b2*255):02x}'
 
+# keep your colours lower-case for simplicity
 base_colors = {
-    "STOCK":      "#55a630",
-    "BOT":        "#39843a",
-    "CRYPTO":     "#276f27",
-    "METALL":     "#f7c332",
-    "CASH":       "#f37467",
-    "CAR":        "#ef233c",
+    "stock":      "#55a630",
+    "bot":        "#39843a",
+    "crypto":     "#276f27",
+    "metall":     "#f7c332",
+    "cash":       "#f37467",
+    "car":        "#ef233c",
 }
-edge_colors = {k: darken_hex(v, amount=0.25) for k, v in base_colors.items()}
 
-# — In your Streamlit app —
 left_col, right_col = st.columns([1.3, 1])
-
 with left_col:
-    # your CSS and container div
     st.markdown("<div style='max-width:600px;margin:0 auto;'>", unsafe_allow_html=True)
 
     if current_alloc:
-        # ── INDENT LEVEL 1 UNDER `if` ──
+        # 1) filter
         filtered = {k: v for k, v in current_alloc.items() if v > 0.001}
-        labels, values = list(filtered.keys()), list(filtered.values())
+        labels = list(filtered.keys())
+        values = list(filtered.values())
 
+        # 2) build dynamic maps
+        color_map = {}
+        edge_map  = {}
+        for lab in labels:
+            key = lab.lower()
+            col = base_colors.get(key, "#888888")        # fallback if missing
+            color_map[lab] = col
+            edge_map[lab]  = darken_hex(col, amount=0.25)
+
+        # 3) draw pie
         fig = px.pie(
             names=labels,
             values=values,
             hole=0,
             color=labels,
-            color_discrete_map=base_colors
+            color_discrete_map=color_map
         )
-
         fig.update_traces(
             textinfo='percent',
             insidetextorientation='radial',
             textfont=dict(size=17, family="Georgia", color="white"),
-            pull=[0.01] * len(labels),
-            marker_line_color=[edge_colors[l] for l in labels],
+            pull=[0.01]*len(labels),
+            marker_line_color=[edge_map[lab] for lab in labels],
             marker_line_width=3
         )
-
         fig.update_layout(
             showlegend=False,
-            margin=dict(t=10, b=10, l=10, r=10),
+            margin=dict(t=10,b=10,l=10,r=10),
             paper_bgcolor='#212121',
             plot_bgcolor='#212121',
         )
         st.plotly_chart(fig, use_container_width=True)
-        # ── END INDENT LEVEL 1 ──
-
-    # BACK TO `with` LEVEL (same indent as `if`)
-    st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
-    st.markdown(
-        """
-        <div style='text-align: center; margin-top: -5px;'>
-            <ul style='padding-left: 10; list-style-position: inside; text-align: left; display: inline-block;'>
-        """ + "".join([
-            f"<li><strong>{asset.capitalize()}</strong>: {weight:.1%}</li>"
-            for asset, weight in current_alloc.items()
-        ]) + """
-            </ul>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
 
     # 🔽 Performance Summary
     if not performance_df.empty:
