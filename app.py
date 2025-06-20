@@ -447,7 +447,7 @@ with left_col:
         )
         perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
         perf_fig.update_layout(
-            height=260,
+            height=510,
             width=600,
             margin=dict(l=20, r=20, t=10, b=20),
             autosize=False,
@@ -472,7 +472,7 @@ with right_col:
         font-size: 18px;
         font-weight: bold;
         text-transform: uppercase;
-        margin-bottom: -10px;
+        margin-bottom: 0px;
         text-align: left;
         color: white;
         border-bottom: 1px solid #555;
