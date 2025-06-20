@@ -31,8 +31,15 @@ TICKERS = {
 # === 1. Page Config & Session State
 st.set_page_config(page_title="Regime Report", layout="wide")
 query_params = st.query_params
-is_admin_mode = query_params.get("admin", ["false"])[0].lower() == "true"
+admin_param = query_params.get("admin", "false")
+if isinstance(admin_param, list):
+    admin_value = admin_param[0]
+else:
+    admin_value = admin_param
+
+is_admin_mode = admin_value.lower() == "true"
 st.write("query_params:", query_params)
+st.write("admin_value:", admin_value)
 st.write("is_admin_mode:", is_admin_mode)
 if "show_guide" not in st.session_state:
     st.session_state["show_guide"] = False
