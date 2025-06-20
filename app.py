@@ -544,7 +544,7 @@ with right_col:
             else:
                 content = commentary[section_title].strip() or "..."
                 st.markdown(f"<div class='section-comment'>{content}</div>", unsafe_allow_html=True)
-        st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+        st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
 
     # Save only if edited
     if is_admin_mode and st.session_state.auth:
