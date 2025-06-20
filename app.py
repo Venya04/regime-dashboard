@@ -142,8 +142,8 @@ if st.session_state["show_guide"]:
                 st.session_state["show_guide"] = False
                 st.rerun()
 
-    st.write("Query params at top:", query_params)
-    st.write("is_admin_mode at top:", is_admin_mode)
+    # st.write("Query params at top:", query_params)
+    # st.write("is_admin_mode at top:", is_admin_mode)
 
     # 🛑 Stop dashboard rendering when guide is shown
     st.stop()
