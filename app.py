@@ -89,39 +89,64 @@ if st.session_state["show_guide"]:
 
         This dashboard is built around a core truth:
 
-        > 💭 **You can’t tell the market what to do — but you can choose how to respond.**
+        > 💭 **You can’t control the market — but you can control your response.**
 
-        The market doesn’t care whether you want to 10x your money or simply protect it from inflation.  
-        It moves with forces far beyond our control.  
+        Markets are shaped by forces beyond our control — macro shifts, geopolitical events, and investor behavior.  
         What we **can** do is manage risk, adjust wisely, and respond rationally.
 
         This dashboard helps you do exactly that.
 
         ---
 
-        We identify the current **economic regime** using macro data (GDP, inflation, etc.) and show you:
-        - Optimal asset allocation  
-        - Portfolio performance  
-        - Market insight and strategy updates  
+        We analyze the current **economic regime** using macro indicators (like GDP growth, inflation, and interest rates) and deliver:
+        - Optimized asset allocation  
+        - Market and strategy insights
+        - Data-informed actions to take (or avoid)  
 
         ---
 
-        #### 🥧 Portfolio Allocation Pie Chart  
-        Suggests how to allocate assets (stocks, crypto, gold, cash and stablecoins) based on the current regime.
+        ### 🥧 Portfolio Allocation Pie Chart  
+        A breakdown of how to allocate assets — **stocks, crypto, commodities, cash, and stablecoins** — based on the current regime.
 
-        #### 🧠 Market Insight  
-        Interprets current macro signals — inflation, growth, credit, liquidity.
+        ### 🧭 Macro Outlook  
+        Clear, up-to-date interpretation of economic trends: **growth, inflation and interest rates**.
 
-        #### 🎯 Top Strategy Note  
-        Tactical view: what to do based on the current regime.
+        ### 🧮 Portfolio Positioning  
+        Explains how the current macro backdrop shapes our **asset allocation** strategy — what we favor, avoid, and why.
 
-        #### 💡 Trader’s Conclusion  
-        Simple takeaway: hold, hedge, rebalance?
+        ### 🎯 Tactical Moves  
+        A trader’s view on what we’re doing right now — **holding, hedging, rotating, or waiting** — with links to relevant charts.
         
         #### 📈 Portfolio Performance Chart  
-        Shows how the strategy performed over time vs. passive alternatives.
+        Shows how the strategy performed over time
 
         ---
+
+        ### 🧪 How This Works
+
+        This dashboard uses a combination of **macroeconomic data** and **machine learning clustering** to detect the current economic regime.
+
+        We analyze:
+        - **GDP Growth** – is the economy expanding or contracting?
+        - **Inflation Trends** – are prices rising or stabilizing?
+        - **Interest Rate & Liquidity Signals** – are conditions tightening or easing?
+        - **PCA & K-Means Clustering** – we reduce dimensional noise and group macro patterns into clear regimes.
+
+        From this, we identify 4 main regimes:
+        - 🔥 **Overheating** – fast growth + rising inflation
+        - 📈 **Recovery** – improving growth + low inflation
+        - 🧊 **Contraction** – slowing growth + falling demand
+        - ⚠️ **Stagflation** – weak growth + high inflation
+
+        Each regime has a different impact on asset classes. For example:
+        - **Overheating** → favors real assets (like commodities), reduces exposure to high-growth stocks.
+        - **Contraction** → shifts toward cash and stable income (bonds/stablecoins).
+        - **Recovery** → leans into equities and risk assets as optimism returns.
+        - **Stagflation** → protects capital in inflation-proof stores like commodities, while trimming risk assets.
+
+        We then calculate **optimal portfolio allocations** based on historical performance within each regime, using backtesting and machine learning optimization.
+
+        **In short:** Macro signals define the regime → regime defines expected asset behavior → we align allocations accordingly.
 
         ### 💬 Still Learning?  
         No worries — this dashboard is designed to be educational and actionable.  
