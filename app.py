@@ -514,9 +514,9 @@ if not perf_df.empty:
         labels={"value": "Portfolio Value", "date": "Date"},
         template="plotly_dark",
         markers=True,
-        color_discrete_sequence=["#3DA5D9"]
+        color_discrete_sequence=["#780000"]
     )
-
+#3DA5D9
     perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
     perf_fig.update_layout(
         height=350,
