@@ -501,7 +501,7 @@ with right_col:
         text-align: left;
         color: white;
         border-bottom: 1px solid #555;
-        padding-bottom: 4px;
+        padding-bottom: 6px;
     }
     .section-comment {
     font-family: Georgia, serif;
@@ -513,7 +513,7 @@ with right_col:
     border-radius: 5px;
     min-height: 160px;
     border: 1px solid #444; /* optional: matches input box border */
-    margin-bottom: 4px; /* <-- add this */
+    margin-bottom: 6px; /* <-- add this */
 }
     @media (max-width: 768px) {
         .section-title {
@@ -575,44 +575,6 @@ with right_col:
     if is_admin_mode and st.session_state.auth:
         with open(NOTES_FILE, "w") as f:
             json.dump(commentary, f)
-
-# # 🔽 Performance Chart
-# import streamlit.components.v1 as components
-
-# # Read data first, outside of the chart function
-# perf_df = pd.read_csv("portfolio_performance.csv", parse_dates=["date"])
-
-# if not perf_df.empty:
-#     perf_fig = px.line(
-#         perf_df,
-#         x="date",
-#         y="value",
-#         labels={"value": "Portfolio Value", "date": "Date"},
-#         template="plotly_dark",
-#         markers=True,
-#         color_discrete_sequence=["#e85d04"]
-#     )
-# #3DA5D9
-#     #e85d04
-#     perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
-#     perf_fig.update_layout(
-#         height=350,
-#         width=1000,
-#         margin=dict(l=20, r=20, t=10, b=20),
-#         autosize=True,
-#         paper_bgcolor='rgba(0,0,0,0)',
-#         plot_bgcolor='rgba(0,0,0,0)'
-#     )
-
-#     html = perf_fig.to_html(include_plotlyjs='cdn', full_html=False)
-
-#     components.html(f"""
-#     <div style="display: flex; justify-content: center;">
-#         <div style="max-width: 900px; width: 100%;">
-#             {html}
-#         </div>
-#     </div>
-#     """, height=400)
     
 # Hide Streamlit menu and footer
 st.markdown("""
