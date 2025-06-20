@@ -370,50 +370,47 @@ with left_col:
         filtered_alloc = {k: v for k, v in current_alloc.items() if v > 0.001}
 
         if filtered_alloc:
+            # ── your original base colours ──
+            base_map = {
+                "stocks":      "#19212E",
+                "stablecoins": "#522D2D",
+                "cash":        "#391514",
+                "crypto":      "#212D40",
+                "commodities": "#6d5332",
+            }
+
+            # ── NEW: compute a darker‐edge map ──
+            edge_map = {k: darken_hex(v) for k, v in base_map.items()}
+
             fig_pie = px.pie(
                 names=list(filtered_alloc.keys()),
                 values=list(filtered_alloc.values()),
                 hole=0,
                 color=list(filtered_alloc.keys()),
-                color_discrete_map={
-                    "stocks": "#19212E",
-                    "stablecoins": "#522D2D",
-                    "cash": "#391514",
-                    "crypto": "#212D40",
-                    "commodities": "#6d5332",
-                }
-# ← minimal addition: compute darker-edge colours
-                edge_map = {k: darken_hex(v) for k, v in base_map.items()}
+                color_discrete_map=base_map
+            )
 
-                fig_pie = px.pie(
-                    names=list(filtered_alloc.keys()),
-                    values=list(filtered_alloc.values()),
-                    hole=0,
-                    color=list(filtered_alloc.keys()),
-                    color_discrete_map=base_map
-                )
-            
-                fig_pie.update_traces(
-                    textinfo='percent',
-                    textfont=dict(size=17, family="Georgia"),
-                    # insidetextorientation='radial',
-                    pull=[0] * len(filtered_alloc),
-                    marker=dict(
-                        line=dict(
-                            # replace static black with per-slice darker shade:
-                            color=[edge_map[k] for k in filtered_alloc.keys()],
-                            width=2
-                        )
+            fig_pie.update_traces(
+                textinfo='percent',
+                textfont=dict(size=17, family="Georgia"),
+                # insidetextorientation='radial',  # uncomment if you like curved text
+                pull=[0] * len(filtered_alloc),
+                marker=dict(
+                    line=dict(
+                        # use per‐slice darker shade instead of "#000000"
+                        color=[edge_map[k] for k in filtered_alloc.keys()],
+                        width=2
                     )
                 )
+            )
 
-                fig_pie.update_layout(
-                    showlegend=False,
-                    margin=dict(t=10, b=10, l=10, r=10),
-                    paper_bgcolor='rgba(0,0,0,0)',
-                    plot_bgcolor='rgba(0,0,0,0)',
-                )
-                st.plotly_chart(fig_pie, use_container_width=True)
+            fig_pie.update_layout(
+                showlegend=False,
+                margin=dict(t=10, b=10, l=10, r=10),
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)',
+            )
+            st.plotly_chart(fig_pie, use_container_width=True)
 
     # 🔽 Portfolio Holdings
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
