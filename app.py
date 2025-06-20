@@ -372,6 +372,24 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+    <style>
+        .portfolio-list, .portfolio-list li {
+            font-family: Georgia, serif !important;
+        font-size: 0.96rem;
+        font-style: italic;
+        color: #ccc;
+        font-weight: 400;
+        line-height: 1.5;
+        margin-bottom: 0.3em;
+    }
+    .portfolio-list li strong {
+        font-style: normal;
+        color: #fff;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # === LAYOUT ===
 performance_df = load_performance()
 perf_df = performance_df.reset_index() if not performance_df.empty else pd.DataFrame()
@@ -431,20 +449,20 @@ with left_col:
             st.plotly_chart(fig_pie, use_container_width=True)
 
     # 🔽 Portfolio Holdings
-    st.markdown("<div class='left-section-title'>💼 Portfolio Holdings</div>", unsafe_allow_html=True)
-    st.markdown(
-        """
-        <div style='text-align: center; margin-top: -5px;'>
-            <ul style='padding-left: 10; list-style-position: inside; text-align: left; display: inline-block;'>
-        """ + "".join([
-            f"<li><strong>{asset.capitalize()}</strong>: {weight:.1%}</li>"
-            for asset, weight in current_alloc.items()
-        ]) + """
-            </ul>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+st.markdown("<div class='left-section-title'>💼 Portfolio Holdings</div>", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style='text-align: center; margin-top: -5px;'>
+        <ul class='portfolio-list' style='padding-left: 10; list-style-position: inside; text-align: left; display: inline-block;'>
+    """ + "".join([
+        f"<li><strong>{asset.capitalize()}</strong>: {weight:.1%}</li>"
+        for asset, weight in current_alloc.items()
+    ]) + """
+        </ul>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
     # 🔽 Performance Summary (Matches Portfolio Holdings Header Style)
     if not performance_df.empty:
@@ -462,7 +480,7 @@ with left_col:
             unsafe_allow_html=True
         )
 
-    # === HERE: INSIDE left_col! ===
+    # Graph
     if not perf_df.empty:
         import streamlit.components.v1 as components  # place at top of file ideally!
         perf_fig = px.line(
