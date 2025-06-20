@@ -484,21 +484,27 @@ if is_admin_mode and not st.session_state.auth:
             st.session_state.auth = True
             st.success("Edit mode activated!")
 
-    for section_title in commentary:
-        cols = st.columns([0.6, 0.1])
-        with cols[0]:
-            st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
-            if st.session_state.auth:
-                commentary[section_title] = st.text_area(
-                    f"{section_title} input",
-                    value=commentary[section_title],
-                    height=130,
-                    key=section_title
-                )
-            else:
-                content = commentary[section_title].strip() or "..."
-                st.markdown(f"<div class='section-comment'>{content}</div>", unsafe_allow_html=True)
-        st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+# 👇 OUTSIDE the login-block, ALWAYS show commentary
+for section_title in commentary:
+    cols = st.columns([0.6, 0.1])
+    with cols[0]:
+        st.markdown(f"<div class='section-title'>{section_title}</div>", unsafe_allow_html=True)
+        if is_admin_mode and st.session_state.auth:
+            commentary[section_title] = st.text_area(
+                f"{section_title} input",
+                value=commentary[section_title],
+                height=130,
+                key=section_title
+            )
+        else:
+            content = commentary[section_title].strip() or "..."
+            st.markdown(f"<div class='section-comment'>{content}</div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+
+# Save only if edited
+if is_admin_mode and st.session_state.auth:
+    with open(NOTES_FILE, "w") as f:
+        json.dump(commentary, f)
 
 # 🔽 Performance Chart
 import streamlit.components.v1 as components
