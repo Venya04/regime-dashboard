@@ -448,7 +448,7 @@ with left_col:
         perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
         perf_fig.update_layout(
             height=260,
-            width=680,
+            width=600,
             margin=dict(l=20, r=20, t=10, b=20),
             autosize=False,
             paper_bgcolor='rgba(0,0,0,0)',
