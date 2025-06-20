@@ -471,8 +471,8 @@ with right_col:
     except Exception:
         commentary = default_sections
 
-    query_params = st.query_params
-    is_admin_mode = query_params.get("admin", "false").lower() == "true"
+query_params = st.experimental_get_query_params()
+is_admin_mode = query_params.get("admin", ["false"])[0].lower() == "true"
 
     if "auth" not in st.session_state:
         st.session_state.auth = False
