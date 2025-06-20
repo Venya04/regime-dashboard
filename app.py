@@ -348,6 +348,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # === LAYOUT ===
+performance_df = load_performance()
+perf_df = performance_df.reset_index() if not performance_df.empty else pd.DataFrame()
+
 left_col, right_col = st.columns([1.3, 1])
 
 with left_col:
@@ -430,36 +433,36 @@ with left_col:
         </div>
         """, unsafe_allow_html=True)
 
-# Insert the chart here
-    if not perf_df.empty:
-        perf_fig = px.line(
-            perf_df,
-            x="date",
-            y="value",
-            labels={"value": "Portfolio Value", "date": "Date"},
-            template="plotly_dark",
-            markers=True,
-            color_discrete_sequence=["#e85d04"]
-        )
-        perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
-        perf_fig.update_layout(
-            height=260,         # <--- make it smaller!
-            width=480,          # <--- make it fit the left column!
-            margin=dict(l=20, r=20, t=10, b=20),
-            autosize=False,     # <--- don't autosize, fix the width
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)'
-        )
+# Place chart in the left column, after Performance summary
+if not perf_df.empty:
+    perf_fig = px.line(
+        perf_df,
+        x="date",
+        y="value",
+        labels={"value": "Portfolio Value", "date": "Date"},
+        template="plotly_dark",
+        markers=True,
+        color_discrete_sequence=["#e85d04"]
+    )
+    perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
+    perf_fig.update_layout(
+        height=260,           # Smaller!
+        width=480,            # Smaller!
+        margin=dict(l=20, r=20, t=10, b=20),
+        autosize=False,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
+    )
 
-        html = perf_fig.to_html(include_plotlyjs='cdn', full_html=False)
-        st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)  # tiny spacer
-        components.html(f"""
-        <div style="display: flex; justify-content: center;">
-            <div style="max-width: 480px; width: 100%;">
-                {html}
-            </div>
+    html = perf_fig.to_html(include_plotlyjs='cdn', full_html=False)
+    st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)  # small spacer
+    components.html(f"""
+    <div style="display: flex; justify-content: center;">
+        <div style="max-width: 480px; width: 100%;">
+            {html}
         </div>
-        """, height=280)
+    </div>
+    """, height=280)
 
 with right_col:
     st.markdown("""
