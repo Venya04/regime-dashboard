@@ -472,7 +472,7 @@ with right_col:
         font-size: 18px;
         font-weight: bold;
         text-transform: uppercase;
-        margin-bottom: 0px;
+        margin-bottom: -10px;
         text-align: left;
         color: white;
         border-bottom: 1px solid #555;
