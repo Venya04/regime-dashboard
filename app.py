@@ -335,18 +335,16 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# === LAYOUT ===
-left_col, right_col = st.columns([1.3, 1])
-# 1) Helper to darken a hex colour by `amount` (0–1)
+# — Helpers & Palettes (top of file) —
 def darken_hex(hex_color: str, amount: float = 0.3) -> str:
+    """Return a darker shade of `hex_color`."""
     hcol = hex_color.lstrip('#')
-    r, g, b = [int(hcol[i : i + 2], 16) for i in (0, 2, 4)]
+    r, g, b = [int(hcol[i:i+2], 16) for i in (0, 2, 4)]
     h, l, s = colorsys.rgb_to_hls(r/255, g/255, b/255)
     l = max(0, l - amount)
     r2, g2, b2 = colorsys.hls_to_rgb(h, l, s)
     return f'#{int(r2*255):02x}{int(g2*255):02x}{int(b2*255):02x}'
 
-# 2) Your base palette
 base_colors = {
     "stocks":      "#55a630",
     "stablecoins": "#39843a",
@@ -354,10 +352,11 @@ base_colors = {
     "crypto":      "#276f27",
     "commodities": "#f7c332",
 }
-# precompute darker‐edge colours
 edge_colors = {k: darken_hex(v) for k, v in base_colors.items()}
 
-# --- inside your Streamlit layout ---
+# — In your Streamlit app —
+left_col, right_col = st.columns([1.3, 1])
+
 with left_col:
     st.markdown("""
         <style>
@@ -374,12 +373,12 @@ with left_col:
     st.markdown("<div style='max-width:600px;margin:0 auto;'>", unsafe_allow_html=True)
 
     if current_alloc:
-        # filter out tiny slices
+        # 1) Filter out very small slices
         filtered = {k: v for k, v in current_alloc.items() if v > 0.001}
         labels = list(filtered.keys())
         values = list(filtered.values())
 
-        # build the pie into `fig`
+        # 2) Build the pie
         fig = px.pie(
             names=labels,
             values=values,
@@ -388,7 +387,7 @@ with left_col:
             color_discrete_map=base_colors
         )
 
-        # add white % text + “bevel” edges
+        # 3) Add white % text + darker-edge bevel
         fig.update_traces(
             textinfo='percent',
             textfont=dict(size=17, family="Georgia", color="white"),
@@ -401,30 +400,14 @@ with left_col:
             )
         )
 
+        # 4) Final layout & render
         fig.update_layout(
             showlegend=False,
             margin=dict(t=10, b=10, l=10, r=10),
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
         )
-
         st.plotly_chart(fig, use_container_width=True)
-
-            fig_pie.update_traces(
-                textinfo='percent',
-                textfont=dict(size=17, family="Georgia"),
-                # insidetextorientation='radial',
-                pull=[0.01] * len(filtered_alloc),
-                marker=dict(line=dict(color="#000000", width=1))
-            )
-
-            fig_pie.update_layout(
-                showlegend=False,
-                margin=dict(t=10, b=10, l=10, r=10),
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-            )
-            st.plotly_chart(fig_pie, use_container_width=True)
 
     # 🔽 Portfolio Holdings
     st.markdown("<div class='left-section-title'>Portfolio Holdings</div>", unsafe_allow_html=True)
