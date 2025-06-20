@@ -433,17 +433,6 @@ with left_col:
         </div>
         """, unsafe_allow_html=True)
 
-if not performance_df.empty:
-        start_val = performance_df["value"].iloc[0]
-        end_val = performance_df["value"].iloc[-1]
-        perf_pct = ((end_val / start_val) - 1) * 100
-
-        st.markdown(f"""
-        <div style='text-align: center; font-size: 1.2rem; color: white; margin-top: 10px;'>
-        📈 <strong>Performance:</strong> {perf_pct:.2f}%
-        </div>
-        """, unsafe_allow_html=True)
-
     # === HERE: INSIDE left_col! ===
     if not perf_df.empty:
         import streamlit.components.v1 as components  # place at top of file ideally!
