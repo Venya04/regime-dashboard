@@ -366,11 +366,11 @@ with left_col:
                 hole=0,
                 color=list(filtered_alloc.keys()),
                 color_discrete_map={
-                    "stocks": "#19212E",
+                    "stocks": "#0353a4",
                     "stablecoins": "#522D2D",
                     "cash": "#391514",
                     "crypto": "#212D40",
-                    "commodities": "#e9c46a",
+                    "commodities": "#faa307",
                 }
             )
 
