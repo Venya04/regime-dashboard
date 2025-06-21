@@ -147,7 +147,61 @@ if st.session_state["show_guide"]:
         We then calculate **optimal portfolio allocations** based on historical performance within each regime, using backtesting and machine learning optimization.
 
         **In short:** Macro signals define the regime → regime defines expected asset behavior → we align allocations accordingly.
+        
+        ### 📂 Asset Breakdown
+        
+        Here’s a clear explanation of each asset class we use, and why it’s part of our portfolio strategy:
 
+        ---
+
+        ### 📈 **Stocks**
+        - Core exposure to **S&P 500 (VOO, SPY)** for broad U.S. equity performance.
+        - Alternatives include:
+          - **Nasdaq-100 (QQQ)** – for higher growth/tech allocation
+          - **Equal-weight ETFs (RSP)** – for balanced exposure
+        - Purpose: **Long-term growth**, business cycle upside.
+        - Allocation may shift based on technical setups (e.g., Elliott Wave positioning).
+
+        ---
+
+        ### 🪙 **Crypto**
+        - Primary exposure is in **Bitcoin (BTC)** due to:
+        - Lower volatility relative to altcoins
+        - Growing **“digital gold” narrative**
+        - Increasing institutional acceptance
+        - Optional additions (for small, risk-aware allocations):
+            - **Ethereum (ETH)** – smart contract platform
+            - **Solana (SOL)** – performance-efficient L1 alternative
+        - Purpose: **Asymmetric upside**, macro/geopolitical hedge, digital scarcity.
+
+        ---
+
+        ### 🛢️ **Commodities**
+        - Focused on **precious metals**:
+            - 🥇 **Gold** – key hedge against inflation, currency debasement, and systemic risk
+            - 🥈 **Silver** – considered for added cyclical exposure or monetary metal correlation
+        - Purpose: **Inflation protection**, real asset resilience in macro stress environments.
+
+        ---
+
+        ### 💵 **Stablecoins**
+        - Actively used within the portfolio:
+            - **Yield generation** via DeFi protocols or centralized platforms
+            - **Liquidity for bot trading** and arbitrage strategies
+            - **Dry powder** for opportunistic crypto buys (e.g., BTC dips)
+        - Examples: **USDC**, **USDT**
+        - Purpose: **Earning yield**, tactical deployment, high flexibility.
+
+        ---
+
+        ### 🧊 **Cash**
+        - Held as **capital preservation** during uncertainty or regime transitions.
+        - Helps reduce volatility, provide optionality, and maintain portfolio balance.
+        - Often paired with stablecoin positions to manage risk and timing of new entries.
+        - Purpose: **Stability, rebalancing buffer**.
+
+        ---
+    
         ### 💬 Still Learning?  
         No worries — this dashboard is designed to be educational and actionable.  
         Think of it as your **macro compass** — helping you navigate instead of guess.
