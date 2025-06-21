@@ -106,7 +106,7 @@ if st.session_state["show_guide"]:
         ---
 
         ### 🥧 Portfolio Allocation Pie Chart  
-        A breakdown of how to allocate assets — **stocks, crypto, commodities, cash, and stablecoins** — based on the current regime.
+        A breakdown of how to allocate assets — **stocks, crypto, commodities, stablecoins, and cash** — based on the current regime.
 
         ### 🧭 Macro Outlook  
         Clear, up-to-date interpretation of economic trends: **growth, inflation and interest rates**.
