@@ -109,7 +109,7 @@ if st.session_state["show_guide"]:
         A breakdown of how to allocate assets — **stocks, crypto, commodities, stablecoins, and cash** — based on the current regime.
 
         ### 🧭 Macro Outlook  
-        Clear, up-to-date interpretation of economic trends: **growth, inflation and interest rates**.
+        Clear, up-to-date interpretation of economic trends: **growth, inflation, and interest rates**.
 
         ### 🧮 Portfolio Positioning  
         Explains how the current macro backdrop shapes our **asset allocation** strategy — what we favor, avoid, and why.
