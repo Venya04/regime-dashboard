@@ -160,7 +160,6 @@ if st.session_state["show_guide"]:
           - **Nasdaq-100 (QQQ)** – for higher growth/tech allocation
           - **Equal-weight ETFs (RSP)** – for balanced exposure
         - Purpose: **Long-term growth**, business cycle upside.
-        - Allocation may shift based on technical setups (e.g., Elliott Wave positioning).
 
         ---
 
@@ -187,7 +186,7 @@ if st.session_state["show_guide"]:
         ### 💵 **Stablecoins**
         - Actively used within the portfolio:
             - **Yield generation** via DeFi protocols or centralized platforms
-            - **Liquidity for bot trading** and arbitrage strategies
+            - **Liquidity for bot trading** 
             - **Dry powder** for opportunistic crypto buys (e.g., BTC dips)
         - Examples: **USDC**, **USDT**
         - Purpose: **Earning yield**, tactical deployment, high flexibility.
