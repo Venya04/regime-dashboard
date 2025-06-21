@@ -147,12 +147,12 @@ if st.session_state["show_guide"]:
         We then calculate **optimal portfolio allocations** based on historical performance within each regime, using backtesting and machine learning optimization.
 
         **In short:** Macro signals define the regime → regime defines expected asset behavior → we align allocations accordingly.
+
+        ---
         
         ### 📂 Asset Breakdown
         
         Here’s a clear explanation of each asset class we use, and why it’s part of our portfolio strategy:
-
-        ---
 
         ### 📈 **Stocks**
         - Core exposure to **S&P 500 (VOO, SPY)** for broad U.S. equity performance.
