@@ -124,13 +124,13 @@ if st.session_state["show_guide"]:
 
         ### 🧪 How This Works
 
-        This dashboard uses a combination of **macroeconomic data** and **machine learning clustering** to detect the current economic regime.
+        This dashboard uses a combination of **macroeconomic data** and **machine learning** to detect the current economic regime.
 
         We analyze:
         - **GDP Growth** – is the economy expanding or contracting?
         - **Inflation Trends** – are prices rising or stabilizing?
         - **Interest Rate & Liquidity Signals** – are conditions tightening or easing?
-        - **PCA & K-Means Clustering** – we reduce dimensional noise and group macro patterns into clear regimes.
+        - **PCA & K-Means** – we reduce dimensional noise and group macro patterns into clear regimes.
 
         From this, we identify 4 main regimes:
         - 🔥 **Overheating** – fast growth + rising inflation
