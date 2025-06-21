@@ -85,7 +85,7 @@ if st.session_state["show_guide"]:
 if st.session_state["show_guide"]:
     with st.container():
         st.markdown("""
-        ### 📘 How to Read This Dashboard
+        ### 📘 How to Read Report
 
         This dashboard is built around a core truth:
 
