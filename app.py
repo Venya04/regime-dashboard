@@ -474,14 +474,14 @@ with left_col:
             fig_pie = px.pie(
                 names=list(filtered_alloc.keys()),
                 values=list(filtered_alloc.values()),
-                hole=0.4,
+                hole=0.3,
                 color=list(filtered_alloc.keys()),
                 color_discrete_map={
                     "stocks": "#023E8A",
-                    "stablecoins": "#00B4D8",
-                    "cash": "#0096C7",
-                    "crypto": "#0077B6",
-                    "commodities": "#48CAE4",
+                    "stablecoins": "#005BC7",
+                    "cash": "#0049B8",
+                    "crypto": "#001499",
+                    "commodities": "#376CFE",
                 }
             )
 
