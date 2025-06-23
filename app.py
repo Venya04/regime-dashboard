@@ -474,7 +474,7 @@ with left_col:
             fig_pie = px.pie(
                 names=list(filtered_alloc.keys()),
                 values=list(filtered_alloc.values()),
-                hole=0,
+                hole=1,
                 color=list(filtered_alloc.keys()),
                 color_discrete_map={
                     "stocks": "#023E8A",
