@@ -543,7 +543,7 @@ with left_col:
             labels={"value": "Portfolio Value", "date": "Date"},
             template="plotly_dark",
             markers=True,
-            color_discrete_sequence=["#006DD6"]
+            color_discrete_sequence=["#9d4edd"]
         )
         perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
         perf_fig.update_layout(
