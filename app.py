@@ -5,6 +5,7 @@ import numpy as np
 import yfinance as yf
 import os
 import colorsys 
+import streamlit.components.v1 as components  # place at top of file ideally!
 
 
 def get_file_version(path):
@@ -535,7 +536,6 @@ with left_col:
 
     # Graph
     if not perf_df.empty:
-        import streamlit.components.v1 as components  # place at top of file ideally!
         perf_fig = px.line(
             perf_df,
             x="date",
