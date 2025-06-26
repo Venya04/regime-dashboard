@@ -212,8 +212,6 @@ if st.session_state["show_guide"]:
         👉 Join our group here!
         https://discord.gg/S3zy972pcw
 
-
-        > **Discipline over desire always wins.**
         """, unsafe_allow_html=True)
 
         st.markdown("<br><hr><br>", unsafe_allow_html=True)
