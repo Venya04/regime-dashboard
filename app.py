@@ -205,6 +205,13 @@ if st.session_state["show_guide"]:
         ### 💬 Still Learning?  
         No worries — this dashboard is designed to be educational and actionable.  
         Think of it as your **macro compass** — helping you navigate instead of guess.
+        
+        If you’re feeling confused or have questions, join our Discord community!
+        You’ll find a beginner’s guide, learn-the-basics resources, and a place to ask questions or get help from others on the same journey.
+
+        👉 Join our group here!
+        https://discord.gg/S3zy972pcw
+
 
         > **Discipline over desire always wins.**
         """, unsafe_allow_html=True)
