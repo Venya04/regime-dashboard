@@ -131,12 +131,12 @@ if st.session_state["show_guide"]:
 
         This dashboard is built around a core truth:
 
-        > 💭 **You can’t control the market — but you can control your response.**
+        > 💭 **You can’t control the market — but you can control your response**
 
-        Markets are shaped by forces beyond our control — macro shifts, geopolitical events, and investor behavior.  
-        What we **can** do is manage risk, adjust wisely, and respond rationally.
+        Markets are shaped by forces beyond our control — macro shifts, geopolitical events, and investor behavior
+        What we **can** do is manage risk, adjust wisely, and respond rationally
 
-        This dashboard helps you do exactly that.
+        This dashboard helps you do exactly that
 
         ---
 
@@ -148,16 +148,16 @@ if st.session_state["show_guide"]:
         ---
 
         ### 🥧 Portfolio Allocation Pie Chart  
-        A breakdown of how to allocate assets — **stocks, crypto, commodities, stablecoins, and cash** — based on the current regime.
+        A breakdown of how to allocate assets — **stocks, crypto, commodities, stablecoins, and cash** — based on the current regime
 
         ### 🧭 Macro Outlook  
-        Clear, up-to-date interpretation of economic trends: **growth, inflation, and interest rates**.
+        Clear, up-to-date interpretation of economic trends: **growth, inflation, and interest rates**
 
         ### 🧮 Portfolio Positioning  
-        Explains how the current macro backdrop shapes our **asset allocation** strategy — what we favor, avoid, and why.
+        Explains how the current macro backdrop shapes our **asset allocation** strategy — what we favor, avoid, and why
 
         ### 🎯 Tactical Moves  
-        A trader’s view on what we’re doing right now — **holding, hedging, rotating, or waiting** — with links to relevant charts.
+        A trader’s view on what we’re doing right now — **holding, hedging, rotating, or waiting** — with links to relevant charts
         
         #### 📈 Portfolio Performance Chart  
         Shows how the strategy performed over time
@@ -166,29 +166,29 @@ if st.session_state["show_guide"]:
 
         ### 🧪 How This Works
 
-        This dashboard uses a combination of **macroeconomic data** and **machine learning** to detect the current economic regime.
+        This dashboard uses a combination of **macroeconomic data** and **machine learning** to detect the current economic regime
 
         We analyze:
-        - **GDP Growth** – is the economy expanding or contracting?
-        - **Inflation Trends** – are prices rising or stabilizing?
-        - **Interest Rate & Liquidity Signals** – are conditions tightening or easing?
-        - **PCA & K-Means** – we reduce dimensional noise and group macro patterns into clear regimes.
+        - **GDP Growth** – is the economy expanding or contracting
+        - **Inflation Trends** – are prices rising or stabilizing
+        - **Interest Rate & Liquidity Signals** – are conditions tightening or easing
+        - **PCA & K-Means** – we reduce dimensional noise and group macro patterns into clear regimes
 
         From this, we identify 4 main regimes:
-        - 🔥 **Overheating** – fast growth + rising inflation
-        - 📈 **Recovery** – improving growth + low inflation
-        - 🧊 **Contraction** – slowing growth + falling demand
-        - ⚠️ **Stagflation** – weak growth + high inflation
+        - 🔥 **Overheating** – fast GDP growth + rising inflation
+        - 📈 **Recovery** – improving GDP growth + low inflation
+        - 🧊 **Contraction** – slowing GDP growth + falling demand
+        - ⚠️ **Stagflation** – weak GDP growth + high inflation
 
         Each regime has a different impact on asset classes. For example:
-        - **Overheating** → favors real assets (like commodities), reduces exposure to high-growth stocks.
-        - **Contraction** → shifts toward cash and stable income (bonds/stablecoins).
-        - **Recovery** → leans into equities and risk assets as optimism returns.
-        - **Stagflation** → protects capital in inflation-proof stores like commodities, while trimming risk assets.
+        - **Overheating** → favors real assets (like commodities), reduces exposure to high-growth stocks
+        - **Contraction** → shifts toward cash and stable income (bonds/stablecoins)
+        - **Recovery** → leans into equities and risk assets as optimism returns
+        - **Stagflation** → protects capital in inflation-proof stores like commodities, while trimming risk assets
 
-        We then calculate **optimal portfolio allocations** based on historical performance within each regime, using backtesting and machine learning optimization.
+        We then calculate **optimal portfolio allocations** based on historical performance within each regime, using backtesting and machine learning optimization
 
-        **In short:** Macro signals define the regime → regime defines expected asset behavior → we align allocations accordingly.
+        **In short:** Macro signals define the regime → regime defines expected asset behavior → we align allocations accordingly
 
         ---
         
@@ -197,58 +197,46 @@ if st.session_state["show_guide"]:
         Here’s a clear explanation of each asset class we use, and why it’s part of our portfolio strategy:
 
         ### 📈 **Stocks**
-        - Core exposure to **S&P 500 (VOO, SPY)** for broad U.S. equity performance.
-        - Alternatives include:
-          - **Nasdaq-100 (QQQ)** – for higher growth/tech allocation
-          - **Equal-weight ETFs (RSP)** – for balanced exposure
-        - Purpose: **Long-term growth**, business cycle upside.
+        - Exposure: S&P 500
+        - Represents broad U.S. equity market performance
+        - Chosen for: Long-term growth potential and historical resilience through economic cycles
 
         ---
 
         ### 🪙 **Crypto**
-        - Primary exposure is in **Bitcoin (BTC)** due to:
-        - Lower volatility relative to altcoins
-        - Growing **“digital gold” narrative**
-        - Increasing institutional acceptance
-        - Optional additions (for small, risk-aware allocations):
-            - **Ethereum (ETH)** – smart contract platform
-            - **Solana (SOL)** – performance-efficient L1 alternative
-        - Purpose: **Asymmetric upside**, macro/geopolitical hedge, digital scarcity.
+        - Exposure: Bitcoin (BTC)
+        - Used as a macro-hedge and asymmetric growth asset
+        - Chosen for: Digital scarcity, institutional acceptance, and long-term upside
 
         ---
 
         ### 🛢️ **Commodities**
-        - Focused on **precious metals**:
-            - 🥇 **Gold** – key hedge against inflation, currency debasement, and systemic risk
-            - 🥈 **Silver** – considered for added cyclical exposure or monetary metal correlation
-        - Purpose: **Inflation protection**, real asset resilience in macro stress environments.
+        - Exposure: Gold (GLD)
+        - Used as a defensive asset in inflationary or uncertain regimes
+        - Chosen for: Store of value and inflation hedge
 
         ---
 
         ### 💵 **Stablecoins**
-        - Actively used within the portfolio:
-            - **Yield generation** via DeFi protocols or centralized platforms
-            - **Liquidity for bot trading** 
-            - **Dry powder** for opportunistic crypto buys (e.g., BTC dips)
-        - Examples: **USDC**, **USDT**
-        - Purpose: **Earning yield**, tactical deployment, high flexibility.
+        - Exposure: USDC (only within DeFi yield protocols)
+        - Not used as a trading or speculative asset — only when yield opportunities exist
+        - Chosen for: Passive income, stable yield during sideways markets or risk-off regimes
 
         ---
 
         ### 🧊 **Cash**
-        - Held as **capital preservation** during uncertainty or regime transitions.
-        - Helps reduce volatility, provide optionality, and maintain portfolio balance.
-        - Often paired with stablecoin positions to manage risk and timing of new entries.
-        - Purpose: **Stability, rebalancing buffer**.
+        - Exposure: USD cash allocation
+        - Used during contraction or high-uncertainty periods
+        - Chosen for: Capital preservation, liquidity, and rebalancing flexibility
 
         ---
     
         ### 💬 Still Learning?  
-        No worries — this dashboard is designed to be educational and actionable.  
-        Think of it as your **macro compass** — helping you navigate instead of guess.
+        No worries — this dashboard is designed to be educational and actionable
+        Think of it as your **macro compass** — helping you navigate instead of guess
         
-        If you’re feeling confused or have questions, join our Discord community!
-        You’ll find a beginner’s guide, learn-the-basics resources, and a place to ask questions or get help from others on the same journey.
+        If you’re feeling confused or have questions, join our Discord community
+        You’ll find a beginner’s guide, learn-the-basics resources, and a place to ask questions or get help from others on the same journey
 
         👉 Join our group here!
         https://discord.gg/S3zy972pcw
