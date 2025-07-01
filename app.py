@@ -644,26 +644,6 @@ with right_col:
 </style>
     """, unsafe_allow_html=True)
 
-    # import json
-
-    # NOTES_FILE = "thoughts.txt"
-
-    # default_sections = {
-    #     "🧭 Macro Outlook": "",
-    #     "🧮 Portfolio Positioning": "",
-    #     "🎯 Tactical Moves": ""
-    # }
-
-    # if not os.path.exists(NOTES_FILE):
-    #     with open(NOTES_FILE, "w") as f:
-    #         json.dump(default_sections, f)
-
-    # try:
-    #     with open(NOTES_FILE, "r") as f:
-    #         commentary = json.load(f)
-    # except Exception:
-    #     commentary = default_sections
-
     commentary = load_commentary_from_sheet()
     
     if "auth" not in st.session_state:
@@ -693,11 +673,6 @@ with right_col:
                 content = commentary[section_title].strip() or "..."
                 st.markdown(f"<div class='section-comment'>{content}</div>", unsafe_allow_html=True)
         st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
-
-    # Save only if edited
-    # if is_admin_mode and st.session_state.auth:
-    #     with open(NOTES_FILE, "w") as f:
-    #         json.dump(commentary, f)
     
     if is_admin_mode and st.session_state.auth:
         if st.button("💾 Save Notes"):
