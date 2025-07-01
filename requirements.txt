@@ -3,3 +3,5 @@ pandas
 numpy
 yfinance
 plotly
+gspread
+oauth2client
