@@ -37,8 +37,8 @@ def get_file_version(path):
 #     commentary = default_sections.copy()
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import json
 
-GOOGLE_CREDS_PATH = "google_service_account.json"  # your credential file
 SHEET_NAME = "RegimeReportNotes"  # name of your Google Sheet
 
 default_sections = {
@@ -49,7 +49,8 @@ default_sections = {
 
 def get_sheet_client():
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name(GOOGLE_CREDS_PATH, scope)
+    creds_dict = st.secrets["gcp_service_account"]
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(json.dumps(creds_dict)), scope)
     client = gspread.authorize(creds)
     return client
 
@@ -61,7 +62,6 @@ def load_commentary_from_sheet():
         if not data:
             return default_sections.copy()
         return {row.get("Section", ""): row.get("Text", "") for row in data}
-
     except Exception as e:
         st.error(f"Failed to load commentary from Google Sheets: {e}")
         return default_sections.copy()
