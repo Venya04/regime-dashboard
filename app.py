@@ -14,9 +14,32 @@ def get_file_version(path):
     except:
         return None
         
-import json
+# import json
 
-NOTES_FILE = "thoughts.txt"
+# NOTES_FILE = "thoughts.txt"
+
+# default_sections = {
+#     "🧭 Macro Outlook": "",
+#     "🧮 Portfolio Positioning": "",
+#     "🎯 Tactical Moves": ""
+# }
+
+# # Create file with default content if missing
+# if not os.path.exists(NOTES_FILE):
+#     with open(NOTES_FILE, "w") as f:
+#         json.dump(default_sections, f)
+
+# # Load commentary safely
+# try:
+#     with open(NOTES_FILE, "r") as f:
+#         commentary = json.load(f)
+# except Exception:
+#     commentary = default_sections.copy()
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+GOOGLE_CREDS_PATH = "google_service_account.json"  # your credential file
+SHEET_NAME = "RegimeReportNotes"  # name of your Google Sheet
 
 default_sections = {
     "🧭 Macro Outlook": "",
@@ -24,17 +47,35 @@ default_sections = {
     "🎯 Tactical Moves": ""
 }
 
-# Create file with default content if missing
-if not os.path.exists(NOTES_FILE):
-    with open(NOTES_FILE, "w") as f:
-        json.dump(default_sections, f)
+def get_sheet_client():
+    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    creds = ServiceAccountCredentials.from_json_keyfile_name(GOOGLE_CREDS_PATH, scope)
+    client = gspread.authorize(creds)
+    return client
 
-# Load commentary safely
-try:
-    with open(NOTES_FILE, "r") as f:
-        commentary = json.load(f)
-except Exception:
-    commentary = default_sections.copy()
+def load_commentary_from_sheet():
+    try:
+        client = get_sheet_client()
+        sheet = client.open(SHEET_NAME).sheet1
+        data = sheet.get_all_records()
+        if not data:
+            return default_sections.copy()
+        return {row.get("Section", ""): row.get("Text", "") for row in data}
+
+    except Exception as e:
+        st.error(f"Failed to load commentary from Google Sheets: {e}")
+        return default_sections.copy()
+
+def save_commentary_to_sheet(notes_dict):
+    try:
+        client = get_sheet_client()
+        sheet = client.open(SHEET_NAME).sheet1
+        sheet.clear()
+        sheet.append_row(["Section", "Text"])
+        for section, text in notes_dict.items():
+            sheet.append_row([section, text])
+    except Exception as e:
+        st.error(f"Failed to save commentary to Google Sheets: {e}")
 
 # === SETTINGS ===
 START_DATE = "2010-01-01"
@@ -644,6 +685,8 @@ with right_col:
     # except Exception:
     #     commentary = default_sections
 
+    commentary = load_commentary_from_sheet()
+    
     if "auth" not in st.session_state:
         st.session_state.auth = False
 
@@ -673,9 +716,14 @@ with right_col:
         st.markdown("<div style='margin-bottom: 20px;'></div>", unsafe_allow_html=True)
 
     # Save only if edited
+    # if is_admin_mode and st.session_state.auth:
+    #     with open(NOTES_FILE, "w") as f:
+    #         json.dump(commentary, f)
+    
     if is_admin_mode and st.session_state.auth:
-        with open(NOTES_FILE, "w") as f:
-            json.dump(commentary, f)
+        if st.button("💾 Save Notes"):
+            save_commentary_to_sheet(commentary)
+            st.success("Notes saved to Google Sheets.")
     
 # Hide Streamlit menu and footer
 st.markdown("""
