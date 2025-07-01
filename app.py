@@ -5,7 +5,7 @@ import numpy as np
 import yfinance as yf
 import os
 import colorsys 
-import streamlit.components.v1 as components  # place at top of file ideally!
+import streamlit.components.v1 as components  # place at top of file ideally!import json
 
 
 def get_file_version(path):
@@ -13,7 +13,28 @@ def get_file_version(path):
         return os.path.getmtime(path)
     except:
         return None
+        
+import json
 
+NOTES_FILE = "thoughts.txt"
+
+default_sections = {
+    "🧭 Macro Outlook": "",
+    "🧮 Portfolio Positioning": "",
+    "🎯 Tactical Moves": ""
+}
+
+# Create file with default content if missing
+if not os.path.exists(NOTES_FILE):
+    with open(NOTES_FILE, "w") as f:
+        json.dump(default_sections, f)
+
+# Load commentary safely
+try:
+    with open(NOTES_FILE, "r") as f:
+        commentary = json.load(f)
+except Exception:
+    commentary = default_sections.copy()
 
 # === SETTINGS ===
 START_DATE = "2010-01-01"
@@ -603,25 +624,25 @@ with right_col:
 </style>
     """, unsafe_allow_html=True)
 
-    import json
+    # import json
 
-    NOTES_FILE = "thoughts.txt"
+    # NOTES_FILE = "thoughts.txt"
 
-    default_sections = {
-        "🧭 Macro Outlook": "",
-        "🧮 Portfolio Positioning": "",
-        "🎯 Tactical Moves": ""
-    }
+    # default_sections = {
+    #     "🧭 Macro Outlook": "",
+    #     "🧮 Portfolio Positioning": "",
+    #     "🎯 Tactical Moves": ""
+    # }
 
-    if not os.path.exists(NOTES_FILE):
-        with open(NOTES_FILE, "w") as f:
-            json.dump(default_sections, f)
+    # if not os.path.exists(NOTES_FILE):
+    #     with open(NOTES_FILE, "w") as f:
+    #         json.dump(default_sections, f)
 
-    try:
-        with open(NOTES_FILE, "r") as f:
-            commentary = json.load(f)
-    except Exception:
-        commentary = default_sections
+    # try:
+    #     with open(NOTES_FILE, "r") as f:
+    #         commentary = json.load(f)
+    # except Exception:
+    #     commentary = default_sections
 
     if "auth" not in st.session_state:
         st.session_state.auth = False
