@@ -14,27 +14,6 @@ def get_file_version(path):
     except:
         return None
         
-# import json
-
-# NOTES_FILE = "thoughts.txt"
-
-# default_sections = {
-#     "🧭 Macro Outlook": "",
-#     "🧮 Portfolio Positioning": "",
-#     "🎯 Tactical Moves": ""
-# }
-
-# # Create file with default content if missing
-# if not os.path.exists(NOTES_FILE):
-#     with open(NOTES_FILE, "w") as f:
-#         json.dump(default_sections, f)
-
-# # Load commentary safely
-# try:
-#     with open(NOTES_FILE, "r") as f:
-#         commentary = json.load(f)
-# except Exception:
-#     commentary = default_sections.copy()
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import json
