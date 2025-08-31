@@ -569,9 +569,6 @@ with left_col:
         )
 
     # Graph
-    # if not perf_df.empty:
-    #     perf_fig = px.line(
-    #         perf_df,
     if not performance_df.empty:
         perf_fig = px.line(
             performance_df,
