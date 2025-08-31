@@ -551,52 +551,120 @@ with left_col:
         """,
         unsafe_allow_html=True
     )
+# === Performance Section ===
+perf_path = "portfolio_performance.csv"
 
-    # 🔽 Performance Summary (Matches Portfolio Holdings Header Style)
-    if not performance_df.empty:
-        start_val = performance_df["value"].iloc[0]
-        end_val = performance_df["value"].iloc[-1]
-        perf_pct = ((end_val / start_val) - 1) * 100
+# Load portfolio performance CSV
+try:
+    performance_df = pd.read_csv(perf_path, parse_dates=["date"])
+except FileNotFoundError:
+    performance_df = pd.DataFrame(columns=["date", "value"])
 
-        st.markdown(
-            f"""
-            <div class='left-section-title' style='margin-bottom: 8px; margin-top: 8px;'>
-                <span style='vertical-align: middle; font-size: 1.5rem;'>📈</span>
-                <span style='vertical-align: middle;'>Performance: {perf_pct:.2f}%</span>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+if not performance_df.empty:
+    # Ensure correct data types
+    performance_df["date"] = pd.to_datetime(performance_df["date"])
+    performance_df["value"] = pd.to_numeric(performance_df["value"], errors="coerce")
+    performance_df = performance_df.sort_values("date")
 
-    # Graph
-    if not perf_df.empty:
-        perf_fig = px.line(
-            perf_df,
-            x="date",
-            y="value",
-            labels={"value": "Portfolio Value", "date": "Date"},
-            template="plotly_dark",
-            markers=True,
-            color_discrete_sequence=["#7161ef"]
-        )
-        perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
-        perf_fig.update_layout(
-            height=600,
-            width=600,
-            margin=dict(l=20, r=20, t=10, b=20),
-            autosize=False,
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)'
-        )
-        html = perf_fig.to_html(include_plotlyjs='cdn', full_html=False)
-        st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)  # small spacer
-        components.html(f"""
-        <div style="display: flex; justify-content: center;">
-            <div style="max-width: 600px; width: 100%;">
-                {html}
-            </div>
+    # Compute performance %
+    start_val = performance_df["value"].iloc[0]
+    end_val = performance_df["value"].iloc[-1]
+    perf_pct = ((end_val / start_val) - 1) * 100
+
+    # 🔽 Performance Summary (styled header)
+    st.markdown(
+        f"""
+        <div class='left-section-title' style='margin-bottom: 8px; margin-top: 8px;'>
+            <span style='vertical-align: middle; font-size: 1.5rem;'>📈</span>
+            <span style='vertical-align: middle;'>Performance: {perf_pct:.2f}%</span>
         </div>
-        """, height=600)
+        """,
+        unsafe_allow_html=True
+    )
+
+    # === Chart ===
+    perf_fig = px.line(
+        performance_df,
+        x="date",
+        y="value",
+        labels={"value": "Portfolio Value", "date": "Date"},
+        template="plotly_dark",
+        markers=True,
+        color_discrete_sequence=["#7161ef"]
+    )
+    perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
+
+    # 👇 Force y-axis to always include latest value
+    min_val = performance_df["value"].min()
+    max_val = performance_df["value"].max()
+    perf_fig.update_yaxes(range=[min_val * 0.95, max_val * 1.05])
+
+    perf_fig.update_layout(
+        height=600,
+        width=600,
+        margin=dict(l=20, r=20, t=10, b=20),
+        autosize=False,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
+    )
+
+    # Render chart inside centered container
+    html = perf_fig.to_html(include_plotlyjs='cdn', full_html=False)
+    st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
+    components.html(f"""
+    <div style="display: flex; justify-content: center;">
+        <div style="max-width: 600px; width: 100%;">
+            {html}
+        </div>
+    </div>
+    """, height=600)
+
+
+    # # 🔽 Performance Summary (Matches Portfolio Holdings Header Style)
+    # if not performance_df.empty:
+    #     start_val = performance_df["value"].iloc[0]
+    #     end_val = performance_df["value"].iloc[-1]
+    #     perf_pct = ((end_val / start_val) - 1) * 100
+
+    #     st.markdown(
+    #         f"""
+    #         <div class='left-section-title' style='margin-bottom: 8px; margin-top: 8px;'>
+    #             <span style='vertical-align: middle; font-size: 1.5rem;'>📈</span>
+    #             <span style='vertical-align: middle;'>Performance: {perf_pct:.2f}%</span>
+    #         </div>
+    #         """,
+    #         unsafe_allow_html=True
+    #     )
+
+    # # Graph
+    # if not perf_df.empty:
+    #     perf_fig = px.line(
+    #         perf_df,
+    #         x="date",
+    #         y="value",
+    #         labels={"value": "Portfolio Value", "date": "Date"},
+    #         template="plotly_dark",
+    #         markers=True,
+    #         color_discrete_sequence=["#7161ef"]
+    #     )
+    #     perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
+    #     perf_fig.update_layout(
+    #         height=600,
+    #         width=600,
+    #         margin=dict(l=20, r=20, t=10, b=20),
+    #         autosize=False,
+    #         paper_bgcolor='rgba(0,0,0,0)',
+    #         plot_bgcolor='rgba(0,0,0,0)'
+    #     )
+    #     html = perf_fig.to_html(include_plotlyjs='cdn', full_html=False)
+    #     st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)  # small spacer
+    #     components.html(f"""
+    #     <div style="display: flex; justify-content: center;">
+    #         <div style="max-width: 600px; width: 100%;">
+    #             {html}
+    #         </div>
+    #     </div>
+    #     """, height=600)
 
 
 with right_col:
