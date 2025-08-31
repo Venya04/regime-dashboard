@@ -596,7 +596,7 @@ with left_col:
                 {html}
             </div>
         </div>
-        """, height=510)
+        """, height=600)
 
 with right_col:
     st.markdown("""
