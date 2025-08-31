@@ -581,7 +581,7 @@ with left_col:
         )
         perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
         perf_fig.update_layout(
-            height=510,
+            height=600,
             width=600,
             margin=dict(l=20, r=20, t=10, b=20),
             autosize=False,
