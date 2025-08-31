@@ -570,33 +570,40 @@ with left_col:
 
     # Graph
     if not performance_df.empty:
-        perf_fig = px.line(
-            performance_df,
-            x="date",
-            y="value",
-            labels={"value": "Portfolio Value", "date": "Date"},
-            template="plotly_dark",
-            markers=True,
-            color_discrete_sequence=["#7161ef"]
-        )
-        perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
-        perf_fig.update_layout(
-            height=600,
-            width=600,
-            margin=dict(l=20, r=20, t=10, b=20),
-            autosize=False,
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)'
-        )
-        html = perf_fig.to_html(include_plotlyjs='cdn', full_html=False)
-        st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)  # small spacer
-        components.html(f"""
-        <div style="display: flex; justify-content: center;">
-            <div style="max-width: 600px; width: 100%;">
-                {html}
-            </div>
+    perf_fig = px.line(
+        performance_df,
+        x="date",
+        y="value",
+        labels={"value": "Portfolio Value", "date": "Date"},
+        template="plotly_dark",
+        markers=True,
+        color_discrete_sequence=["#7161ef"]
+    )
+    perf_fig.update_traces(line=dict(width=3), marker=dict(size=6))
+
+    # 👇 Force y-axis to include the latest number
+    max_val = performance_df["value"].max()
+    perf_fig.update_yaxes(range=[performance_df["value"].min() * 0.95, max_val * 1.05])
+
+    perf_fig.update_layout(
+        height=600,
+        width=600,
+        margin=dict(l=20, r=20, t=10, b=20),
+        autosize=False,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
+    )
+
+    html = perf_fig.to_html(include_plotlyjs='cdn', full_html=False)
+    st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
+    components.html(f"""
+    <div style="display: flex; justify-content: center;">
+        <div style="max-width: 600px; width: 100%;">
+            {html}
         </div>
-        """, height=600)
+    </div>
+    """, height=600)
+
 
 with right_col:
     st.markdown("""
